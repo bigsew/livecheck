@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Bigsew Pro · Admin Panel</title>
+    <title>Bigsew Pro · Profile+</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -18,35 +18,44 @@
             --premium-purple: #8B5CF6;
             --glass: rgba(255, 255, 255, 0.9);
             --admin-badge: #dc3545;
+            --star-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --star-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --star-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
+        /* GLOBAL IMAGE PROTECTION — disables context menu & long-press preview */
         img {
-            pointer-events: none;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+            pointer-events: none;              /* blocks all mouse/touch interactions at element level */
+            -webkit-touch-callout: none;       /* iOS: disables the link/image preview popup */
+            -webkit-user-select: none;          /* Safari / iOS */
+            -khtml-user-select: none;           /* Konqueror */
+            -moz-user-select: none;              /* Firefox */
+            -ms-user-select: none;                /* Internet Explorer/Edge */
+            user-select: none;                    /* non-prefixed version, currently supported by Chrome, Opera, Edge */
         }
 
+        /* but we must re-enable pointer events on containers that need clicks for slider arrows, modals etc.
+           so that slider arrows, dots, and zoom overlay remain interactive */
         .image-slider-container {
-            pointer-events: auto;
+            pointer-events: auto;   /* the container can still receive clicks (for arrows/dots) */
         }
 
+        /* specifically allow interaction on arrows, dots, and modal close/buttons */
         .slider-arrow,
         .slider-dot,
         .close-zoom,
-        .zoom-btn,
-        .edit-btn,
-        .delete-btn,
-        .admin-toggle {
+        .zoom-btn {
             pointer-events: auto !important;
         }
 
+        /* Zoom modal image — we need pointer events to allow zoom toggling, but prevent context menu on it */
         #zoomedImage {
-            pointer-events: auto;
+            pointer-events: auto;       /* allow clicking to zoom */
             -webkit-touch-callout: none;
             user-select: none;
         }
 
+        /* keep everything else the same as before */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--tg-theme-bg-color);
@@ -73,177 +82,6 @@
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
             padding: 15px;
-        }
-
-        /* Admin Toggle */
-        .admin-toggle {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            z-index: 2001;
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            border: 2px solid white;
-        }
-
-        .admin-toggle:hover {
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        .admin-toggle.active {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-
-        /* Admin Panel */
-        .admin-panel-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 3000;
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .admin-panel-overlay.active {
-            display: flex;
-        }
-
-        .admin-panel-content {
-            background: white;
-            border-radius: 30px;
-            padding: 25px;
-            max-width: 440px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .admin-header {
-            background: linear-gradient(135deg, #1a1e2b, #2d3345);
-            color: white;
-            margin: -25px -25px 20px -25px;
-            padding: 25px;
-            border-radius: 30px 30px 0 0;
-        }
-
-        .admin-section {
-            background: #f8f9fa;
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #667eea;
-        }
-
-        .admin-section h6 {
-            color: #333;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .admin-input {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 10px 15px;
-            width: 100%;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .admin-input:focus {
-            border-color: #667eea;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
-        }
-
-        .admin-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 40px;
-            padding: 12px 20px;
-            font-weight: 600;
-            width: 100%;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-
-        .admin-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
-        }
-
-        .admin-btn.danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-
-        .admin-btn.success {
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
-        }
-
-        .admin-btn.warning {
-            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
-            color: #333;
-        }
-
-        .job-edit-card {
-            background: white;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #eee;
-            position: relative;
-        }
-
-        .job-edit-card .edit-controls {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .edit-btn, .delete-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        .edit-btn {
-            background: #ffc107;
-        }
-
-        .delete-btn {
-            background: #dc3545;
         }
 
         /* Hero */
@@ -292,7 +130,7 @@
             border-color: var(--primary-blue);
         }
 
-        /* Job Cards */
+        /* Job Cards with Image Slider */
         .card-job {
             background: #fff;
             border-radius: 20px;
@@ -301,22 +139,9 @@
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            position: relative;
         }
 
-        .admin-badge-on-card {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(220,53,69,0.9);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            z-index: 20;
-            backdrop-filter: blur(5px);
-        }
-
+        /* Image Slider Styles */
         .image-slider-container {
             position: relative;
             width: 100%;
@@ -336,6 +161,7 @@
             height: 100%;
             object-fit: cover;
             flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
 
         /* Zoom Modal */
@@ -403,6 +229,12 @@
             justify-content: center;
             cursor: pointer;
             backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
         }
 
         .close-zoom {
@@ -423,6 +255,7 @@
             z-index: 10001;
         }
 
+        /* Slider Navigation */
         .slider-nav {
             position: absolute;
             bottom: 10px;
@@ -461,6 +294,11 @@
             color: white;
             cursor: pointer;
             z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .slider-arrow.left {
@@ -471,6 +309,7 @@
             right: 10px;
         }
 
+        /* Image Counter */
         .image-counter {
             position: absolute;
             top: 10px;
@@ -506,6 +345,16 @@
             font-size: 0.7rem;
         }
 
+        .admin-badge {
+            background: var(--admin-badge);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+        }
+
+        /* Amharic Description */
         .amharic-description {
             background: #f8f9fa;
             border-radius: 16px;
@@ -551,6 +400,7 @@
             margin-right: 5px;
         }
 
+        /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 8px;
@@ -591,7 +441,12 @@
             color: white;
         }
 
-        /* Profile Sections */
+        .btn-app:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        /* Profile Sections (keep existing) */
         .profile-header-card {
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 30px;
@@ -674,6 +529,10 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
+        .user-row:last-child {
+            border-bottom: none;
+        }
+
         .user-tag {
             background: #2d3345;
             padding: 4px 10px;
@@ -693,7 +552,7 @@
         }
         .service-card:active { transform: scale(0.95); background: #f8f9fa; }
 
-        /* Premium Cards */
+        /* Premium Cards - Updated for vertical stacking */
         .premium-package-card {
             border-radius: 24px;
             padding: 24px 16px;
@@ -704,7 +563,7 @@
             width: 100%;
             border: none;
             box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
-            margin-bottom: 16px;
+            margin-bottom: 16px; /* Add space between stacked cards */
         }
         
         .card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -712,6 +571,7 @@
         .card-3 { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
         .card-4 { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); }
 
+        /* Container for premium cards - now vertical */
         .premium-container {
             display: flex;
             flex-direction: column;
@@ -777,6 +637,12 @@
             font-size: 1rem;
         }
 
+        .buy-btn:hover {
+            background: white;
+            transform: scale(1.02);
+        }
+
+        /* Maintenance/Success Box */
         .maintenance-box {
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             border-radius: 24px;
@@ -828,7 +694,7 @@
             display: inline-block;
         }
 
-        /* Modern Stars Section */
+        /* Modern Stars Section (keep existing) */
         .modern-stars-header {
             background: linear-gradient(145deg, #1a1a2e, #16213e);
             border-radius: 32px;
@@ -908,6 +774,19 @@
             border: 1px solid rgba(0,0,0,0.03);
             transform: translateY(0);
             transition: all 0.3s ease;
+        }
+        
+        .modern-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0,136,204,0.2);
+        }
+        
+        .modern-info-card h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2C3E50, #4A5568);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .method-chips {
@@ -1048,6 +927,12 @@
             overflow: hidden;
         }
         
+        .bot-card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -8px rgba(0,136,204,0.3);
+            border-color: var(--primary-blue);
+        }
+        
         .bot-card-item .bot-icon {
             width: 45px;
             height: 45px;
@@ -1060,6 +945,10 @@
             color: white;
             font-size: 1.5rem;
             transition: all 0.3s ease;
+        }
+        
+        .bot-card-item:hover .bot-icon {
+            transform: scale(1.1) rotate(5deg);
         }
         
         .bot-card-item .bot-name {
@@ -1120,6 +1009,11 @@
         .tutorial-btn.tiktok {
             background: #000000;
             color: white;
+        }
+        
+        .tutorial-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
         }
         
         .star-packages-grid {
@@ -1191,6 +1085,15 @@
             50% { background-position: 100% 50%; }
         }
         
+        .modern-purchase-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 35px -5px rgba(255,215,0,0.7);
+        }
+        
+        .modern-purchase-btn:active {
+            transform: translateY(2px);
+        }
+        
         .payment-badges {
             display: flex;
             gap: 10px;
@@ -1254,144 +1157,6 @@
         </div>
     </header>
 
-    <!-- Admin Toggle Button (Only visible to admin) -->
-    <div id="adminToggle" class="admin-toggle" onclick="toggleAdminPanel()" style="display: none;">
-        <i class="bi bi-gear-fill"></i>
-    </div>
-
-    <!-- Admin Panel Overlay -->
-    <div class="admin-panel-overlay" id="adminPanel">
-        <div class="admin-panel-content">
-            <div class="admin-header">
-                <h5 class="fw-bold mb-0"><i class="bi bi-shield-lock-fill me-2"></i>Admin Control Panel</h5>
-                <p class="small text-white-50 mb-0">Customize & Manage Content</p>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="admin-section">
-                <h6><i class="bi bi-speedometer2 me-2"></i>Quick Stats</h6>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <div class="bg-white p-2 rounded-3 text-center">
-                            <small class="text-muted">Total Jobs</small>
-                            <h6 class="mb-0" id="totalJobs">6</h6>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="bg-white p-2 rounded-3 text-center">
-                            <small class="text-muted">Total Users</small>
-                            <h6 class="mb-0">1,482</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add New Job -->
-            <div class="admin-section">
-                <h6><i class="bi bi-plus-circle-fill text-success me-2"></i>Add New Job</h6>
-                <input type="text" class="admin-input" id="newJobTitle" placeholder="Job Title">
-                <select class="admin-input" id="newJobType">
-                    <option value="app">📲 App</option>
-                    <option value="bot">🤖 Bot</option>
-                    <option value="web">🌐 Web</option>
-                </select>
-                <textarea class="admin-input" id="newJobDesc" placeholder="Amharic Description" rows="2"></textarea>
-                <input type="text" class="admin-input" id="newJobDetails" placeholder="Details Link">
-                <input type="text" class="admin-input" id="newJobDownload" placeholder="Download Link">
-                <input type="text" class="admin-input" id="newJobTutorial" placeholder="Tutorial Link">
-                <button class="admin-btn success" onclick="addNewJob()">
-                    <i class="bi bi-plus-circle"></i> Add Job
-                </button>
-            </div>
-
-            <!-- Edit Premium Prices -->
-            <div class="admin-section">
-                <h6><i class="bi bi-gem text-warning me-2"></i>Premium Prices (ETB)</h6>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label class="small">1 Month</label>
-                        <input type="number" class="admin-input" id="price1Month" value="570">
-                    </div>
-                    <div class="col-6">
-                        <label class="small">3 Months</label>
-                        <input type="number" class="admin-input" id="price3Months" value="2280">
-                    </div>
-                    <div class="col-6">
-                        <label class="small">6 Months</label>
-                        <input type="number" class="admin-input" id="price6Months" value="3100">
-                    </div>
-                    <div class="col-6">
-                        <label class="small">1 Year</label>
-                        <input type="number" class="admin-input" id="price1Year" value="5130">
-                    </div>
-                </div>
-                <button class="admin-btn warning mt-2" onclick="updatePremiumPrices()">
-                    <i class="bi bi-save"></i> Update Prices
-                </button>
-            </div>
-
-            <!-- Edit Stars Packages -->
-            <div class="admin-section">
-                <h6><i class="bi bi-star-fill text-warning me-2"></i>Star Packages</h6>
-                <div class="row g-2">
-                    <div class="col-4">
-                        <input type="number" class="admin-input" id="star15" value="15" placeholder="15">
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="admin-input" id="star25" value="25" placeholder="25">
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="admin-input" id="star50" value="50" placeholder="50">
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="admin-input" id="star100" value="100" placeholder="100">
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="admin-input" id="star150" value="150" placeholder="150">
-                    </div>
-                    <div class="col-4">
-                        <input type="number" class="admin-input" id="star200" value="200" placeholder="200">
-                    </div>
-                </div>
-                <button class="admin-btn warning mt-2" onclick="updateStarPackages()">
-                    <i class="bi bi-save"></i> Update Stars
-                </button>
-            </div>
-
-            <!-- Edit Bot Links -->
-            <div class="admin-section">
-                <h6><i class="bi bi-robot text-primary me-2"></i>Free Stars Bots</h6>
-                <input type="text" class="admin-input" id="bot1" value="https://t.me/StarsMakeBot?start=AK1gwAzUc">
-                <input type="text" class="admin-input" id="bot2" value="https://t.me/StarsovEarnBot?start=FppTwt0K5">
-                <input type="text" class="admin-input" id="bot3" value="https://t.me/StarsovGamesBot?start=t2R6NvIx0">
-                <input type="text" class="admin-input" id="bot4" value="https://t.me/duckearnbot?start=ref_5522724001">
-                <button class="admin-btn primary mt-2" onclick="updateBotLinks()">
-                    <i class="bi bi-save"></i> Update Bots
-                </button>
-            </div>
-
-            <!-- Manage Existing Jobs -->
-            <div class="admin-section">
-                <h6><i class="bi bi-pencil-square me-2"></i>Manage Jobs</h6>
-                <div id="jobList-admin"></div>
-            </div>
-
-            <!-- Broadcast Message -->
-            <div class="admin-section">
-                <h6><i class="bi bi-megaphone-fill text-danger me-2"></i>Broadcast</h6>
-                <textarea class="admin-input" id="broadcastMsg" placeholder="Message to all users..." rows="2"></textarea>
-                <button class="admin-btn danger" onclick="sendBroadcast()">
-                    <i class="bi bi-send"></i> Send Broadcast
-                </button>
-            </div>
-
-            <!-- Close Button -->
-            <button class="admin-btn" onclick="toggleAdminPanel()">
-                <i class="bi bi-x-circle"></i> Close Panel
-            </button>
-        </div>
-    </div>
-
     <div class="p-3">
         <main id="main-content">
             
@@ -1437,24 +1202,215 @@
                 </div>
             </section>
 
-            <!-- JOBS SECTION -->
+            <!-- JOBS SECTION WITH IMAGE SLIDER -->
             <section id="sec-jobs" class="fade-in d-none">
                 <input type="text" class="search-box" placeholder="Search tasks..." id="jobSearch">
                 
                 <div class="filter-scroll mb-3">
                     <div class="chip active" onclick="filterType('all', this)">All</div>
-                    <div class="chip" onclick="filterType('app', this)">📲 Apps (<span id="appCount">4</span>)</div>
-                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots (<span id="botCount">1</span>)</div>
-                    <div class="chip" onclick="filterType('web', this)">🌐 Web (<span id="webCount">1</span>)</div>
+                    <div class="chip" onclick="filterType('app', this)">📲 Apps (4)</div>
+                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots (1)</div>
+                    <div class="chip" onclick="filterType('web', this)">🌐 Web (1)</div>
                 </div>
 
                 <div id="job-container">
-                    <!-- Jobs will be dynamically loaded here -->
+                    <!-- Gemgala with Image Slider -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/gemgla.jpg" class="slide-image" alt="Gemgala 1">
+                                <img src="image/gemgala-2.jpg" class="slide-image" alt="Gemgala 2">
+                                <img src="image/gemgala-3.jpg" class="slide-image" alt="Gemgala 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
+                        <div class="job-content">
+                            <div class="job-title">Gemgala 💎 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል 😀</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Payment Verified</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💸</span> Minimum Withdraw 10$</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🤑</span> 1$ Per Referral</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12625')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://getblock.me/u/24430158')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openExternalLink('https://youtu.be/nQcpFX60puc')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Taka with Image Slider -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/taka.jpg" class="slide-image" alt="Taka 1">
+                                <img src="image/taka-2.jpg" class="slide-image" alt="Taka 2">
+                                <img src="image/taka-3.jpg" class="slide-image" alt="Taka 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
+                        <div class="job-content">
+                            <div class="job-title">Taka 🎯 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">🚨 አሁኑኑ መጀመር ያለባችሁ ስራ 💁</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎲</span> Spin 7$–8$ ዕድል</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎤</span> 5 ደቂቃ mic on = 1 Spin daily</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 2 Spin</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12532')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://os8.me/WdfkCd')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openExternalLink('https://youtu.be/exampleTakaTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hifami with Image Slider -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/hifami.jpg" class="slide-image" alt="Hifami 1">
+                                <img src="https://via.placeholder.com/480x200/198754/ffffff?text=Hifami+App+2" class="slide-image" alt="Hifami 2">
+                                <img src="https://via.placeholder.com/480x200/0dcaf0/000000?text=Hifami+App+3" class="slide-image" alt="Hifami 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
+                        <div class="job-content">
+                            <div class="job-title">Hifami 🎮 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ ✅</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎮</span> Game በመጫወት ይሰራል</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🔥</span> 0.1$ Per Invite</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 3x Withdrawal Done</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12516')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://s.hifamiapp.com/1/cfUpkaAgC')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openExternalLink('https://youtu.be/exampleHifamiTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buzzer with Image Slider -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/buzzer.jpg" class="slide-image" alt="Buzzer 1">
+                                <img src="https://via.placeholder.com/480x200/0d6efd/ffffff?text=Buzzer+App+2" class="slide-image" alt="Buzzer 2">
+                                <img src="https://via.placeholder.com/480x200/d63384/ffffff?text=Buzzer+App+3" class="slide-image" alt="Buzzer 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
+                        <div class="job-content">
+                            <div class="job-title">Buzzer 📱 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">💰 USDT (Dollar) መስራት ትችላላችሁ</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎬</span> Watch Video</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">❤️</span> Like ❤️ Comment 💬</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 0.15$</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Withdrawal Proof</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12338')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openExternalLink('https://youtu.be/exampleBuzzerTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gmail Farmer Bot with Image Slider -->
+                    <div class="card-job shadow-sm" data-type="bot">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/gmail.jpg" class="slide-image" alt="Gmail Bot 1">
+                                <img src="https://via.placeholder.com/480x200/007bff/ffffff?text=Gmail+Bot+2" class="slide-image" alt="Gmail Bot 2">
+                                <img src="https://via.placeholder.com/480x200/28a745/ffffff?text=Gmail+Bot+3" class="slide-image" alt="Gmail Bot 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
+                        <div class="job-content">
+                            <div class="job-title">Gmail Farmer Bot 📧 <span class="app-badge" style="background: #6f42c1;">Bot</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">📧 GMAIL ACCOUNT በመክፈት ገንዘብ ይስሩ!</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">⚠️</span> 1️⃣ቦቱን አሁንም ድረስ እየስራቹበት ከሆነ የከፈታቹትን Gmail Account ለ personal Use አትጠቀሙበት 🚫Block ትደርጋላቹህ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💱</span> 2️⃣ከዚህ ቦት WITHDRAW ስታረጉ ወደ EXCHANGE ከምትልኩ በ ዋሌት አውጡ, ምክንያቱም PAYMENT ሚፈፅሙበት ዋሌት FLAGED WALLET ነዉ ከ FLAGED WALLET ደሞ መቀበል ጥሩ አደለም WARNING ያሰጣችኋል</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💰</span> ✅ክፍያቸዉ ደሞ በጣም ጨምሯሏ እኔ $5 ከዚያ በላይ ሲሞላ ነዉ ማወጣዉ ግን ከ $1 በታችም ማዉጣት ይቻላል🤙</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">📧</span> ✅ 𝟭📧Gmail = 0.25$ = 45 Birr ✅𝟭𝟬📧 Gmail = 2.5$ = 450 Birr ✅𝟱𝟬 📧Gmail = 12$ = 2250 Birr ✅𝟭𝟬𝟬📧 Gmail = 25$ = 4500 Birr</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✔️</span> 100% Payment Verified ✅</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12426')"><i class="bi bi-info-circle"></i> Video</button>
+                                <button class="btn-app download" onclick="openLink('https://t.me/GmailFarmerBot?start=5522724001')"><i class="bi bi-robot"></i> Bot 1</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://t.me/GmailFProBot?start=5522724001')"><i class="bi bi-robot"></i> Bot 2</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timebucks with Image Slider -->
+                    <div class="card-job shadow-sm" data-type="web">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/Timebucks.jpg" class="slide-image" alt="Timebucks 1">
+                                <img src="https://via.placeholder.com/480x200/17a2b8/ffffff?text=Timebucks+Web+2" class="slide-image" alt="Timebucks 2">
+                                <img src="https://via.placeholder.com/480x200/6610f2/ffffff?text=Timebucks+Web+3" class="slide-image" alt="Timebucks 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
+                        <div class="job-content">
+                            <div class="job-title">Timebucks ⏰ <span class="app-badge" style="background: #fd7e14;">Web</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">✨ ይህን ስራ ስሩት 100% withdraw የሚሆን Without investing $36 withdraw አድርጌያለዉ</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">📝</span> 1 survey በመስራት እስከ $2 መስራት ትችላላችሁ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> Task በመስራት</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">❓</span> ጥያቄዎችን በመመለስ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎮</span> Game level Up ማድረግ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💱</span> በ ፈለጋችሁት LTC wallet Withdrew ማድረግ ትችላላችሁ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> Withdrawal proof 100% ✅</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12426')"><i class="bi bi-info-circle"></i> Info</button>
+                                <button class="btn-app download" onclick="openLink('https://timebucks.com/?refID=227831799')"><i class="bi bi-globe"></i> Website</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://t.me/Big_sew/12426')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- STARS SECTION -->
+            <!-- STARS SECTION - COMPLETELY MODERN REDESIGN -->
             <section id="sec-stars" class="fade-in d-none">
+                <!-- Modern Glass Header with Animations -->
                 <div class="modern-stars-header">
                     <div class="stars-animated-bg"></div>
                     <div class="floating-stars">
@@ -1473,6 +1429,7 @@
                     </div>
                 </div>
 
+                <!-- Modern Info Card with Method Selection -->
                 <div class="modern-info-card" id="methodSelection">
                     <h5 class="text-center mb-3">💫 Choose Your Method</h5>
                     <p class="text-center text-muted mb-4">Telegram ⭐️ Star በሁለት መንገድ ማግኘት ይችላሉ፦</p>
@@ -1487,7 +1444,7 @@
                     </div>
                 </div>
 
-                <!-- FREE STARS METHOD -->
+                <!-- FREE STARS METHOD (Modern Design) -->
                 <div id="freeMethodSection">
                     <div class="modern-star-card free-card">
                         <div class="card-header-badge">
@@ -1511,15 +1468,48 @@
                         </div>
 
                         <!-- Bot Cards Grid -->
-                        <div class="bots-grid" id="botsGrid">
-                            <!-- Bots will be dynamically loaded -->
+                        <div class="bots-grid">
+                            <!-- Bot 1 -->
+                            <div class="bot-card-item" onclick="openExternalLink('https://t.me/StarsMakeBot?start=AK1gwAzUc')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">StarsMakeBot</div>
+                                <span class="badge-autopay">Auto Pay</span>
+                            </div>
+                            
+                            <!-- Bot 2 -->
+                            <div class="bot-card-item" onclick="openExternalLink('https://t.me/StarsovEarnBot?start=FppTwt0K5')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">StarsovEarnBot</div>
+                            </div>
+                            
+                            <!-- Bot 3 -->
+                            <div class="bot-card-item" onclick="openExternalLink('https://t.me/StarsovGamesBot?start=t2R6NvIx0')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">StarsovGamesBot</div>
+                            </div>
+                            
+                            <!-- Bot 4 -->
+                            <div class="bot-card-item" onclick="openExternalLink('https://t.me/duckearnbot?start=ref_5522724001')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">duckearnbot</div>
+                            </div>
                         </div>
 
+                        <!-- Auto Payment Note -->
                         <div class="autopay-note">
                             <i class="bi bi-lightning-fill text-warning me-2"></i>
                             <span class="fw-bold">4️⃣ Automatic Payment ነው ወዲያው ተቀብላችሁ Convert አርጉት</span>
                         </div>
 
+                        <!-- Tutorial Buttons -->
                         <div class="tutorial-buttons">
                             <a href="javascript:void(0)" onclick="openExternalLink('https://youtu.be/0TSjoXdZ5sU')" class="tutorial-btn youtube">
                                 <i class="bi bi-youtube"></i> Full Tutorial
@@ -1531,7 +1521,7 @@
                     </div>
                 </div>
 
-                <!-- BUY STARS METHOD -->
+                <!-- BUY STARS METHOD (Modern Design) - Initially Hidden -->
                 <div id="buyMethodSection" style="display: none;">
                     <div class="modern-star-card buy-card">
                         <div class="card-header-badge">
@@ -1548,19 +1538,51 @@
                         
                         <!-- Star Packages Grid -->
                         <div class="star-packages-grid" id="starPackages">
-                            <!-- Packages will be dynamically loaded -->
+                            <div class="package-item" onclick="selectPackage(15, this)">
+                                <div class="package-stars">15</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(25, this)">
+                                <div class="package-stars">25</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(50, this)">
+                                <div class="package-stars">50</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(100, this)">
+                                <div class="package-stars">100</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(150, this)">
+                                <div class="package-stars">150</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(200, this)">
+                                <div class="package-stars">200</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
                         </div>
 
+                        <!-- Selected Package Display -->
                         <div class="text-center mb-3" id="selectedPackageDisplay">
                             <span class="badge bg-warning text-dark p-2">Selected: <span id="selectedAmount">15</span> ⭐️ Stars</span>
                         </div>
 
+                        <!-- Modern Purchase Button -->
                         <button class="modern-purchase-btn" onclick="showStarsMaintenance()">
                             <i class="bi bi-lightning-fill"></i>
                             Purchase Stars Now
                             <i class="bi bi-arrow-right-circle-fill"></i>
                         </button>
 
+                        <!-- Payment Badges -->
                         <div class="payment-badges">
                             <span class="payment-badge"><i class="bi bi-telegram"></i> Instant</span>
                             <span class="payment-badge"><i class="bi bi-shield-check"></i> Secure</span>
@@ -1569,6 +1591,7 @@
                     </div>
                 </div>
 
+                <!-- Global Verified Badge -->
                 <div class="text-center mt-3 mb-4">
                     <span class="badge bg-success p-2 rounded-pill">
                         <i class="bi bi-patch-check-fill me-1"></i> All Methods 100% Verified
@@ -1576,8 +1599,9 @@
                 </div>
             </section>
 
-            <!-- PREMIUM SECTION -->
+            <!-- PREMIUM SECTION - NOW AVAILABLE WITH NEW PRICING -->
             <section id="sec-premium" class="fade-in d-none">
+                <!-- Success Message - Service Now Available -->
                 <div class="maintenance-box shadow-lg" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border: 2px solid #FFD700;">
                     <div class="maintenance-icon">
                         <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: #FFD700;"></i>
@@ -1604,6 +1628,7 @@
                     </div>
                 </div>
 
+                <!-- Telegram Premium Header -->
                 <div class="d-flex align-items-center justify-content-between mb-3 mt-3">
                     <h5 class="fw-bold">
                         <i class="bi bi-telegram text-primary"></i> 
@@ -1612,11 +1637,106 @@
                     <span class="badge bg-success p-2">🇪🇹 ብር ብቻ</span>
                 </div>
 
-                <!-- Premium Packages Container -->
-                <div class="premium-container" id="premiumContainer">
-                    <!-- Packages will be dynamically loaded -->
+                <!-- Premium Packages - VERTICAL STACK with NEW PRICING -->
+                <div class="premium-container">
+                    <!-- Monthly Package - NEW PRICE: 570 ETB -->
+                    <div class="premium-package-card card-1">
+                        <div class="premium-badge">
+                            <i class="bi bi-star-fill"></i> -60% ቅናሽ
+                        </div>
+                        <i class="bi bi-calendar-check fs-1 mb-2"></i>
+                        <h5 class="fw-bold">1 Month VIP</h5>
+                        <div class="price-tag">
+                            570 <small>ብር</small>
+                        </div>
+                        <div class="text-white-50 mb-2"><s style="opacity: 0.5;">1,425 ብር</s> -60%</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
+                            <li><i class="bi bi-lightning-fill text-warning"></i> Instant Delivery</li>
+                        </ul>
+                        <button class="buy-btn" onclick="buyPremium('1 ወር', 570, 'https://t.me/m/yJD77j2DYmVk')">
+                            <i class="bi bi-cart-check-fill"></i> አሁን ግዛ
+                        </button>
+                    </div>
+
+                    <!-- 3 Months Package - NEW PRICE: 2,280 ETB -->
+                    <div class="premium-package-card card-2">
+                        <div class="premium-badge">
+                            <i class="bi bi-lightning-fill"></i> -31% ቅናሽ
+                        </div>
+                        <i class="bi bi-calendar3 fs-1 mb-2"></i>
+                        <h5 class="fw-bold">3 Months</h5>
+                        <div class="price-tag">
+                            2,280 <small>ብር</small>
+                        </div>
+                        <div class="text-white-50 mb-2"><s style="opacity: 0.5;">3,300 ብር</s> -31%</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
+                            <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
+                            <li><i class="bi bi-lightning-fill text-warning"></i> Save 1,020 ETB</li>
+                        </ul>
+                        <button class="buy-btn" onclick="buyPremium('3 ወር', 2280, 'https://t.me/m/pWv5tT-EZWVk')">
+                            <i class="bi bi-cart-check-fill"></i> አሁን ግዛ
+                        </button>
+                    </div>
+
+                    <!-- 6 Months Package - NEW PRICE: 3,100 ETB -->
+                    <div class="premium-package-card card-3">
+                        <div class="premium-badge">
+                            <i class="bi bi-gem"></i> -39% ቅናሽ
+                        </div>
+                        <i class="bi bi-calendar2-week fs-1 mb-2"></i>
+                        <h5 class="fw-bold">6 Months</h5>
+                        <div class="price-tag">
+                            3,100 <small>ብር</small>
+                        </div>
+                        <div class="text-white-50 mb-2"><s style="opacity: 0.5;">5,100 ብር</s> -39%</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
+                            <li><i class="bi bi-lightning-fill text-warning"></i> Save 2,000 ETB</li>
+                        </ul>
+                        <button class="buy-btn" onclick="buyPremium('6 ወር', 3100, 'https://t.me/m/bw3YduD4ZTA0')">
+                            <i class="bi bi-cart-check-fill"></i> አሁን ግዛ
+                        </button>
+                    </div>
+
+                    <!-- 1 Year Package - NEW PRICE: 5,130 ETB -->
+                    <div class="premium-package-card card-4">
+                        <div class="premium-badge">
+                            <i class="bi bi-crown"></i> BEST VALUE -50%
+                        </div>
+                        <i class="bi bi-calendar-year fs-1 mb-2"></i>
+                        <h5 class="fw-bold">1 Year</h5>
+                        <div class="price-tag">
+                            5,130 <small>ብር</small>
+                        </div>
+                        <div class="text-white-50 mb-2"><s style="opacity: 0.5;">10,260 ብር</s> -50%</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
+                            <li><i class="bi bi-lightning-fill text-warning"></i> Save 5,130 ETB!</li>
+                        </ul>
+                        <button class="buy-btn" onclick="buyPremium('1 አመት', 5130, 'https://t.me/m/XPUMkgKMNjU8')">
+                            <i class="bi bi-cart-check-fill"></i> አሁን ግዛ
+                        </button>
+                    </div>
                 </div>
                 
+                <!-- Additional Premium Info -->
                 <div class="card bg-light border-0 rounded-4 p-3 mb-3">
                     <div class="d-flex align-items-center gap-3">
                         <i class="bi bi-patch-check-fill text-primary fs-1"></i>
@@ -1630,6 +1750,7 @@
                     </div>
                 </div>
 
+                <!-- Trust Badges -->
                 <div class="row g-2 mb-3">
                     <div class="col-4">
                         <div class="bg-light rounded-4 p-2 text-center">
@@ -1652,8 +1773,9 @@
                 </div>
             </section>
 
-            <!-- PROFILE SECTION -->
+            <!-- PROFILE+ SECTION -->
             <section id="sec-profile" class="fade-in d-none">
+                <!-- dynamic profile content injected via js -->
                 <div id="profileContainer"></div>
             </section>
 
@@ -1688,192 +1810,41 @@
     tg.ready();
     tg.expand();
 
-    // ---------- GLOBAL DATA STORAGE ----------
-    let jobs = [
-        {
-            id: 1,
-            title: 'Gemgala 💎',
-            type: 'app',
-            description: '🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል 😀',
-            features: [
-                '✅ 100% Payment Verified',
-                '💸 Minimum Withdraw 10$',
-                '🤑 1$ Per Referral'
-            ],
-            images: ['image/gemgla.jpg', 'image/gemgala-2.jpg', 'image/gemgala-3.jpg'],
-            detailsLink: 'https://t.me/Big_sew/12625',
-            downloadLink: 'https://getblock.me/u/24430158',
-            tutorialLink: 'https://youtu.be/nQcpFX60puc'
-        },
-        {
-            id: 2,
-            title: 'Taka 🎯',
-            type: 'app',
-            description: '🚨 አሁኑኑ መጀመር ያለባችሁ ስራ 💁',
-            features: [
-                '🎲 Spin 7$–8$ ዕድል',
-                '🎤 5 ደቂቃ mic on = 1 Spin daily',
-                '👥 1 Invite = 2 Spin'
-            ],
-            images: ['image/taka.jpg', 'image/taka-2.jpg', 'image/taka-3.jpg'],
-            detailsLink: 'https://t.me/Big_sew/12532',
-            downloadLink: 'https://os8.me/WdfkCd',
-            tutorialLink: 'https://youtu.be/exampleTakaTutorial'
-        },
-        {
-            id: 3,
-            title: 'Hifami 🎮',
-            type: 'app',
-            description: '🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ ✅',
-            features: [
-                '🎮 Game በመጫወት ይሰራል',
-                '🔥 0.1$ Per Invite',
-                '✅ 3x Withdrawal Done'
-            ],
-            images: ['image/hifami.jpg', 'https://via.placeholder.com/480x200/198754/ffffff?text=Hifami+App+2', 'https://via.placeholder.com/480x200/0dcaf0/000000?text=Hifami+App+3'],
-            detailsLink: 'https://t.me/Big_sew/12516',
-            downloadLink: 'https://s.hifamiapp.com/1/cfUpkaAgC',
-            tutorialLink: 'https://youtu.be/exampleHifamiTutorial'
-        },
-        {
-            id: 4,
-            title: 'Buzzer 📱',
-            type: 'app',
-            description: '💰 USDT (Dollar) መስራት ትችላላችሁ',
-            features: [
-                '🎬 Watch Video',
-                '❤️ Like ❤️ Comment 💬',
-                '👥 1 Invite = 0.15$',
-                '✅ 100% Withdrawal Proof'
-            ],
-            images: ['image/buzzer.jpg', 'https://via.placeholder.com/480x200/0d6efd/ffffff?text=Buzzer+App+2', 'https://via.placeholder.com/480x200/d63384/ffffff?text=Buzzer+App+3'],
-            detailsLink: 'https://t.me/Big_sew/12338',
-            downloadLink: 'https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892',
-            tutorialLink: 'https://youtu.be/exampleBuzzerTutorial'
-        },
-        {
-            id: 5,
-            title: 'Gmail Farmer Bot 📧',
-            type: 'bot',
-            description: '📧 GMAIL ACCOUNT በመክፈት ገንዘብ ይስሩ!',
-            features: [
-                '⚠️ 1️⃣ቦቱን አሁንም ድረስ እየስራቹበት ከሆነ የከፈታቹትን Gmail Account ለ personal Use አትጠቀሙበት 🚫Block ትደርጋላቹህ',
-                '💱 2️⃣ከዚህ ቦት WITHDRAW ስታረጉ ወደ EXCHANGE ከምትልኩ በ ዋሌት አውጡ, ምክንያቱም PAYMENT ሚፈፅሙበት ዋሌት FLAGED WALLET ነዉ ከ FLAGED WALLET ደሞ መቀበል ጥሩ አደለም WARNING ያሰጣችኋል',
-                '💰 ✅ክፍያቸዉ ደሞ በጣም ጨምሯሏ እኔ $5 ከዚያ በላይ ሲሞላ ነዉ ማወጣዉ ግን ከ $1 በታችም ማዉጣት ይቻላል🤙',
-                '📧 ✅ 𝟭📧Gmail = 0.25$ = 45 Birr ✅𝟭𝟬📧 Gmail = 2.5$ = 450 Birr ✅𝟱𝟬 📧Gmail = 12$ = 2250 Birr ✅𝟭𝟬𝟬📧 Gmail = 25$ = 4500 Birr',
-                '✔️ 100% Payment Verified ✅'
-            ],
-            images: ['image/gmail.jpg', 'https://via.placeholder.com/480x200/007bff/ffffff?text=Gmail+Bot+2', 'https://via.placeholder.com/480x200/28a745/ffffff?text=Gmail+Bot+3'],
-            detailsLink: 'https://t.me/Big_sew/12426',
-            downloadLink: 'https://t.me/GmailFarmerBot?start=5522724001',
-            tutorialLink: 'https://t.me/GmailFProBot?start=5522724001'
-        },
-        {
-            id: 6,
-            title: 'Timebucks ⏰',
-            type: 'web',
-            description: '✨ ይህን ስራ ስሩት 100% withdraw የሚሆን Without investing $36 withdraw አድርጌያለዉ',
-            features: [
-                '📝 1 survey በመስራት እስከ $2 መስራት ትችላላችሁ',
-                '✅ Task በመስራት',
-                '❓ ጥያቄዎችን በመመለስ',
-                '🎮 Game level Up ማድረግ',
-                '💱 በ ፈለጋችሁት LTC wallet Withdrew ማድረግ ትችላላችሁ',
-                '✅ Withdrawal proof 100% ✅'
-            ],
-            images: ['image/Timebucks.jpg', 'https://via.placeholder.com/480x200/17a2b8/ffffff?text=Timebucks+Web+2', 'https://via.placeholder.com/480x200/6610f2/ffffff?text=Timebucks+Web+3'],
-            detailsLink: 'https://t.me/Big_sew/12426',
-            downloadLink: 'https://timebucks.com/?refID=227831799',
-            tutorialLink: 'https://t.me/Big_sew/12426'
+    // ---------- GLOBAL JAVASCRIPT CONTEXT MENU PREVENTION ----------
+    // This script prevents the context menu on all images,
+    // but also ensures slider/zoom controls remain interactive.
+
+    // 1. Prevent context menu on the whole document, but only for images? 
+    //    Better to target images specifically with a global listener.
+    document.addEventListener('contextmenu', function(e) {
+        // if the clicked element is an image, or its parent is an image container (any image really)
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
         }
-    ];
+        // optional: also prevent on any element that might show image-related popup
+        // but keep normal context menu on text, buttons etc.
+        // we are safe.
+    });
 
-    let premiumPackages = [
-        {
-            id: 1,
-            name: '1 Month VIP',
-            price: 570,
-            originalPrice: 1425,
-            discount: '-60%',
-            features: [
-                '4GB File Uploads',
-                'Faster Downloads',
-                'Premium Badge',
-                'Voice-to-Text',
-                'Animated Avatars',
-                'Instant Delivery'
-            ],
-            link: 'https://t.me/m/yJD77j2DYmVk',
-            icon: 'bi-calendar-check',
-            cardClass: 'card-1'
-        },
-        {
-            id: 2,
-            name: '3 Months',
-            price: 2280,
-            originalPrice: 3300,
-            discount: '-31%',
-            features: [
-                'All Monthly Features',
-                'Animated Profile',
-                'Premium Stickers',
-                'No Ads',
-                'Chat Translation',
-                'Save 1,020 ETB'
-            ],
-            link: 'https://t.me/m/pWv5tT-EZWVk',
-            icon: 'bi-calendar3',
-            cardClass: 'card-2'
-        },
-        {
-            id: 3,
-            name: '6 Months',
-            price: 3100,
-            originalPrice: 5100,
-            discount: '-39%',
-            features: [
-                'All 3M Features',
-                'Message Translation',
-                'Priority Support',
-                '4 Accounts',
-                'Advanced File Management',
-                'Save 2,000 ETB'
-            ],
-            link: 'https://t.me/m/bw3YduD4ZTA0',
-            icon: 'bi-calendar2-week',
-            cardClass: 'card-3'
-        },
-        {
-            id: 4,
-            name: '1 Year',
-            price: 5130,
-            originalPrice: 10260,
-            discount: '-50% BEST VALUE',
-            features: [
-                'All 6M Features',
-                'Channel Boosts',
-                'Unlimited Reactions',
-                'Early Access',
-                'Priority Download Speed',
-                'Save 5,130 ETB!'
-            ],
-            link: 'https://t.me/m/XPUMkgKMNjU8',
-            icon: 'bi-calendar-year',
-            cardClass: 'card-4'
+    // 2. Additional iOS long-press prevention via CSS is already done (touch-callout)
+    //    but we also add a touchstart listener to cancel any default image dragging
+    document.addEventListener('touchstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            // prevent default touch behavior (like magnifying glass or link preview)
+            // but allow the touch to propagate for slider clicks etc. (we only cancel default)
+            e.preventDefault();  // careful: this might block scrolling inside containers? 
+            // Actually, we only want to prevent the callout, not all touch. Better use CSS.
+            // We'll rely on CSS -webkit-touch-callout: none; 
+            // But also prevent default on touchend to avoid save image popup on some devices?
         }
-    ];
+    }, { passive: false });
 
-    let starPackages = [15, 25, 50, 100, 150, 200];
+    // 3. Ensure that the zoom modal image also cannot be saved via long-press:
+    //    Already covered by global CSS.
 
-    let botLinks = [
-        { name: 'StarsMakeBot', link: 'https://t.me/StarsMakeBot?start=AK1gwAzUc', autopay: true },
-        { name: 'StarsovEarnBot', link: 'https://t.me/StarsovEarnBot?start=FppTwt0K5', autopay: false },
-        { name: 'StarsovGamesBot', link: 'https://t.me/StarsovGamesBot?start=t2R6NvIx0', autopay: false },
-        { name: 'duckearnbot', link: 'https://t.me/duckearnbot?start=ref_5522724001', autopay: false }
-    ];
-
-    // ---------- ADMIN DETECTION ----------
-    const ADMIN_USERNAME = "hayre32";
+    // ---------- AUTO LOGIN & ADMIN DETECTION ----------
+    const ADMIN_USERNAME = "hayre32";  // admin telegram username (without @)
     let currentUser = { id: 0, first_name: 'User', username: '' };
     let isAdmin = false;
 
@@ -1889,314 +1860,143 @@
         document.getElementById('user-status').innerText = isAdmin ? '👑 Admin' : `@${currentUser.username || displayName}`;
         document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${displayName}&background=0088cc&color=fff&bold=true`;
         document.getElementById('welcomeName').innerText = isAdmin ? `Welcome Admin ${displayName}!` : `Welcome ${displayName}!`;
-        
-        // Show admin toggle if admin
-        if (isAdmin) {
-            document.getElementById('adminToggle').style.display = 'flex';
-        }
     }
+    updateUserUI();
 
-    // ---------- ADMIN PANEL FUNCTIONS ----------
-    function toggleAdminPanel() {
-        const panel = document.getElementById('adminPanel');
-        panel.classList.toggle('active');
-        
-        if (panel.classList.contains('active')) {
-            renderAdminJobList();
-            // Load current values
-            document.getElementById('price1Month').value = premiumPackages[0].price;
-            document.getElementById('price3Months').value = premiumPackages[1].price;
-            document.getElementById('price6Months').value = premiumPackages[2].price;
-            document.getElementById('price1Year').value = premiumPackages[3].price;
-            
-            document.getElementById('star15').value = starPackages[0];
-            document.getElementById('star25').value = starPackages[1];
-            document.getElementById('star50').value = starPackages[2];
-            document.getElementById('star100').value = starPackages[3];
-            document.getElementById('star150').value = starPackages[4];
-            document.getElementById('star200').value = starPackages[5];
-            
-            document.getElementById('bot1').value = botLinks[0].link;
-            document.getElementById('bot2').value = botLinks[1].link;
-            document.getElementById('bot3').value = botLinks[2].link;
-            document.getElementById('bot4').value = botLinks[3].link;
-        }
-    }
+    // ---------- PROFILE SECTION GENERATOR (advanced) ----------
+    function renderProfile() {
+        const container = document.getElementById('profileContainer');
+        if (!container) return;
 
-    function renderAdminJobList() {
-        const container = document.getElementById('jobList-admin');
-        let html = '';
-        
-        jobs.forEach(job => {
-            html += `
-                <div class="job-edit-card">
-                    <div class="edit-controls">
-                        <button class="edit-btn" onclick="editJob(${job.id})"><i class="bi bi-pencil"></i></button>
-                        <button class="delete-btn" onclick="deleteJob(${job.id})"><i class="bi bi-trash"></i></button>
-                    </div>
-                    <strong>${job.title}</strong>
-                    <small class="d-block text-muted">Type: ${job.type}</small>
-                </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-        document.getElementById('totalJobs').innerText = jobs.length;
-    }
-
-    function addNewJob() {
-        const title = document.getElementById('newJobTitle').value;
-        const type = document.getElementById('newJobType').value;
-        const desc = document.getElementById('newJobDesc').value;
-        const details = document.getElementById('newJobDetails').value;
-        const download = document.getElementById('newJobDownload').value;
-        const tutorial = document.getElementById('newJobTutorial').value;
-
-        if (!title || !desc) {
-            tg.showPopup({ message: 'Please fill required fields!' });
-            return;
-        }
-
-        const newJob = {
-            id: jobs.length + 1,
-            title: title,
-            type: type,
-            description: desc,
-            features: ['✅ New Job Added'],
-            images: ['https://via.placeholder.com/480x200/0088cc/ffffff?text=New+Job'],
-            detailsLink: details || 'https://t.me/Big_sew',
-            downloadLink: download || 'https://t.me/Big_sew',
-            tutorialLink: tutorial || 'https://youtu.be'
+        const stats = {
+            tasks: 47,
+            earned: 127.50,
+            referrals: 12,
+            rank: isAdmin ? '🏆 Administrator' : '🥈 Silver Earner'
         };
 
-        jobs.push(newJob);
-        updateCounts();
-        renderJobs();
-        renderAdminJobList();
-        
-        // Clear inputs
-        document.getElementById('newJobTitle').value = '';
-        document.getElementById('newJobDesc').value = '';
-        document.getElementById('newJobDetails').value = '';
-        document.getElementById('newJobDownload').value = '';
-        document.getElementById('newJobTutorial').value = '';
-        
-        tg.showPopup({ message: 'Job added successfully!' });
-        tg.HapticFeedback.notificationOccurred('success');
-    }
-
-    function editJob(jobId) {
-        const job = jobs.find(j => j.id === jobId);
-        if (!job) return;
-
-        const newTitle = prompt('Edit Job Title:', job.title);
-        if (newTitle) {
-            job.title = newTitle;
-            renderJobs();
-            renderAdminJobList();
-            tg.showPopup({ message: 'Job updated!' });
-        }
-    }
-
-    function deleteJob(jobId) {
-        tg.showPopup({
-            title: 'Confirm Delete',
-            message: 'Are you sure you want to delete this job?',
-            buttons: [
-                { id: 'delete', type: 'destructive', text: 'Delete' },
-                { id: 'cancel', type: 'cancel', text: 'Cancel' }
-            ]
-        }, (buttonId) => {
-            if (buttonId === 'delete') {
-                jobs = jobs.filter(j => j.id !== jobId);
-                updateCounts();
-                renderJobs();
-                renderAdminJobList();
-                tg.showPopup({ message: 'Job deleted!' });
-                tg.HapticFeedback.notificationOccurred('error');
-            }
-        });
-    }
-
-    function updatePremiumPrices() {
-        premiumPackages[0].price = parseInt(document.getElementById('price1Month').value) || 570;
-        premiumPackages[1].price = parseInt(document.getElementById('price3Months').value) || 2280;
-        premiumPackages[2].price = parseInt(document.getElementById('price6Months').value) || 3100;
-        premiumPackages[3].price = parseInt(document.getElementById('price1Year').value) || 5130;
-        
-        renderPremiumPackages();
-        tg.showPopup({ message: 'Premium prices updated!' });
-        tg.HapticFeedback.notificationOccurred('success');
-    }
-
-    function updateStarPackages() {
-        starPackages = [
-            parseInt(document.getElementById('star15').value) || 15,
-            parseInt(document.getElementById('star25').value) || 25,
-            parseInt(document.getElementById('star50').value) || 50,
-            parseInt(document.getElementById('star100').value) || 100,
-            parseInt(document.getElementById('star150').value) || 150,
-            parseInt(document.getElementById('star200').value) || 200
+        const badges = [
+            { icon: '🔥', label: '7 Day Streak' },
+            { icon: '🎯', label: 'First Withdrawal' },
+            { icon: '👥', label: '10 Referrals' },
+            { icon: '✅', label: 'Verified' }
         ];
-        
-        renderStarPackages();
-        tg.showPopup({ message: 'Star packages updated!' });
-        tg.HapticFeedback.notificationOccurred('success');
-    }
 
-    function updateBotLinks() {
-        botLinks = [
-            { name: 'StarsMakeBot', link: document.getElementById('bot1').value, autopay: true },
-            { name: 'StarsovEarnBot', link: document.getElementById('bot2').value, autopay: false },
-            { name: 'StarsovGamesBot', link: document.getElementById('bot3').value, autopay: false },
-            { name: 'duckearnbot', link: document.getElementById('bot4').value, autopay: false }
+        const recentActivity = [
+            '✅ Completed All ',
+            '📥 ሁሉንም አፕሊኬሽኖች ስሩ — ገቢዎን ያሳድጉ! 💰',
+            '👥 ጓደኞችን Invite አድርጉ — ቦነስ ይቀበሉ! 👥🎉',
+            '⭐ Telegram Stars ከፈለጋችሁ አሁኑኑ ስሩ — እድልዎን አትስቱ! ⭐🚀'
         ];
-        
-        renderBots();
-        tg.showPopup({ message: 'Bot links updated!' });
-        tg.HapticFeedback.notificationOccurred('success');
-    }
 
-    function sendBroadcast() {
-        const msg = document.getElementById('broadcastMsg').value;
-        if (!msg) {
-            tg.showPopup({ message: 'Please enter a message!' });
-            return;
+        let html = `
+            <div class="profile-header-card fade-in">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="https://ui-avatars.com/api/?name=${currentUser.first_name}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
+                    <div>
+                        <h4 class="fw-bold mb-1">${currentUser.first_name} ${isAdmin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
+                        <p class="text-muted mb-1">@${currentUser.username || 'no_username'}</p>
+                        <p class="small mb-0"><i class="bi bi-telegram text-primary"></i> ID: ${currentUser.id}</p>
+                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-item"><span class="stat-value">${stats.tasks}</span> <span class="stat-label">Tasks</span></div>
+                    <div class="stat-item"><span class="stat-value">$${stats.earned}</span> <span class="stat-label">Earned</span></div>
+                    <div class="stat-item"><span class="stat-value">${stats.referrals}</span> <span class="stat-label">Referrals</span></div>
+                </div>
+
+                <div class="badge-collection">
+                    ${badges.map(b => `<span class="achievement-badge"><i class="bi bi-patch-check-fill text-primary"></i> ${b.icon} ${b.label}</span>`).join('')}
+                </div>
+
+                <hr class="my-3">
+                <h6 class="fw-bold"><i class="bi bi-activity"></i> Recent activity</h6>
+                <div class="mt-2">
+                    ${recentActivity.map(a => `<div class="small py-1 border-bottom">${a}</div>`).join('')}
+                </div>
+            </div>
+        `;
+
+        // ---------- ADMIN PANEL (visible only to @hayre32) ----------
+        if (isAdmin) {
+            html += `
+                <div class="admin-panel fade-in mt-3">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-shield-lock-fill fs-3 text-warning"></i>
+                        <h5 class="fw-bold mb-0">Admin Console</h5>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-people-fill me-2"></i>Total users</span>
+                            <span class="badge bg-light text-dark">1,482</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="bi bi-pencil-square me-2"></i>Quick edit</span>
+                            <span class="user-tag">active</span>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@user_ethio</span>
+                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@abdi123</span>
+                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@hayre32 (you)</span>
+                            <span class="badge bg-success">admin</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-megaphone-fill me-2"></i>Broadcast message</span>
+                            <button class="btn btn-sm btn-warning" onclick="tg.showPopup({title:'Broadcast', message:'Demo: send notification to all users'})">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <span><i class="bi bi-graph-up-arrow me-2"></i>Today's earnings: $45.20</span>
+                    </div>
+
+                    <div class="mt-3 small text-warning text-center">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Admin privileges active for @${ADMIN_USERNAME}
+                    </div>
+                </div>
+            `;
         }
-        
-        tg.showPopup({
-            title: 'Broadcast Sent!',
-            message: `Message sent to all users:\n\n${msg}`,
-            buttons: [{ id: 'ok', type: 'ok', text: 'OK' }]
-        });
-        
-        document.getElementById('broadcastMsg').value = '';
-    }
 
-    // ---------- RENDERING FUNCTIONS ----------
-    function renderJobs() {
-        const container = document.getElementById('job-container');
-        let html = '';
-        
-        jobs.forEach(job => {
-            html += `
-                <div class="card-job shadow-sm" data-type="${job.type}" data-id="${job.id}">
-                    ${isAdmin ? '<div class="admin-badge-on-card"><i class="bi bi-shield-fill"></i> Admin</div>' : ''}
-                    <div class="image-slider-container" onclick="openZoomModal(this)">
-                        <div class="image-slider">
-                            ${job.images.map(img => `<img src="${img}" class="slide-image" alt="${job.title}">`).join('')}
-                        </div>
-                        <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
-                        <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
-                        <div class="slider-nav"></div>
-                        <div class="image-counter">1/${job.images.length}</div>
-                    </div>
-                    <div class="job-content">
-                        <div class="job-title">${job.title} <span class="app-badge">${job.type === 'app' ? '📲 App' : job.type === 'bot' ? '🤖 Bot' : '🌐 Web'}</span></div>
-                        <div class="amharic-description">
-                            <div class="amharic-text">${job.description}</div>
-                            <ul class="feature-list">
-                                ${job.features.map(f => `<li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">${f}</span></li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn-app details" onclick="openLink('${job.detailsLink}')"><i class="bi bi-info-circle"></i> Details</button>
-                            <button class="btn-app download" onclick="openLink('${job.downloadLink}')"><i class="bi bi-download"></i> Download</button>
-                            <button class="btn-app tutorial" onclick="openExternalLink('${job.tutorialLink}')"><i class="bi bi-play-circle"></i> Tutorial</button>
-                        </div>
-                    </div>
+        // ---------- USER SECTION (visible to everyone, extra user tools) ----------
+        html += `
+            <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
+                <h6 class="fw-bold"><i class="bi bi-tools"></i> User tools</h6>
+                <div class="row g-2 mt-2">
+                    <div class="col-6"><button class="btn btn-outline-primary w-100 btn-sm" onclick="tg.showPopup({message:'Support chat demo'})"><i class="bi bi-chat-dots"></i> Support</button></div>
+                    <div class="col-6"><button class="btn btn-outline-secondary w-100 btn-sm" onclick="tg.showPopup({message:'Referral link demo'})"><i class="bi bi-share"></i> Refer</button></div>
+                    <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="tg.showPopup({message:'Withdrawal history demo'})"><i class="bi bi-wallet2"></i> History</button></div>
+                    <div class="col-6"><button class="btn btn-outline-danger w-100 btn-sm" onclick="tg.showPopup({message:'Settings demo'})"><i class="bi bi-gear"></i> Settings</button></div>
                 </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-        initSliders();
-        updateCounts();
-    }
+            </div>
+        `;
 
-    function renderPremiumPackages() {
-        const container = document.getElementById('premiumContainer');
-        let html = '';
-        
-        premiumPackages.forEach(pkg => {
-            html += `
-                <div class="premium-package-card ${pkg.cardClass}">
-                    <div class="premium-badge">
-                        <i class="bi ${pkg.id === 1 ? 'bi-star-fill' : pkg.id === 2 ? 'bi-lightning-fill' : pkg.id === 3 ? 'bi-gem' : 'bi-crown'}"></i> ${pkg.discount}
-                    </div>
-                    <i class="bi ${pkg.icon} fs-1 mb-2"></i>
-                    <h5 class="fw-bold">${pkg.name}</h5>
-                    <div class="price-tag">
-                        ${pkg.price.toLocaleString()} <small>ብር</small>
-                    </div>
-                    <div class="text-white-50 mb-2"><s style="opacity: 0.5;">${pkg.originalPrice.toLocaleString()} ብር</s> ${pkg.discount}</div>
-                    <ul class="feature-list-premium">
-                        ${pkg.features.map(f => `<li><i class="bi bi-check-circle-fill"></i> ${f}</li>`).join('')}
-                    </ul>
-                    <button class="buy-btn" onclick="buyPremium('${pkg.name}', ${pkg.price}, '${pkg.link}')">
-                        <i class="bi bi-cart-check-fill"></i> አሁን ግዛ
-                    </button>
-                </div>
-            `;
-        });
-        
         container.innerHTML = html;
     }
 
-    function renderStarPackages() {
-        const container = document.getElementById('starPackages');
-        let html = '';
-        
-        starPackages.forEach((stars, index) => {
-            html += `
-                <div class="package-item" onclick="selectPackage(${stars}, this)">
-                    <div class="package-stars">${stars}</div>
-                    <i class="bi bi-star-fill text-warning small"></i>
-                    <div class="package-label">Stars</div>
-                </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-    }
+    // ---------- IMAGE SLIDER AND ZOOM FUNCTIONS ----------
+    let currentSlideIndex = 0;
+    let currentSlider = null;
+    let currentZoomLevel = 1;
 
-    function renderBots() {
-        const container = document.getElementById('botsGrid');
-        let html = '';
-        
-        botLinks.forEach(bot => {
-            html += `
-                <div class="bot-card-item" onclick="openExternalLink('${bot.link}')">
-                    <div class="bot-icon">
-                        <i class="bi bi-robot"></i>
-                    </div>
-                    <div class="bot-name">${bot.name}</div>
-                    ${bot.autopay ? '<span class="badge-autopay">Auto Pay</span>' : ''}
-                </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-    }
-
-    function updateCounts() {
-        const appCount = jobs.filter(j => j.type === 'app').length;
-        const botCount = jobs.filter(j => j.type === 'bot').length;
-        const webCount = jobs.filter(j => j.type === 'web').length;
-        
-        document.getElementById('appCount').innerText = appCount;
-        document.getElementById('botCount').innerText = botCount;
-        document.getElementById('webCount').innerText = webCount;
-    }
-
-    // ---------- IMAGE SLIDER FUNCTIONS ----------
     function initSliders() {
         document.querySelectorAll('.image-slider-container').forEach(container => {
             const slides = container.querySelectorAll('.slide-image');
             const nav = container.querySelector('.slider-nav');
-            
-            // Clear existing dots
-            nav.innerHTML = '';
+            const counter = container.querySelector('.image-counter');
             
             // Create dots
             slides.forEach((_, index) => {
@@ -2210,7 +2010,7 @@
                 nav.appendChild(dot);
             });
             
-            goToSlide(container, 0);
+            updateSlider(container, 0);
         });
     }
 
@@ -2246,15 +2046,16 @@
         }
     }
 
-    // ---------- ZOOM MODAL FUNCTIONS ----------
-    let currentZoomLevel = 1;
-
+    // Zoom Modal Functions
     function openZoomModal(container) {
         const modal = document.getElementById('zoomModal');
         const zoomedImage = document.getElementById('zoomedImage');
         const slider = container.querySelector('.image-slider');
         const slides = container.querySelectorAll('.slide-image');
         const currentIndex = parseInt(slider.style.transform?.match(/-?\d+/) || [0]) / -100 || 0;
+        
+        currentSlider = container;
+        currentSlideIndex = currentIndex;
         
         zoomedImage.src = slides[currentIndex].src;
         modal.classList.add('active');
@@ -2304,16 +2105,23 @@
         zoomedImage.classList.remove('zoomed');
     }
 
-    // ---------- LINK HANDLING ----------
+    // Initialize sliders when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initSliders);
+
+    // ---------- LINK HANDLING FUNCTIONS ----------
+    // Regular internal links (telegram links, etc.) - open in internal browser
     function openLink(url) {
         tg.openLink(url, { try_instant_view: false });
     }
 
+    // External links (YouTube, TikTok) - open in native app
     function openExternalLink(url) {
+        // Using try_instant_view: false and let Telegram decide the best way to open
+        // This will attempt to open in native app if available
         tg.openLink(url, { try_instant_view: false });
     }
 
-    // ---------- STARS SECTION FUNCTIONS ----------
+    // ---------- STARS SECTION MODERN FUNCTIONS ----------
     let selectedStars = 15;
 
     function showFreeMethod() {
@@ -2336,20 +2144,23 @@
         selectedStars = amount;
         document.getElementById('selectedAmount').textContent = amount;
         
+        // Remove selected class from all packages
         document.querySelectorAll('.package-item').forEach(el => {
             el.classList.remove('selected');
         });
         
+        // Add selected class to clicked package
         element.classList.add('selected');
+        
         tg.HapticFeedback.impactOccurred('light');
     }
 
-    // ---------- PREMIUM FUNCTIONS ----------
+    // New function for buying premium
     function buyPremium(package_name, price, paymentLink) {
         tg.HapticFeedback.impactOccurred('medium');
         tg.showPopup({
             title: '✅ Telegram Premium',
-            message: `የ ${package_name} እሽል \nዋጋ: ${price.toLocaleString()} ብር\n\nወደ ክፍያ መግቢያ ይቀጥሉ?`,
+            message: `የ ${package_name} እሽል \nዋጋ: ${price} ብር\n\nወደ ክፍያ መግቢያ ይቀጥሉ?`,
             buttons: [
                 { id: 'pay', type: 'default', text: '💰 አሁን ክፈል' },
                 { id: 'cancel', type: 'cancel', text: 'ይቅር' }
@@ -2361,6 +2172,17 @@
         });
     }
 
+    // Update the showMaintenance function to reflect new availability
+    function showMaintenance() {
+        tg.HapticFeedback.notificationOccurred('warning');
+        tg.showPopup({
+            title: '✅ አሁን ተጀምሯል!',
+            message: 'Telegram Premium አሁን ማግኘት ይችላሉ!\n\nዋጋዎች:\n• 1 ወር - 570 ብር\n• 3 ወር - 2,280 ብር\n• 6 ወር - 3,100 ብር\n• 1 አመት - 5,130 ብር\n\nለመግዛት Premium ማው ይጫኑ!',
+            buttons: [{ id: 'ok', type: 'ok', text: 'እሺ' }]
+        });
+    }
+
+    // Stars purchase maintenance message (keeping as is for now)
     function showStarsMaintenance() {
         tg.HapticFeedback.notificationOccurred('warning');
         tg.showPopup({
@@ -2370,140 +2192,20 @@
         });
     }
 
-    // ---------- PROFILE SECTION ----------
-    function renderProfile() {
-        const container = document.getElementById('profileContainer');
-        if (!container) return;
-
-        const stats = {
-            tasks: jobs.length * 8,
-            earned: 127.50,
-            referrals: 12
-        };
-
-        const badges = [
-            { icon: '🔥', label: '7 Day Streak' },
-            { icon: '🎯', label: 'First Withdrawal' },
-            { icon: '👥', label: '10 Referrals' },
-            { icon: '✅', label: 'Verified' }
-        ];
-
-        const recentActivity = [
-            '✅ Completed tasks on Gemgala',
-            '📥 Downloaded new apps',
-            '👥 Invited 2 friends',
-            '⭐ Earned 50 Stars'
-        ];
-
-        let html = `
-            <div class="profile-header-card fade-in">
-                <div class="d-flex align-items-center gap-3">
-                    <img src="https://ui-avatars.com/api/?name=${currentUser.first_name}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
-                    <div>
-                        <h4 class="fw-bold mb-1">${currentUser.first_name} ${isAdmin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
-                        <p class="text-muted mb-1">@${currentUser.username || 'no_username'}</p>
-                        <p class="small mb-0"><i class="bi bi-telegram text-primary"></i> ID: ${currentUser.id}</p>
-                    </div>
-                </div>
-
-                <div class="stat-grid">
-                    <div class="stat-item"><span class="stat-value">${stats.tasks}</span> <span class="stat-label">Tasks</span></div>
-                    <div class="stat-item"><span class="stat-value">$${stats.earned}</span> <span class="stat-label">Earned</span></div>
-                    <div class="stat-item"><span class="stat-value">${stats.referrals}</span> <span class="stat-label">Referrals</span></div>
-                </div>
-
-                <div class="badge-collection">
-                    ${badges.map(b => `<span class="achievement-badge"><i class="bi bi-patch-check-fill text-primary"></i> ${b.icon} ${b.label}</span>`).join('')}
-                </div>
-
-                <hr class="my-3">
-                <h6 class="fw-bold"><i class="bi bi-activity"></i> Recent activity</h6>
-                <div class="mt-2">
-                    ${recentActivity.map(a => `<div class="small py-1 border-bottom">${a}</div>`).join('')}
-                </div>
-            </div>
-        `;
-
-        if (isAdmin) {
-            html += `
-                <div class="admin-panel fade-in mt-3">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-shield-lock-fill fs-3 text-warning"></i>
-                        <h5 class="fw-bold mb-0">Admin Console</h5>
-                    </div>
-
-                    <div class="admin-tool">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-people-fill me-2"></i>Total users</span>
-                            <span class="badge bg-light text-dark">1,482</span>
-                        </div>
-                    </div>
-
-                    <div class="admin-tool">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span><i class="bi bi-pencil-square me-2"></i>Quick edit</span>
-                            <span class="user-tag">active</span>
-                        </div>
-                        <div class="user-row">
-                            <span><i class="bi bi-person-circle me-2"></i>@user_ethio</span>
-                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
-                        </div>
-                        <div class="user-row">
-                            <span><i class="bi bi-person-circle me-2"></i>@abdi123</span>
-                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
-                        </div>
-                        <div class="user-row">
-                            <span><i class="bi bi-person-circle me-2"></i>@hayre32 (you)</span>
-                            <span class="badge bg-success">admin</span>
-                        </div>
-                    </div>
-
-                    <div class="admin-tool">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-graph-up-arrow me-2"></i>Today's earnings: $45.20</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        html += `
-            <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
-                <h6 class="fw-bold"><i class="bi bi-tools"></i> User tools</h6>
-                <div class="row g-2 mt-2">
-                    <div class="col-6"><button class="btn btn-outline-primary w-100 btn-sm" onclick="tg.showPopup({message:'Support chat demo'})"><i class="bi bi-chat-dots"></i> Support</button></div>
-                    <div class="col-6"><button class="btn btn-outline-secondary w-100 btn-sm" onclick="tg.showPopup({message:'Referral link demo'})"><i class="bi bi-share"></i> Refer</button></div>
-                    <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="tg.showPopup({message:'Withdrawal history demo'})"><i class="bi bi-wallet2"></i> History</button></div>
-                    <div class="col-6"><button class="btn btn-outline-danger w-100 btn-sm" onclick="tg.showPopup({message:'Settings demo'})"><i class="bi bi-gear"></i> Settings</button></div>
-                </div>
-            </div>
-        `;
-
-        container.innerHTML = html;
-    }
-
-    // ---------- NAVIGATION ----------
+    // call render when profile section becomes visible
     function nav(secId, btn) {
         document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
         const target = document.getElementById(secId);
         if (target) target.classList.remove('d-none');
 
+        // special: if profile, render fresh
         if (secId === 'sec-profile') {
             renderProfile();
         }
         
+        // Reset stars section to free method when navigating to stars
         if (secId === 'sec-stars') {
             showFreeMethod();
-            renderBots();
-            renderStarPackages();
-        }
-
-        if (secId === 'sec-premium') {
-            renderPremiumPackages();
-        }
-
-        if (secId === 'sec-jobs') {
-            renderJobs();
         }
 
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -2516,7 +2218,7 @@
         if (btn) nav(secId, btn);
     }
 
-    // ---------- FILTER & SEARCH ----------
+    // Filter, search
     function filterType(type, element) {
         document.querySelectorAll('.card-job').forEach(card => {
             card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
@@ -2537,32 +2239,14 @@
         });
     }
 
-    // ---------- CONTEXT MENU PREVENTION ----------
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    // ---------- INITIALIZATION ----------
-    document.addEventListener('DOMContentLoaded', function() {
-        updateUserUI();
-        renderJobs();
-        renderPremiumPackages();
-        renderStarPackages();
-        renderBots();
-        
-        // Show home section by default
-        nav('sec-home', document.querySelector('.nav-btn'));
-    });
-
-    // ---------- EXPOSE GLOBALLY ----------
+    // Expose functions globally
     window.nav = nav;
     window.navigateTo = navigateTo;
     window.filterType = filterType;
     window.openLink = openLink;
     window.openExternalLink = openExternalLink;
+    window.showMaintenance = showMaintenance;
+    window.showStarsMaintenance = showStarsMaintenance;
     window.showFreeMethod = showFreeMethod;
     window.showBuyMethod = showBuyMethod;
     window.selectPackage = selectPackage;
@@ -2574,17 +2258,6 @@
     window.zoomOut = zoomOut;
     window.resetZoom = resetZoom;
     window.buyPremium = buyPremium;
-    window.showStarsMaintenance = showStarsMaintenance;
-    
-    // Admin functions
-    window.toggleAdminPanel = toggleAdminPanel;
-    window.addNewJob = addNewJob;
-    window.editJob = editJob;
-    window.deleteJob = deleteJob;
-    window.updatePremiumPrices = updatePremiumPrices;
-    window.updateStarPackages = updateStarPackages;
-    window.updateBotLinks = updateBotLinks;
-    window.sendBroadcast = sendBroadcast;
 </script>
 </body>
 </html>
