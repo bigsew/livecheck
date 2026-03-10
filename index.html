@@ -3,268 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Instagram signup • Telegram</title>
+    <title>Instagram Signup · Telegram</title>
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Minimal icons (optional, but keeps clean) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* fullscreen dark base – focus on the signup form */
-        * {
+        /* fullscreen, no decorations, just the iframe */
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
             width: 100%;
             height: 100%;
-            background: #000; /* pure black for bezels */
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #ffffff;
         }
 
-        /* phone-shaped container – exactly like a real device */
-        .phone-frame {
+        /* the iframe fills everything — no UI, no buttons, pure Instagram */
+        .instant-frame {
+            display: block;
             width: 100%;
             height: 100%;
-            background: #fafafa;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 30px rgba(255,255,255,0.1);
-        }
-
-        /* on desktop, fix to typical phone dimensions */
-        @media (min-width: 500px) {
-            .phone-frame {
-                width: 380px;
-                height: 720px;
-                border-radius: 44px;
-                border: 8px solid #1c1c1e;
-                overflow: hidden;
-                box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 3px rgba(255,255,255,0.1);
-            }
-        }
-
-        /* minimal status bar (just for looks) */
-        .status-bar {
-            background: #fff;
-            padding: 12px 16px 6px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 15px;
-            font-weight: 600;
-            color: #000;
-            border-bottom: 1px solid #dbdbdb;
-        }
-
-        .status-bar i {
-            color: #262626;
-        }
-
-        /* Instagram iframe – takes all remaining space */
-        .signup-iframe {
-            flex: 1;
-            width: 100%;
             border: none;
             background: white;
         }
 
-        /* subtle footer with reset button – clean & minimal */
-        .footer-tool {
-            background: #fff;
-            border-top: 1px solid #efefef;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            color: #262626;
-        }
-
-        .reset-link {
-            background: none;
-            border: none;
-            color: #0095f6;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 24px;
-            transition: background 0.2s;
-        }
-
-        .reset-link:hover {
-            background: #f2f2f2;
-        }
-
-        .reset-link i {
-            font-size: 16px;
-        }
-
-        .hint-text {
-            color: #8e8e8e;
-            font-size: 13px;
-        }
-
-        /* toast / micro notification */
-        .toast-message {
+        /* optional tiny loader (barely visible) */
+        .loader {
             position: absolute;
-            bottom: 90px;
-            left: 20px;
-            right: 20px;
-            background: #323232;
-            color: white;
-            text-align: center;
-            padding: 12px 16px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.25s ease;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: #0095f6;
+            opacity: 0.7;
             pointer-events: none;
-            z-index: 999;
-            max-width: 300px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
-            background: rgba(40,40,40,0.95);
+            transition: opacity 0.3s;
         }
-
-        .toast-message.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* tiny "powered by Telegram" – unobtrusive */
-        .tg-badge {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #8e8e8e;
+        .loaded .loader {
+            opacity: 0;
         }
     </style>
 </head>
-<body>
+<body id="appBody">
+    <!-- minimal loader, disappears once iframe starts loading -->
+    <div class="loader">loading Instagram...</div>
 
-    <div class="phone-frame">
-        <!-- simple status line (iPhone-like) -->
-        <div class="status-bar">
-            <span>9:41</span>
-            <span><i class="fa-solid fa-signal"></i> <i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></span>
-        </div>
-
-        <!-- THE ACTUAL INSTAGRAM SIGNUP IFRAME (mobile friendly) -->
-        <iframe 
-            id="igSignupFrame"
-            class="signup-iframe"
-            src="https://www.instagram.com/accounts/emailsignup/?next=&hl=en"
-            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads allow-storage-access-by-user-activation allow-top-navigation"
-            allow="camera; microphone; clipboard-read; clipboard-write; geolocation; fullscreen">
-        </iframe>
-
-        <!-- clean footer with only essential reset & status -->
-        <div class="footer-tool">
-            <div class="tg-badge">
-                <i class="fa-regular fa-telegram" style="color: #2AABEE;"></i> Telegram
-            </div>
-            <button class="reset-link" id="resetSessionBtn">
-                <i class="fa-solid fa-arrow-rotate-right"></i> new session
-            </button>
-        </div>
-    </div>
-
-    <!-- toast notification (for feedback) -->
-    <div id="liveToast" class="toast-message">
-        <span id="toastText">✨ ready to create account</span>
-    </div>
+    <!-- the one and only: Instagram email signup (mobile friendly) -->
+    <iframe 
+        id="igSignupFrame"
+        class="instant-frame"
+        src="https://www.instagram.com/accounts/emailsignup/?next=&hl=en"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads allow-storage-access-by-user-activation allow-top-navigation"
+        allow="camera; microphone; clipboard-read; clipboard-write; geolocation; fullscreen"
+        loading="eager"
+    >
+    </iframe>
 
     <script>
         (function() {
-            // ---- Telegram mini app init ----
+            // ---- Telegram mini app setup ----
             const tg = window.Telegram.WebApp;
             tg.expand();          // use full height
-            tg.ready();
-            if (tg.setHeaderColor) tg.setHeaderColor('#000000');
-            if (tg.setBackgroundColor) tg.setBackgroundColor('#fafafa');
+            tg.ready();           // tell Telegram we're ready
 
-            // ---- elements ----
+            // optional: make background / header match Instagram white
+            if (tg.setHeaderColor) tg.setHeaderColor('#ffffff');
+            if (tg.setBackgroundColor) tg.setBackgroundColor('#ffffff');
+
+            // ---- get elements ----
             const iframe = document.getElementById('igSignupFrame');
-            const resetBtn = document.getElementById('resetSessionBtn');
-            const toastEl = document.getElementById('liveToast');
-            const toastSpan = document.getElementById('toastText');
+            const bodyEl = document.getElementById('appBody');
 
-            // ---- simple toast trigger ----
-            function showMessage(msg, emoji = '📱') {
-                toastSpan.innerText = `${emoji} ${msg}`;
-                toastEl.classList.add('show');
-                setTimeout(() => {
-                    toastEl.classList.remove('show');
-                }, 2000);
-            }
-
-            // ---- reset session (force mobile view + fresh signup) ----
-            function resetInstagramSignup() {
-                // base signup url with parameters that encourage mobile layout
-                const base = 'https://www.instagram.com/accounts/emailsignup/';
-                // add next=&hl=en&forceMobile=1&cachebuster
-                const freshUrl = `${base}?next=&hl=en&forceMobile=1&_cb=${Date.now()}`;
-                iframe.src = freshUrl;
-                showMessage('session reset • mobile mode', '🔄');
-            }
-
-            // ---- event listener for reset button ----
-            resetBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                resetInstagramSignup();
-            });
-
-            // ---- on iframe load, show a friendly hint ----
+            // ---- iframe load: hide the tiny loader ----
             iframe.addEventListener('load', function() {
-                console.log('📸 Instagram signup loaded');
-                // small delay to avoid toast spam on every refresh
-                setTimeout(() => {
-                    showMessage('fill the form to create account', '📝');
-                }, 600);
+                bodyEl.classList.add('loaded');
+                console.log('✅ Instagram signup loaded inside WebApp');
             });
 
-            // ---- error fallback (if iframe fails, but unlikely) ----
+            // ---- iframe error fallback (rare) ----
             iframe.addEventListener('error', function() {
-                showMessage('tap refresh if page stuck', '⚠️');
-            });
-
-            // ---- time update (just for detail) ----
-            function updateClock() {
-                const now = new Date();
-                let hours = now.getHours();
-                let minutes = now.getMinutes();
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12 || 12; 
-                minutes = minutes < 10 ? '0' + minutes : minutes;
-                document.querySelector('.status-bar span:first-child').innerText = `${hours}:${minutes} ${ampm}`;
-            }
-            updateClock();
-            setInterval(updateClock, 1000);
-
-            // ---- optional: if you want to force mobile UA? Not possible inside iframe, 
-            // but using forceMobile=1 helps, plus Telegram itself runs in a mobile environment (usually)
-            // so instagram should serve mobile version anyway.
-
-            // ---- notify on first load ----
-            window.addEventListener('load', function() {
+                console.warn('iframe error — maybe retry?');
+                // optional simple retry after 2 seconds
                 setTimeout(() => {
-                    showMessage('enter email / phone • sign up', '✨');
-                }, 400);
+                    iframe.src = iframe.src; // reload
+                }, 2000);
             });
 
+            // ---- ensure the iframe always tries to load even if something glitches ----
+            // (already has src set)
+
+            // ---- (optional) force iframe to reload if it gets stuck ----
+            // not needed, but we add a hidden safety: after 8 seconds, if still not loaded, reload once.
+            let loadAttempts = 0;
+            const maxAttempts = 1;
+            const checkLoaded = setInterval(() => {
+                if (loadAttempts >= maxAttempts) {
+                    clearInterval(checkLoaded);
+                    return;
+                }
+                // try to detect if iframe actually loaded something (rough check)
+                try {
+                    // if we can access contentWindow, it's same origin? no, but we just check if body is loaded
+                    if (iframe.contentWindow) {
+                        // seems alive, but we don't know. We'll just trust the load event.
+                    }
+                } catch (e) {
+                    // cross-origin, but that's fine. we just reload once if load event never fired.
+                    if (!bodyEl.classList.contains('loaded')) {
+                        console.log('⚠️ forcing reload');
+                        iframe.src = iframe.src;
+                        loadAttempts++;
+                    }
+                }
+            }, 4000);
         })();
     </script>
 </body>
