@@ -2,34 +2,90 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram → Instagram</title>
-    <!-- Telegram WebApp SDK -->
+    <!-- Viewport settings for full visibility and manual zoom (allow user scaling) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+    <title>Telegram Instagram bridge</title>
+    <style>
+        /* Minimal styling to make the brief停留 feel intentional and ensure full visibility */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background-color: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .message-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 400px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #dbdbdb;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0095f6; /* Instagram blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 20px auto;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        p {
+            color: #262626;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 8px 0;
+        }
+        .note {
+            font-size: 14px;
+            color: #8e8e8e;
+            margin-top: 16px;
+        }
+        /* ensure tap highlights are minimal but keep zoom ability */
+        a, button {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        /**
-         * Instantly expands the WebApp to full screen inside Telegram,
-         * then redirects to Instagram signup without any visible content.
-         */
         (function() {
-            // Ensure Telegram WebApp object exists
-            if (window.Telegram && window.Telegram.WebApp) {
-                // Expand to full available height (removes the default compact mode)
-                window.Telegram.WebApp.expand();
-            } else {
-                console.warn('Telegram WebApp SDK not loaded — expand skipped');
+            // Ensure Telegram Web App is ready and expand to full screen
+            const telegram = window.Telegram?.WebApp;
+            if (telegram) {
+                telegram.expand();           // Expand to full height
+                telegram.enableClosingConfirmation?.(); // optional: prevent accidental close
             }
 
-            // Immediate redirect to Instagram signup page
-            // Using replace instead of href to avoid back-button to empty page
-            window.location.replace('https://www.instagram.com/accounts/emailsignup/');
-            // Fallback in case replace is not desired (though it's fine)
-            // window.location.href = 'https://www.instagram.com/accounts/emailsignup/';
+            // Slight delay to show the friendly loader and ensure expand happens before redirect.
+            // This also makes the transition visible (which is allowed) and respects user zoom.
+            // If you prefer instant redirect, you can reduce timeout to 0, but we keep a tiny delay
+            // to guarantee expand() is processed and content visible.
+            setTimeout(function() {
+                // Redirect to Instagram signup page (mobile friendly)
+                window.location.href = "https://www.instagram.com/accounts/emailsignup/";
+                // Fallback in case redirect blocks — but that's fine.
+            }, 100); // 100ms is nearly instant, but ensures expand() fires.
         })();
     </script>
 </head>
 <body>
-    <!-- Absolutely no visible elements — completely empty body -->
-    <!-- No loading text, no spinners, no messages -->
+    <!-- This container is visible for a split second before redirect, fully visible and zoomable -->
+    <div class="message-container">
+        <div class="loader"></div>
+        <p>Connecting to Instagram</p>
+        <p class="note">You will be redirected in a moment.<br>Pinch to zoom if needed.</p>
+        <!-- Optional manual link for accessibility if redirect fails -->
+        <p style="margin-top:20px;"><a href="https://www.instagram.com/accounts/emailsignup/" style="color:#0095f6; text-decoration:none;">Continue manually</a></p>
+    </div>
 </body>
 </html>
