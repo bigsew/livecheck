@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram → Instagram</title>
+    <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        window.onload = function() {
-            // Expands the app to full screen inside Telegram
-            window.Telegram.WebApp.expand();
-            // Redirects to the Instagram signup page immediately
-            window.location.href = "https://www.instagram.com/accounts";
-        };
+        /**
+         * Instantly expands the WebApp to full screen inside Telegram,
+         * then redirects to Instagram signup without any visible content.
+         */
+        (function() {
+            // Ensure Telegram WebApp object exists
+            if (window.Telegram && window.Telegram.WebApp) {
+                // Expand to full available height (removes the default compact mode)
+                window.Telegram.WebApp.expand();
+            } else {
+                console.warn('Telegram WebApp SDK not loaded — expand skipped');
+            }
+
+            // Immediate redirect to Instagram signup page
+            // Using replace instead of href to avoid back-button to empty page
+            window.location.replace('https://www.instagram.com/accounts/emailsignup/');
+            // Fallback in case replace is not desired (though it's fine)
+            // window.location.href = 'https://www.instagram.com/accounts/emailsignup/';
+        })();
     </script>
 </head>
 <body>
-    <!-- Empty body - no loading text -->
+    <!-- Absolutely no visible elements — completely empty body -->
+    <!-- No loading text, no spinners, no messages -->
 </body>
 </html>
-
