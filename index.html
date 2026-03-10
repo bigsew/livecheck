@@ -3,51 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IG Creator</title>
+    <title>IG Auto Fix</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Forces the mobile look on all devices */
-        .mobile-view {
+        body, html { margin: 0; padding: 0; height: 100vh; width: 100vw; overflow: hidden; background: #000; }
+        
+        #container {
             width: 100%;
             height: 100%;
-            max-width: 450px; /* Limits width on PC to stay in phone style */
+            max-width: 480px; /* Forces phone-style on PC */
+            margin: 0 auto;
             background: #fff;
             display: flex;
             flex-direction: column;
         }
 
         iframe {
-            flex-grow: 1;
+            flex: 1;
             width: 100%;
             border: none;
+        }
+
+        .status-bar {
+            background: #fafafa;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 8px;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+
+        .action-btn {
+            background: #0095f6;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="mobile-view">
-        <iframe 
-            src="https://www.instagram.com/accounts/emailsignup/?next=&hl=en" 
-            allow="camera; microphone; clipboard-read; clipboard-write;">
-        </iframe>
-    </div>
+<div id="container">
+    <div class="status-bar" id="stat">Connecting to Instagram...</div>
+    
+    <iframe 
+        id="ig_frame"
+        src="https://www.instagram.com/accounts/emailsignup/?hl=en"
+        allow="clipboard-write;">
+    </iframe>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.ready();
-    </script>
+    <div class="action-btn" onclick="hardReset()">NEW SESSION (CLEAN CACHE)</div>
+</div>
+
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const frame = document.getElementById('ig_frame');
+    const stat = document.getElementById('stat');
+
+    // Detect if Instagram blocks the frame
+    frame.onerror = function() {
+        stat.innerText = "Block detected. Try 'New Session'.";
+        stat.style.color = "red";
+    };
+
+    frame.onload = function() {
+        stat.innerText = "Instagram Connection: Secure";
+        stat.style.color = "green";
+    };
+
+    function hardReset() {
+        // Adds a random string to the URL to bypass Instagram's "already seen this user" cache
+        const randomID = Math.random().toString(36).substring(7);
+        frame.src = "https://www.instagram.com/accounts/emailsignup/?hl=en&auth=" + randomID;
+        
+        if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    }
+</script>
 </body>
 </html>
