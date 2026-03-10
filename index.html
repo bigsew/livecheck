@@ -2,120 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Instagram Signup · Telegram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Signup</title>
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* fullscreen, no decorations, just the iframe */
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #ffffff;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-align: center;
+            color: #262626;
         }
-
-        /* the iframe fills everything — no UI, no buttons, pure Instagram */
-        .instant-frame {
-            display: block;
-            width: 100%;
-            height: 100%;
+        .container {
+            max-width: 300px;
+            padding: 20px;
+        }
+        .instagram-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        h3 {
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+        .button {
+            background: #0095f6;
+            color: white;
             border: none;
-            background: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 12px;
+            transition: background 0.2s;
         }
-
-        /* optional tiny loader (barely visible) */
-        .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .button:hover {
+            background: #0081d6;
+        }
+        .note {
             font-size: 14px;
-            color: #0095f6;
-            opacity: 0.7;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            color: #8e8e8e;
+            margin-top: 16px;
         }
-        .loaded .loader {
-            opacity: 0;
+        .error-detail {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
         }
     </style>
 </head>
-<body id="appBody">
-    <!-- minimal loader, disappears once iframe starts loading -->
-    <div class="loader">loading Instagram...</div>
-
-    <!-- the one and only: Instagram email signup (mobile friendly) -->
-    <iframe 
-        id="igSignupFrame"
-        class="instant-frame"
-        src="https://www.instagram.com/accounts/emailsignup/?next=&hl=en"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads allow-storage-access-by-user-activation allow-top-navigation"
-        allow="camera; microphone; clipboard-read; clipboard-write; geolocation; fullscreen"
-        loading="eager"
-    >
-    </iframe>
+<body>
+    <div class="container">
+        <div class="instagram-logo">📸</div>
+        <h3>Create Instagram Account</h3>
+        
+        <button class="button" id="openInstagramBtn">
+            Open Instagram Signup
+        </button>
+        
+        <button class="button" id="openInBrowserBtn" style="background: #32a852;">
+            Open in Browser
+        </button>
+        
+        <div class="error-detail" id="errorInfo">
+            ⚠️ Instagram doesn't allow embedding in Telegram Web App.<br>
+            <strong>Solution:</strong> Click the button above to open in external browser.
+        </div>
+        
+        <div class="note">
+            You'll be redirected to Instagram's official signup page
+        </div>
+    </div>
 
     <script>
-        (function() {
-            // ---- Telegram mini app setup ----
-            const tg = window.Telegram.WebApp;
-            tg.expand();          // use full height
-            tg.ready();           // tell Telegram we're ready
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
 
-            // optional: make background / header match Instagram white
-            if (tg.setHeaderColor) tg.setHeaderColor('#ffffff');
-            if (tg.setBackgroundColor) tg.setBackgroundColor('#ffffff');
+        const instagramUrl = 'https://www.instagram.com/accounts/emailsignup/?next=&hl=en';
+        
+        // Method 1: Open with Telegram's openLink (opens in external browser)
+        document.getElementById('openInstagramBtn').addEventListener('click', function() {
+            try {
+                tg.openLink(instagramUrl, {
+                    try_instant_view: false
+                });
+            } catch (e) {
+                console.error('Telegram openLink failed:', e);
+                // Fallback
+                window.location.href = instagramUrl;
+            }
+        });
+        
+        // Method 2: Alternative direct browser open
+        document.getElementById('openInBrowserBtn').addEventListener('click', function() {
+            window.open(instagramUrl, '_blank');
+        });
 
-            // ---- get elements ----
-            const iframe = document.getElementById('igSignupFrame');
-            const bodyEl = document.getElementById('appBody');
-
-            // ---- iframe load: hide the tiny loader ----
-            iframe.addEventListener('load', function() {
-                bodyEl.classList.add('loaded');
-                console.log('✅ Instagram signup loaded inside WebApp');
-            });
-
-            // ---- iframe error fallback (rare) ----
-            iframe.addEventListener('error', function() {
-                console.warn('iframe error — maybe retry?');
-                // optional simple retry after 2 seconds
-                setTimeout(() => {
-                    iframe.src = iframe.src; // reload
-                }, 2000);
-            });
-
-            // ---- ensure the iframe always tries to load even if something glitches ----
-            // (already has src set)
-
-            // ---- (optional) force iframe to reload if it gets stuck ----
-            // not needed, but we add a hidden safety: after 8 seconds, if still not loaded, reload once.
-            let loadAttempts = 0;
-            const maxAttempts = 1;
-            const checkLoaded = setInterval(() => {
-                if (loadAttempts >= maxAttempts) {
-                    clearInterval(checkLoaded);
-                    return;
-                }
-                // try to detect if iframe actually loaded something (rough check)
-                try {
-                    // if we can access contentWindow, it's same origin? no, but we just check if body is loaded
-                    if (iframe.contentWindow) {
-                        // seems alive, but we don't know. We'll just trust the load event.
-                    }
-                } catch (e) {
-                    // cross-origin, but that's fine. we just reload once if load event never fired.
-                    if (!bodyEl.classList.contains('loaded')) {
-                        console.log('⚠️ forcing reload');
-                        iframe.src = iframe.src;
-                        loadAttempts++;
-                    }
-                }
-            }, 4000);
-        })();
+        // Auto-open after 1 second (optional - remove if you want user to click)
+        setTimeout(() => {
+            // Uncomment the next line if you want auto-redirect
+            // tg.openLink(instagramUrl, { try_instant_view: false });
+        }, 1000);
     </script>
 </body>
 </html>
