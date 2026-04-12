@@ -38,6 +38,7 @@
             --shadow-glow: 0 0 30px rgba(45,212,191,0.1);
             --gradient-hero: linear-gradient(135deg, #2dd4bf, #0a66c2);
             --gradient-text: linear-gradient(135deg, #ffffff, #2dd4bf);
+            --navbar-bg: rgba(10, 12, 16, 0.92);
         }
 
         [data-theme="light"] {
@@ -54,6 +55,7 @@
             --shadow-glow: 0 0 20px rgba(10,102,194,0.1);
             --gradient-hero: linear-gradient(135deg, #0a66c2, #2dd4bf);
             --gradient-text: linear-gradient(135deg, #0a66c2, #2dd4bf);
+            --navbar-bg: rgba(240, 244, 249, 0.92);
         }
 
         body {
@@ -61,21 +63,34 @@
             color: var(--text-primary);
         }
 
-        /* ========== FIXED NAVBAR ========== */
+        /* ========== FIXED NAVBAR - ROBUST STYLING ========== */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(var(--bg-primary-rgb), 0.92);
+            background: var(--navbar-bg);
             backdrop-filter: blur(18px);
             border-bottom: 1px solid var(--border-glow);
             padding: 12px 0;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             z-index: 1050;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
         }
-        :root { --bg-primary-rgb: 10, 12, 16; }
-        [data-theme="light"] { --bg-primary-rgb: 240, 244, 249; }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .navbar-brand-wrapper {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
         .logo-icon {
             width: 45px;
@@ -88,10 +103,10 @@
             font-size: 1.8rem;
             font-weight: 800;
             color: #0a0c10;
-            box-shadow: 0 0 20px rgba(45,212,191,0.5);
-            transition: transform 0.3s;
+            box-shadow: 0 0 20px rgba(45,212,191,0.4);
+            transition: transform 0.2s ease;
         }
-        .logo-icon:hover { transform: scale(1.05); }
+        .logo-icon:hover { transform: scale(1.03); }
         .brand-text {
             font-weight: 800;
             font-size: 1.6rem;
@@ -99,82 +114,51 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: -0.02em;
         }
         
-        /* Desktop nav links */
+        /* Desktop nav links - consistent style */
         .desktop-nav-links {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.3rem;
         }
         .nav-link-desktop {
             font-weight: 600;
             color: var(--text-secondary) !important;
-            transition: 0.3s;
-            padding: 8px 12px;
+            transition: 0.25s;
+            padding: 8px 14px;
             position: relative;
             text-decoration: none;
+            font-size: 0.95rem;
+            border-radius: 40px;
         }
-        .nav-link-desktop::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 12px;
-            width: calc(100% - 24px);
-            height: 2px;
-            background: var(--accent-primary);
-            width: 0;
-            transition: width 0.3s;
+        .nav-link-desktop:hover {
+            color: var(--accent-primary) !important;
+            background: rgba(45,212,191,0.08);
         }
-        .nav-link-desktop:hover::after, .nav-link-desktop.active::after { width: calc(100% - 24px); }
-        .nav-link-desktop:hover, .nav-link-desktop.active { color: var(--accent-primary) !important; }
-
-        /* Mobile menu button */
-        .mobile-menu-btn {
-            display: none;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 8px 14px;
-            cursor: pointer;
-            color: var(--accent-primary);
-            font-size: 1.5rem;
-            transition: 0.2s;
+        .nav-link-desktop.active {
+            color: var(--accent-primary) !important;
+            background: rgba(45,212,191,0.12);
         }
         
-        /* ===== SEARCH ICON (mobile only) ===== */
-        .mobile-search-icon {
-            display: none;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 8px 14px;
-            cursor: pointer;
-            color: var(--accent-primary);
-            font-size: 1.2rem;
-            transition: 0.2s;
-            margin-left: 8px;
-        }
-        .mobile-search-icon:hover {
-            border-color: var(--accent-primary);
-            transform: scale(0.98);
-        }
-
-        /* Desktop dropdown */
+        /* Dropdown desktop styling */
         .dropdown-menu-custom {
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
             border-radius: 20px;
             backdrop-filter: blur(12px);
-            padding: 0.75rem 0;
+            padding: 0.6rem 0;
             margin-top: 0.5rem;
             box-shadow: var(--shadow-sm);
         }
         .dropdown-menu-custom .dropdown-item {
             color: var(--text-primary);
             font-weight: 500;
-            padding: 10px 20px;
+            padding: 10px 22px;
             transition: 0.2s;
+            border-radius: 12px;
+            margin: 0 6px;
         }
         .dropdown-menu-custom .dropdown-item:hover {
             background: var(--bg-elevated);
@@ -187,13 +171,68 @@
             border-radius: 50px;
             padding: 8px 20px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s;
             font-weight: 600;
             color: var(--text-primary);
-            margin-left: 10px;
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+        .theme-toggle-desktop:hover {
+            border-color: var(--accent-primary);
+            transform: scale(0.98);
         }
 
-        /* ========== SIDE MENU (unchanged) ========== */
+        /* Mobile controls container */
+        .mobile-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mobile-menu-btn, .mobile-search-icon {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 8px 14px;
+            cursor: pointer;
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-menu-btn:hover, .mobile-search-icon:hover {
+            border-color: var(--accent-primary);
+            transform: scale(0.96);
+            background: rgba(45,212,191,0.1);
+        }
+
+        /* Hide desktop elements on mobile */
+        @media (max-width: 992px) {
+            .desktop-nav-links {
+                display: none !important;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .mobile-search-icon {
+                display: flex;
+            }
+            .search-container.desktop-search {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 993px) {
+            .mobile-menu-btn, .mobile-search-icon {
+                display: none !important;
+            }
+            .search-container.desktop-search {
+                display: block;
+            }
+        }
+
+        /* SIDE MENU - stable and consistent */
         .side-menu-overlay {
             position: fixed;
             top: 0;
@@ -201,11 +240,11 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
             z-index: 1060;
             visibility: hidden;
             opacity: 0;
-            transition: visibility 0.3s ease, opacity 0.3s ease;
+            transition: visibility 0.25s ease, opacity 0.25s ease;
         }
         .side-menu-overlay.active {
             visibility: visible;
@@ -214,13 +253,13 @@
         .side-menu {
             position: fixed;
             top: 0;
-            right: -320px;
+            right: -340px;
             width: min(85%, 320px);
             height: 100%;
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px);
             border-left: 1px solid var(--border-glow);
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
             z-index: 1061;
             transition: right 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             display: flex;
@@ -237,17 +276,34 @@
             border-bottom: 1px solid var(--border-glow);
             margin-bottom: 1.5rem;
         }
+        .side-menu-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .close-menu-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
+        }
         .side-nav-list { list-style: none; padding: 0; margin: 0; flex: 1; }
         .side-nav-link {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 12px 16px;
-            border-radius: 16px;
+            border-radius: 20px;
             color: var(--text-primary);
             font-weight: 600;
             text-decoration: none;
             transition: 0.2s;
+            margin-bottom: 4px;
         }
         .side-nav-link:hover { background: var(--bg-elevated); color: var(--accent-primary); transform: translateX(6px); }
         .side-dropdown-toggle {
@@ -258,108 +314,34 @@
             background: transparent;
             border: none;
             padding: 12px 16px;
-            border-radius: 16px;
+            border-radius: 20px;
             color: var(--text-primary);
             font-weight: 600;
+            transition: 0.2s;
         }
+        .side-dropdown-toggle:hover { background: var(--bg-elevated); }
         .side-submenu {
             list-style: none;
-            padding-left: 2rem;
-            margin-top: 0.5rem;
+            padding-left: 1.8rem;
+            margin-top: 0.3rem;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.35s ease;
         }
-        .side-submenu.open { max-height: 300px; }
+        .side-submenu.open { max-height: 380px; }
         .theme-toggle-mobile {
-            margin-top: 1.5rem;
+            margin-top: 1.8rem;
             background: var(--bg-elevated);
             border: 1px solid var(--border-glow);
             border-radius: 50px;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             cursor: pointer;
             font-weight: 600;
+            transition: 0.2s;
         }
 
-        /* Hero Section with MODIFIED SEARCH BAR (desktop visible, mobile hidden via icon) */
-        .hero-section {
-            position: relative;
-            overflow: hidden;
-            padding: 140px 0 100px;
-            margin-top: 0;
-        }
-        .hero-bg-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(45,212,191,0.15) 0%, transparent 70%);
-            top: -200px;
-            right: -100px;
-            border-radius: 50%;
-            z-index: 0;
-        }
-        .hero-title {
-            font-size: 3.8rem;
-            font-weight: 800;
-            line-height: 1.2;
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        /* ========== SEARCH BAR CONTAINER - DESKTOP STYLES (slightly smaller width) ========== */
-        .search-container {
-            max-width: 650px;    /* slightly smaller than original 750px */
-            margin: 0 auto 2rem auto;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-        .search-glass {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 80px;
-            padding: 6px 6px 6px 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s;
-            box-shadow: var(--shadow-sm);
-            flex-wrap: wrap;
-        }
-        .search-glass:focus-within {
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 25px var(--border-glow);
-            transform: scale(1.01);
-        }
-        .search-glass i { color: var(--accent-primary); font-size: 1.2rem; }
-        .search-glass input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 14px 0;
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            min-width: 160px;
-        }
-        .search-glass input::placeholder { color: var(--text-secondary); }
-        .search-btn {
-            background: var(--gradient-hero);
-            border: none;
-            border-radius: 50px;
-            padding: 10px 28px;
-            color: white;
-            font-weight: 600;
-            transition: 0.3s;
-            white-space: nowrap;
-        }
-        .search-btn:hover { transform: translateX(4px); filter: brightness(1.05); }
-        
-        /* Mobile search overlay (when search icon is tapped) */
+        /* Mobile search overlay */
         .mobile-search-overlay {
             position: fixed;
             top: 0;
@@ -390,241 +372,334 @@
             padding: 8px;
             box-shadow: var(--shadow-glow);
         }
-        .mobile-search-card .search-glass {
-            background: transparent;
-            box-shadow: none;
-            padding: 4px 4px 4px 20px;
-        }
-        .close-search-overlay {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-glow);
-            border-radius: 60px;
-            width: 48px;
-            height: 48px;
-            font-size: 1.6rem;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: 0.2s;
-        }
-        .close-search-overlay:hover {
-            transform: rotate(90deg);
-            border-color: var(--accent-primary);
-        }
 
-        /* Other existing styles */
-        .btn-primary-glow {
-            background: var(--gradient-hero);
-            border: none;
-            padding: 14px 32px;
-            font-weight: 700;
-            border-radius: 50px;
-            color: white;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(45,212,191,0.3);
+        /* Hero, projects, rest styles */
+        .hero-section { 
+            position: relative; 
+            overflow: hidden; 
+            padding: 140px 0 100px; 
+            margin-top: 0;
+            background: linear-gradient(135deg, rgba(10, 12, 16, 0.85), rgba(26, 36, 50, 0.85)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%232dd4bf" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="1200" height="600" fill="none"/><rect width="1200" height="600" fill="url(%23grid)"/></svg>') center/cover;
+            background-attachment: fixed;
         }
-        .section-badge {
-            display: inline-block;
-            padding: 6px 18px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-glow);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-primary);
-            margin-bottom: 1rem;
+        .hero-bg-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(45,212,191,0.15) 0%, transparent 70%); top: -200px; right: -100px; border-radius: 50%; z-index: 0; }
+        
+           /* YouTube Embeds */
+        .video-wrapper {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: 0.3s;
         }
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .service-card, .project-card, .testimonial-card {
+        .video-wrapper iframe { width: 100%; aspect-ratio: 16/9; border: none; }
+
+        /* Testimonials Section Styles */
+        .testimonials-section { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); padding: 80px 0; position: relative; }
+        .testimonial-card {
             background: var(--bg-card);
-            backdrop-filter: blur(4px);
-            border-radius: 28px;
-            padding: 2rem;
-            transition: all 0.4s;
-            border: 1px solid var(--border-glow);
-            height: 100%;
-        }
-        .filter-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-        .filter-chip {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-glow);
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-        .filter-chip.active, .filter-chip:hover {
-            background: var(--accent-primary);
-            color: #0a0c10;
-        }
-        .project-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 1rem; }
-        .video-wrapper iframe { width: 100%; aspect-ratio: 16/9; border-radius: 20px; }
-        
-        /* ========== RESPONSIVE BREAKPOINTS ========== */
-        @media (max-width: 992px) {
-            .desktop-nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .mobile-search-icon { display: block; }   /* show search icon on mobile */
-            
-            /* Hide the regular search container on mobile */
-            .search-container.desktop-search {
-                display: none;
-            }
-            .hero-title { font-size: 2.5rem; }
-            .section-title { font-size: 2rem; }
-        }
-        
-        @media (min-width: 993px) {
-            .mobile-menu-btn { display: none; }
-            .mobile-search-icon { display: none; }
-            .side-menu-overlay, .side-menu { display: none; }
-            /* desktop search container visible, slightly smaller width already set to 650px */
-            .search-container.desktop-search {
-                display: block;
-            }
-        }
-        
-        .no-results {
-            background: var(--bg-elevated);
-            border-radius: 60px;
-            padding: 40px;
-            text-align: center;
-        }
-        .contact-card { background: var(--bg-card); border-radius: 32px; padding: 2rem; border: 1px solid var(--border-glow); }
-        .form-modern {
-            background: var(--bg-elevated);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-glow);
             border-radius: 20px;
-            padding: 14px 18px;
-            width: 100%;
-            color: var(--text-primary);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
         }
-        footer { text-align: center; padding: 2rem; }
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-hero);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .testimonial-card:hover::before {
+            transform: scaleX(1);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 50px rgba(45, 212, 191, 0.15);
+        }
+        .star-rating { color: #fbbf24; font-size: 1.1rem; margin-bottom: 1rem; }
+        .testimonial-text { font-style: italic; font-size: 1.05rem; margin-bottom: 1.5rem; line-height: 1.6; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--gradient-hero); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; }
+        .author-name { font-weight: 700; color: var(--text-primary); }
+        .author-role { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* Accordion Premium */
+        .accordion-custom .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            margin-bottom: 16px;
+            border-radius: 20px !important;
+            overflow: hidden;
+        }
+        .accordion-custom .accordion-button {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-weight: 700;
+            padding: 1.2rem 1.5rem;
+        }
+        .accordion-custom .accordion-button:not(.collapsed) {
+            background: var(--bg-elevated);
+            color: var(--accent-primary);
+        }
+        
+        .hero-title { font-size: 3.8rem; font-weight: 800; line-height: 1.2; background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .search-container { max-width: 650px; margin: 0 auto 2rem auto; position: relative; z-index: 2; }
+        .search-glass { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 80px; padding: 6px 6px 6px 24px; display: flex; align-items: center; gap: 12px; backdrop-filter: blur(8px); transition: all 0.3s; box-shadow: var(--shadow-sm); }
+        .search-glass:focus-within { border-color: var(--accent-primary); box-shadow: 0 0 25px var(--border-glow); transform: scale(1.01); }
+        .search-glass input { flex: 1; background: transparent; border: none; padding: 14px 0; color: var(--text-primary); font-size: 1rem; outline: none; }
+        .search-btn { background: var(--gradient-hero); border: none; border-radius: 50px; padding: 10px 28px; color: white; font-weight: 600; transition: 0.3s; white-space: nowrap; }
+        .search-btn:hover { transform: translateX(4px); filter: brightness(1.05); }
+        .btn-primary-glow { background: var(--gradient-hero); border: none; padding: 14px 32px; font-weight: 700; border-radius: 50px; color: white; transition: all 0.3s; box-shadow: 0 4px 15px rgba(45,212,191,0.3); }
+        .section-badge { display: inline-block; padding: 6px 18px; background: var(--bg-elevated); border: 1px solid var(--border-glow); border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--accent-primary); margin-bottom: 1rem; }
+        .section-title { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .service-card, .project-card, .testimonial-card { background: var(--bg-card); backdrop-filter: blur(4px); border-radius: 28px; padding: 2rem; transition: all 0.4s; border: 1px solid var(--border-glow); height: 100%; }
+        .filter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 40px; }
+        .filter-chip { background: var(--bg-elevated); border: 1px solid var(--border-glow); padding: 8px 24px; border-radius: 50px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: 0.2s; }
+        .filter-chip.active, .filter-chip:hover { background: var(--accent-primary); color: #0a0c10; border-color: transparent; }
+        .project-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 1rem; }
+        .contact-card { background: var(--bg-card); border-radius: 32px; padding: 2rem; border: 1px solid var(--border-glow); }
+        .form-modern { background: var(--bg-elevated); border: 1px solid var(--border-glow); border-radius: 20px; padding: 14px 18px; width: 100%; color: var(--text-primary); }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-glow); margin-top: 2rem; }
+        @media (max-width: 768px) { .hero-title { font-size: 2.3rem; } .section-title { font-size: 1.9rem; } }
+        :root { --bg-primary-rgb: 10, 12, 16; }
+        [data-theme="light"] { --bg-primary-rgb: 240, 244, 249; }
     </style>
 </head>
 <body data-theme="dark">
 
-<!-- FIXED NAVBAR -->
+<!-- FIXED NAVBAR - fully styled & responsive -->
 <nav class="navbar">
     <div class="container">
-        <a class="navbar-brand-wrapper d-flex align-items-center gap-2 text-decoration-none" href="#home">
+        <a class="navbar-brand-wrapper" href="#home">
             <div class="logo-icon">N</div>
             <span class="brand-text">NovaTech Et.</span>
         </a>
         
-        <!-- Desktop Navigation -->
+        <!-- Desktop Navigation Links -->
         <div class="desktop-nav-links">
             <a class="nav-link-desktop" href="#home">Home</a>
             <div class="dropdown">
                 <a class="nav-link-desktop dropdown-toggle" href="#" id="desktopJobsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Online Jobs</a>
                 <ul class="dropdown-menu dropdown-menu-custom">
-                    <li><a class="dropdown-item" href="#earning">Earning Website</a></li>
-                    <li><a class="dropdown-item" href="#earning">Earning Apps</a></li>
-                    <li><a class="dropdown-item" href="#earning">Telegram Bot</a></li>
-                    <li><a class="dropdown-item" href="#earning">More Online Jobs</a></li>
+                    <li><a class="dropdown-item" href="Earning_Website.html">Earning Website</a></li>
+                    <li><a class="dropdown-item" href="Earning_Apps.html">Earning Apps</a></li>
+                    <li><a class="dropdown-item" href="Telegram_Bot.html">Telegram Bot</a></li>
+                    <li><a class="dropdown-item" href="Online_Jobs.html">More Online Jobs</a></li>
                 </ul>
             </div>
-            <a class="nav-link-desktop" href="#news">News</a>
-            <a class="nav-link-desktop" href="#projects">Online Work</a>
-            <a class="nav-link-desktop" href="#earning">Earning Website</a>
+            <a class="nav-link-desktop" href="#news">Tech Info.</a>
+            <a class="nav-link-desktop" href="#projects">All Online Work</a>
             <a class="nav-link-desktop" href="#services">Services</a>
             <a class="nav-link-desktop" href="#contact">Contact</a>
             <button id="themeToggleDesktop" class="theme-toggle-desktop"><i class="fas fa-moon me-2"></i>Dark</button>
         </div>
         
-        <!-- Mobile Controls: Hamburger + Search Icon -->
-        <div style="display: flex; align-items: center; gap: 8px;">
+        <!-- Mobile Controls (hamburger + search icon) -->
+        <div class="mobile-controls">
             <button class="mobile-search-icon" id="mobileSearchIcon" aria-label="Search"><i class="fas fa-search"></i></button>
             <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
     </div>
 </nav>
 
-<!-- SIDE MENU (same as before) -->
+<!-- SIDE MENU (mobile only) -->
 <div class="side-menu-overlay" id="sideMenuOverlay"></div>
 <div class="side-menu" id="sideMenu">
-    <div class="side-menu-header"><span class="side-menu-logo">NovaTech Et.</span><button class="close-menu-btn" id="closeSideMenuBtn">&times;</button></div>
+    <div class="side-menu-header">
+        <span class="side-menu-logo">NovaTech</span>
+        <button class="close-menu-btn" id="closeSideMenuBtn">&times;</button>
+    </div>
     <ul class="side-nav-list">
         <li><a class="side-nav-link" href="#home"><i class="fas fa-home"></i> Home</a></li>
-        <li><button class="side-dropdown-toggle" id="sideDropdownToggle"><span><i class="fas fa-briefcase me-2"></i> Online Jobs</span><i class="fas fa-chevron-down" id="dropdownIcon"></i></button>
+        <li>
+            <button class="side-dropdown-toggle" id="sideDropdownToggle">
+                <span><i class="fas fa-briefcase me-2"></i> Online Jobs</span>
+                <i class="fas fa-chevron-down" id="dropdownIcon"></i>
+            </button>
             <ul class="side-submenu" id="sideSubmenu">
-                <li><a class="side-nav-link" href="#earning"><i class="fas fa-globe"></i> Earning Website</a></li>
-                <li><a class="side-nav-link" href="#earning"><i class="fas fa-mobile-alt"></i> Earning Apps</a></li>
-                <li><a class="side-nav-link" href="#earning"><i class="fab fa-telegram"></i> Telegram Bot</a></li>
-                <li><a class="side-nav-link" href="#earning"><i class="fas fa-chart-line"></i> More Online Jobs</a></li>
+                <li><a class="side-nav-link" href="Earning_Website.html"><i class="fas fa-globe"></i> Earning Website</a></li>
+                <li><a class="side-nav-link" href="Earning_Apps.html"><i class="fas fa-mobile-alt"></i> Earning Apps</a></li>
+                <li><a class="side-nav-link" href="Telegram_Bot.html"><i class="fab fa-telegram"></i> Telegram Bot</a></li>
+                <li><a class="side-nav-link" href="Online_Jobs.html"><i class="fas fa-chart-line"></i> More Online Jobs</a></li>
             </ul>
         </li>
-        <li><a class="side-nav-link" href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+        <li><a class="side-nav-link" href="News.html"><i class="fas fa-newspaper"></i> News</a></li>
         <li><a class="side-nav-link" href="#projects"><i class="fas fa-laptop-code"></i> Online Work</a></li>
-        <li><a class="side-nav-link" href="#earning"><i class="fas fa-dollar-sign"></i> Earning Website</a></li>
         <li><a class="side-nav-link" href="#services"><i class="fas fa-cogs"></i> Services</a></li>
         <li><a class="side-nav-link" href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
         <li><div class="theme-toggle-mobile" id="themeToggleMobile"><i class="fas fa-moon me-2"></i> Dark Mode</div></li>
     </ul>
 </div>
 
-<!-- MOBILE SEARCH OVERLAY (tapped icon reveals search bar) -->
+<!-- MOBILE SEARCH OVERLAY -->
 <div class="mobile-search-overlay" id="mobileSearchOverlay">
     <button class="close-search-overlay" id="closeSearchOverlayBtn">&times;</button>
     <div class="mobile-search-card">
         <div class="search-glass">
             <i class="fas fa-search"></i>
-            <input type="text" id="mobileSearchInput" placeholder="Search projects by name, technology... (e.g., Telegram, E-commerce)">
+            <input type="text" id="mobileSearchInput" placeholder="Search projects by name, technology...">
             <button class="search-btn" id="mobileSearchBtn"><i class="fas fa-arrow-right me-2"></i>Filter</button>
         </div>
-        <div class="mt-2 text-center"><small class="text-secondary"><i class="fas fa-magic me-1"></i> Real-time filtering</small></div>
     </div>
 </div>
 
-<!-- Hero Section with DESKTOP SEARCH (visible on desktop, hidden on mobile) -->
+<!-- Hero Section + Desktop Search -->
 <section id="home" class="hero-section">
     <div class="hero-bg-glow"></div>
     <div class="container text-center" style="position: relative; z-index: 2;">
-        <!-- Desktop search container: slightly smaller width (650px) -->
         <div class="search-container desktop-search" data-aos="fade-up">
             <div class="search-glass">
                 <i class="fas fa-search"></i>
                 <input type="text" id="desktopSearchInput" placeholder="Search projects by name, technology... (e.g., Telegram, E-commerce)">
                 <button class="search-btn" id="desktopSearchBtn"><i class="fas fa-arrow-right me-2"></i>Filter Work</button>
             </div>
-            <div class="mt-2"><small class="text-secondary"><i class="fas fa-magic me-1"></i> Real-time filtering + category filters below</small></div>
         </div>
-
-        <h1 class="hero-title mb-4" data-aos="fade-up">Innovative Digital Solutions <br><span style="color: var(--accent-primary);">in Ethiopia</span></h1>
+        <h1 class="hero-title mb-4" data-aos="fade-up">Make Money online <br><span style="color: var(--accent-primary);">in Ethiopia</span></h1>
         <p class="lead mb-4 text-secondary">AI-powered bots, scalable web platforms, and data-driven growth strategies.</p>
         <div class="d-flex flex-wrap gap-3 justify-content-center">
-            <a href="#projects" class="btn btn-primary-glow"><i class="fas fa-layer-group me-2"></i>Explore Portfolio</a>
-            <a href="#contact" class="btn btn-outline-premium"><i class="fas fa-comment-dots me-2"></i>Start a Project</a>
+            <a href="#projects" class="btn btn-primary-glow"><i class="fas fa-layer-group me-2"></i>Explore All Works</a>
+            <a href="#contact" class="btn btn-outline-light border-2 rounded-pill px-4 py-2" style="border-color: var(--accent-primary); color: var(--text-primary);"><i class="fas fa-comment-dots me-2"></i>Start a Project</a>
         </div>
     </div>
 </section>
 
-<!-- Services & Projects sections (abbreviated for clarity but fully functional) -->
-<section id="services" class="py-5"><div class="container"><div class="text-center"><span class="section-badge">Core Expertise</span><h2 class="section-title">What We Deliver</h2></div><div class="row g-4 mt-2"><div class="col-md-4"><div class="service-card text-center"><div class="service-icon"><i class="fab fa-telegram"></i></div><h4>Telegram Premium & Stars</h4><p class="text-secondary">Monetization bots, Stars API automation.</p></div></div><div class="col-md-4"><div class="service-card text-center"><div class="service-icon"><i class="fas fa-chart-line"></i></div><h4>Digital Promotion</h4><p class="text-secondary">Data-driven SEO & viral campaigns.</p></div></div><div class="col-md-4"><div class="service-card text-center"><div class="service-icon"><i class="fas fa-code"></i></div><h4>Software Dev</h4><p class="text-secondary">Full-stack apps & enterprise architecture.</p></div></div></div></div></section>
+<!-- Services -->
+<section id="services" class="py-5"><div class="container"><div class="text-center"><span class="section-badge">Core Expertise</span><h2 class="section-title">What We Deliver</h2></div><div class="row g-4 mt-2"><div class="col-md-4"><div class="service-card text-center"><i class="fab fa-telegram fa-3x mb-3" style="color: var(--accent-primary);"></i><h4>Telegram Premium & Stars</h4><p class="text-secondary">Monetization bots, Stars API automation.</p></div></div><div class="col-md-4"><div class="service-card text-center"><i class="fas fa-chart-line fa-3x mb-3" style="color: var(--accent-primary);"></i><h4>Digital Promotion</h4><p class="text-secondary">Data-driven SEO & viral campaigns.</p></div></div><div class="col-md-4"><div class="service-card text-center"><i class="fas fa-code fa-3x mb-3" style="color: var(--accent-primary);"></i><h4>Software Dev</h4><p class="text-secondary">Full-stack apps & enterprise architecture.</p></div></div></div></div></section>
 
 <!-- Projects with filtering -->
-<section id="projects" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="text-center"><span class="section-badge">Our Work</span><h2 class="section-title">Latest Innovations</h2></div><div class="filter-group"><div class="filter-chip active" data-filter="all">All Projects</div><div class="filter-chip" data-filter="websites">Websites</div><div class="filter-chip" data-filter="telegram">Telegram Bots</div><div class="filter-chip" data-filter="mobile">Mobile Apps</div></div><div class="row g-4" id="projectsContainer"><div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="Addis Market Hub" data-desc="E-commerce platform"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=E-Commerce+Hub"><h5>Addis Market Hub</h5><p class="text-secondary">Scalable e-commerce with AI recs.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="PremiumStar Bot" data-desc="Telegram Stars monetization"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Telegram+Stars+Bot"><h5>PremiumStar Bot</h5><p class="text-secondary">Telegram Stars + subscription manager.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="Shebelle Finance" data-desc="Digital wallet app"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Mobile+Banking"><h5>Shebelle Finance App</h5><p class="text-secondary">Flutter microfinance wallet.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="MediTrack Ethiopia" data-desc="Telemedicine portal"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Health+Portal"><h5>MediTrack Ethiopia</h5><p class="text-secondary">Appointment system & telemedicine.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="EthioNews AI" data-desc="AI news aggregator bot"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=News+Bot+AI"><h5>EthioNews AI Bot</h5><p class="text-secondary">Real-time news summarization.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="TransLogix" data-desc="Logistics fleet tracker"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Logistics+App"><h5>TransLogix</h5><p class="text-secondary">Fleet management & cargo tracking.</p></div></div></div><div id="noResultsMsg" style="display:none;" class="mt-5"><div class="no-results"><i class="fas fa-search fa-2x mb-3"></i><h4>No matching projects</h4></div></div></div></section>
+<section id="projects" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="text-center"><span class="section-badge">Our Work</span><h2 class="section-title">Latest Innovations</h2></div><div class="filter-group"><div class="filter-chip active" data-filter="all">All Projects</div><div class="filter-chip" data-filter="websites">Websites</div><div class="filter-chip" data-filter="telegram">Telegram Bots</div><div class="filter-chip" data-filter="mobile">Mobile Apps</div></div><div class="row g-4" id="projectsContainer"><div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="Addis Market Hub" data-desc="E-commerce platform"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=E-Commerce+Hub"><h5>Addis Market Hub</h5><p class="text-secondary">Scalable e-commerce with AI recs.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="PremiumStar Bot" data-desc="Telegram Stars monetization"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Telegram+Stars+Bot"><h5>PremiumStar Bot</h5><p class="text-secondary">Telegram Stars + subscription manager.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="Shebelle Finance" data-desc="Digital wallet app"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Mobile+Banking"><h5>Shebelle Finance App</h5><p class="text-secondary">Flutter microfinance wallet.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="MediTrack Ethiopia" data-desc="Telemedicine portal"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Health+Portal"><h5>MediTrack Ethiopia</h5><p class="text-secondary">Appointment system & telemedicine.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="EthioNews AI" data-desc="AI news aggregator bot"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=News+Bot+AI"><h5>EthioNews AI Bot</h5><p class="text-secondary">Real-time news summarization.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="TransLogix" data-desc="Logistics fleet tracker"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Logistics+App"><h5>TransLogix</h5><p class="text-secondary">Fleet management & cargo tracking.</p></div></div></div><div id="noResultsMsg" style="display:none;" class="mt-5"><div class="bg-elevated p-5 text-center rounded-4"><i class="fas fa-search fa-2x mb-3"></i><h4>No matching projects</h4></div></div></div></section>
 
-<!-- Footer contact etc -->
-<section id="contact" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="row align-items-center"><div class="col-lg-6"><span class="section-badge">Get In Touch</span><h2 class="section-title">Let's Build Something</h2><p class="text-secondary">hello@novatechet.com<br>+251 911 234 567</p></div><div class="col-lg-6"><div class="contact-card"><form id="contactForm"><input type="text" class="form-modern mb-3" placeholder="Full Name" required><input type="email" class="form-modern mb-3" placeholder="Email" required><textarea class="form-modern mb-3" rows="3" placeholder="Message"></textarea><button type="submit" class="btn btn-primary-glow w-100">Send</button><div id="formStatus" class="mt-2 text-success small"></div></form></div></div></div></div></section>
-<footer class="py-4 text-center"><div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Digital Innovation</p></div></footer>
+<!-- YouTube Tutorials section -->
+<section id="news" class="py-5">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up"><span class="section-badge"><i class="fab fa-youtube me-2"></i>Learning Hub</span><h2 class="section-title">Top Tutorials & Videos</h2><p class="mb-5">Master modern development with our expert insights</p></div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="flip-left"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/5RI6e9Q4Dis" title="Telegram Bot Tutorial" allowfullscreen></iframe></div><p class="mt-3 fw-bold">⚡ Build Telegram Bots with Python</p></div>
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="100"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/4sosXZsdy-s" title="Bootstrap 5" allowfullscreen></iframe></div><p class="mt-3 fw-bold">🎨 Advanced UI/UX with Bootstrap 5</p></div>
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="200"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/8mAITcNt710" title="Flutter" allowfullscreen></iframe></div><p class="mt-3 fw-bold">📱 Flutter Crash Course 2025</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">Client Reviews</span>
+            <h2 class="section-title">What Our Clients Say</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="testimonial-card">
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"NovaTech transformed our business with their innovative solutions. The team delivered beyond expectations!"</p>
+                    <div class="testimonial-author">
+                        <div class="avatar">AB</div>
+                        <div>
+                            <div class="author-name">Abebe Tadesse</div>
+                            <div class="author-role">CEO, E-Commerce Hub</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-card">
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Their Telegram bot solutions increased our revenue by 300%. Highly recommended for any project!"</p>
+                    <div class="testimonial-author">
+                        <div class="avatar">MK</div>
+                        <div>
+                            <div class="author-name">Muna Kebede</div>
+                            <div class="author-role">Founder, Premium Services</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card">
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Professional, reliable, and innovative. NovaTech is the perfect partner for digital transformation projects."</p>
+                    <div class="testimonial-author">
+                        <div class="avatar">ZA</div>
+                        <div>
+                            <div class="author-name">Zainab Ahmed</div>
+                            <div class="author-role">Manager, FinTech Startup</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section class="py-5" id="earning">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up"><span class="section-badge"><i class="fas fa-question-circle me-2"></i>Knowledge Base</span><h2 class="section-title">Frequently Asked Questions</h2></div>
+        <div class="row justify-content-center mt-4"><div class="col-lg-8">
+            <div class="accordion accordion-custom" id="faqAccordion">
+                <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What digital solutions do you specialize in?</button></h2><div id="faq1" class="accordion-collapse collapse show"><div class="accordion-body">Telegram bots (Stars monetization), full-stack web apps, mobile apps, and AI-driven marketing.</div></div></div>
+                <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How does Telegram Stars integration work?</button></h2><div id="faq2" class="accordion-collapse collapse"><div class="accordion-body">We implement official Telegram Stars API for secure in-app purchases and premium content.</div></div></div>
+                <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Do you offer long-term support?</button></h2><div id="faq3" class="accordion-collapse collapse"><div class="accordion-body">Absolutely. Maintenance, updates, and 24/7 technical support for all our solutions.</div></div></div>
+            </div>
+        </div></div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5" style="background: var(--bg-secondary);">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="section-badge"><i class="fas fa-paper-plane me-2"></i>Get In Touch</span>
+                <h2 class="section-title">Let's Build <br>Something Extraordinary</h2>
+                <p class="text-secondary">Ready to scale your business with next-gen technology? Reach out to our team.</p>
+                <div class="mt-4"><i class="fas fa-envelope me-3" style="color: var(--accent-primary);"></i> hello@novatechet.com<br><i class="fas fa-phone-alt me-3 mt-2"></i> +251 911 234 567</div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="contact-card">
+                    <form id="contactForm">
+                        <input type="text" class="form-modern mb-3" placeholder="Full Name" required>
+                        <input type="email" class="form-modern mb-3" placeholder="Email Address" required>
+                        <textarea class="form-modern mb-3" rows="4" placeholder="Tell us about your vision..."></textarea>
+                        <button type="submit" class="btn btn-primary-glow w-100"><i class="fas fa-send me-2"></i>Send Message</button>
+                        <div id="formStatus" class="mt-3 text-success text-center small"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer><div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Digital Innovation & Future Tech</p></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -635,11 +710,12 @@
     const setTheme = (theme) => {
         document.body.setAttribute('data-theme', theme);
         localStorage.setItem('novatech_theme', theme);
-        const icon = theme === 'dark' ? '<i class="fas fa-moon me-2"></i>Dark' : '<i class="fas fa-sun me-2"></i>Light';
-        document.querySelectorAll('#themeToggleDesktop, #themeToggleMobile').forEach(btn => { if(btn) btn.innerHTML = icon; });
+        const isDark = theme === 'dark';
+        const iconHtml = isDark ? '<i class="fas fa-moon me-2"></i>Dark' : '<i class="fas fa-sun me-2"></i>Light';
+        document.querySelectorAll('#themeToggleDesktop, #themeToggleMobile').forEach(btn => { if(btn) btn.innerHTML = iconHtml; });
     };
-    let current = localStorage.getItem('novatech_theme') || 'dark';
-    setTheme(current);
+    let currentTheme = localStorage.getItem('novatech_theme') || 'dark';
+    setTheme(currentTheme);
     document.getElementById('themeToggleDesktop')?.addEventListener('click', () => setTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
     document.getElementById('themeToggleMobile')?.addEventListener('click', () => setTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
     
@@ -659,7 +735,7 @@
     const dropdownIcon = document.getElementById('dropdownIcon');
     if(sideDropdownToggle) sideDropdownToggle.addEventListener('click', () => { sideSubmenu.classList.toggle('open'); dropdownIcon.style.transform = sideSubmenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)'; });
     
-    // ========== UNIFIED SEARCH & FILTER (shared between desktop + mobile overlays) ==========
+    // Filtering system
     const filterChips = document.querySelectorAll('.filter-chip');
     const projectItems = document.querySelectorAll('.project-item');
     const noResultsDiv = document.getElementById('noResultsMsg');
@@ -672,39 +748,35 @@
             const catMatch = activeCategory === 'all' || item.getAttribute('data-category') === activeCategory;
             const title = (item.getAttribute('data-title') || '').toLowerCase();
             const desc = (item.getAttribute('data-desc') || '').toLowerCase();
-            const inner = (item.querySelector('h5')?.innerText + ' ' + item.querySelector('p')?.innerText).toLowerCase();
-            const searchMatch = globalSearchTerm === '' || title.includes(globalSearchTerm.toLowerCase()) || desc.includes(globalSearchTerm.toLowerCase()) || inner.includes(globalSearchTerm.toLowerCase());
+            const innerText = (item.querySelector('h5')?.innerText + ' ' + item.querySelector('p')?.innerText).toLowerCase();
+            const searchMatch = globalSearchTerm === '' || title.includes(globalSearchTerm.toLowerCase()) || desc.includes(globalSearchTerm.toLowerCase()) || innerText.includes(globalSearchTerm.toLowerCase());
             if(catMatch && searchMatch) { item.style.display = 'block'; anyVisible = true; }
             else { item.style.display = 'none'; }
         });
-        noResultsDiv.style.display = anyVisible ? 'none' : 'block';
+        if(noResultsDiv) noResultsDiv.style.display = anyVisible ? 'none' : 'block';
     }
     
-    // Desktop search elements
     const desktopInput = document.getElementById('desktopSearchInput');
     const desktopBtn = document.getElementById('desktopSearchBtn');
-    // Mobile overlay elements
-    const mobileOverlay = document.getElementById('mobileSearchOverlay');
-    const mobileIcon = document.getElementById('mobileSearchIcon');
     const mobileInput = document.getElementById('mobileSearchInput');
     const mobileBtn = document.getElementById('mobileSearchBtn');
-    const closeSearchOverlay = document.getElementById('closeSearchOverlayBtn');
+    const mobileOverlay = document.getElementById('mobileSearchOverlay');
+    const mobileIcon = document.getElementById('mobileSearchIcon');
+    const closeSearch = document.getElementById('closeSearchOverlayBtn');
     
-    function updateSearchFromValue(value) {
+    function updateSearch(value) {
         globalSearchTerm = value;
         filterProjects();
-        if (desktopInput) desktopInput.value = value;
-        if (mobileInput) mobileInput.value = value;
+        if(desktopInput) desktopInput.value = value;
+        if(mobileInput) mobileInput.value = value;
     }
     
-    desktopInput?.addEventListener('input', (e) => updateSearchFromValue(e.target.value));
-    desktopBtn?.addEventListener('click', () => updateSearchFromValue(desktopInput.value));
-    mobileInput?.addEventListener('input', (e) => updateSearchFromValue(e.target.value));
-    mobileBtn?.addEventListener('click', () => { updateSearchFromValue(mobileInput.value); mobileOverlay.classList.remove('active'); });
-    
-    // Open mobile search overlay
+    desktopInput?.addEventListener('input', (e) => updateSearch(e.target.value));
+    desktopBtn?.addEventListener('click', () => updateSearch(desktopInput.value));
+    mobileInput?.addEventListener('input', (e) => updateSearch(e.target.value));
+    mobileBtn?.addEventListener('click', () => { updateSearch(mobileInput.value); mobileOverlay.classList.remove('active'); });
     mobileIcon?.addEventListener('click', () => { mobileOverlay.classList.add('active'); if(mobileInput) mobileInput.focus(); });
-    closeSearchOverlay?.addEventListener('click', () => mobileOverlay.classList.remove('active'));
+    closeSearch?.addEventListener('click', () => mobileOverlay.classList.remove('active'));
     mobileOverlay?.addEventListener('click', (e) => { if(e.target === mobileOverlay) mobileOverlay.classList.remove('active'); });
     
     filterChips.forEach(chip => {
@@ -717,18 +789,19 @@
     });
     filterProjects();
     
-    // Smooth scroll & contact form
-    document.querySelectorAll('.nav-link-desktop, .dropdown-item, .side-nav-link').forEach(anchor => {
+    // Smooth scroll for all internal links
+    document.querySelectorAll('.nav-link-desktop, .dropdown-item, .side-nav-link, .btn-primary-glow, .btn-outline-light').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
             if(href && href !== '#' && href.startsWith('#')) {
                 e.preventDefault();
-                document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+                const target = document.querySelector(href);
+                if(target) target.scrollIntoView({ behavior: 'smooth' });
                 closeMenu();
             }
         });
     });
-    document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); document.getElementById('formStatus').innerText = '✓ Message sent!'; setTimeout(() => document.getElementById('formStatus').innerText = '', 3000); e.target.reset(); });
+    document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); const statusDiv = document.getElementById('formStatus'); if(statusDiv) { statusDiv.innerText = '✓ Message sent successfully!'; setTimeout(() => statusDiv.innerText = '', 3000); } e.target.reset(); });
 </script>
 </body>
 </html>
