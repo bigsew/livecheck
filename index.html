@@ -1,68 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>NovaTech Et. | Futuristic Digital Innovation</title>
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts + AOS Animation -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.2s ease;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
 
-<title>Instagram Creator</title>
+        /* CSS Variables for Dynamic Theming */
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #11161f;
+            --bg-card: #151e2a;
+            --bg-elevated: #1a2432;
+            --text-primary: #eef2ff;
+            --text-secondary: #9aa9bb;
+            --accent-primary: #2dd4bf;
+            --accent-secondary: #0a66c2;
+            --border-glow: rgba(45, 212, 191, 0.2);
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.3);
+            --shadow-glow: 0 0 30px rgba(45,212,191,0.1);
+            --gradient-hero: linear-gradient(135deg, #2dd4bf, #0a66c2);
+            --gradient-text: linear-gradient(135deg, #ffffff, #2dd4bf);
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        [data-theme="light"] {
+            --bg-primary: #f0f4f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-elevated: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #5b6e8c;
+            --accent-primary: #0a66c2;
+            --accent-secondary: #2dd4bf;
+            --border-glow: rgba(10, 102, 194, 0.15);
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.08);
+            --shadow-glow: 0 0 20px rgba(10,102,194,0.1);
+            --gradient-hero: linear-gradient(135deg, #0a66c2, #2dd4bf);
+            --gradient-text: linear-gradient(135deg, #0a66c2, #2dd4bf);
+        }
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
 
-<style>
+        /* ========== FIXED NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(var(--bg-primary-rgb), 0.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 12px 0;
+            transition: all 0.3s;
+            z-index: 1050;
+        }
+        :root { --bg-primary-rgb: 10, 12, 16; }
+        [data-theme="light"] { --bg-primary-rgb: 240, 244, 249; }
 
-body{
-background:#f8f9fa;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-font-family:Arial;
-}
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-hero);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0a0c10;
+            box-shadow: 0 0 20px rgba(45,212,191,0.5);
+            transition: transform 0.3s;
+        }
+        .logo-icon:hover { transform: scale(1.05); }
+        .brand-text {
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Desktop nav links */
+        .desktop-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link-desktop {
+            font-weight: 600;
+            color: var(--text-secondary) !important;
+            transition: 0.3s;
+            padding: 8px 12px;
+            position: relative;
+            text-decoration: none;
+        }
+        .nav-link-desktop::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 12px;
+            width: calc(100% - 24px);
+            height: 2px;
+            background: var(--accent-primary);
+            width: 0;
+            transition: width 0.3s;
+        }
+        .nav-link-desktop:hover::after, .nav-link-desktop.active::after { width: calc(100% - 24px); }
+        .nav-link-desktop:hover, .nav-link-desktop.active { color: var(--accent-primary) !important; }
 
-.card{
-width:350px;
-text-align:center;
-}
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 8px 14px;
+            cursor: pointer;
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            transition: 0.2s;
+        }
+        
+        /* ===== SEARCH ICON (mobile only) ===== */
+        .mobile-search-icon {
+            display: none;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 8px 14px;
+            cursor: pointer;
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+            transition: 0.2s;
+            margin-left: 8px;
+        }
+        .mobile-search-icon:hover {
+            border-color: var(--accent-primary);
+            transform: scale(0.98);
+        }
 
-</style>
+        /* Desktop dropdown */
+        .dropdown-menu-custom {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            padding: 0.75rem 0;
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .dropdown-menu-custom .dropdown-item {
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 10px 20px;
+            transition: 0.2s;
+        }
+        .dropdown-menu-custom .dropdown-item:hover {
+            background: var(--bg-elevated);
+            color: var(--accent-primary);
+            transform: translateX(5px);
+        }
+        .theme-toggle-desktop {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 50px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-left: 10px;
+        }
 
-<script>
+        /* ========== SIDE MENU (unchanged) ========== */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1060;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s ease, opacity 0.3s ease;
+        }
+        .side-menu-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: min(85%, 320px);
+            height: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border-glow);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+            z-index: 1061;
+            transition: right 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1.2rem;
+            overflow-y: auto;
+        }
+        .side-menu.open { right: 0; }
+        .side-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 1.5rem;
+        }
+        .side-nav-list { list-style: none; padding: 0; margin: 0; flex: 1; }
+        .side-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .side-nav-link:hover { background: var(--bg-elevated); color: var(--accent-primary); transform: translateX(6px); }
+        .side-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .side-submenu {
+            list-style: none;
+            padding-left: 2rem;
+            margin-top: 0.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .side-submenu.open { max-height: 300px; }
+        .theme-toggle-mobile {
+            margin-top: 1.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 50px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
 
-function openInstagram(){
+        /* Hero Section with MODIFIED SEARCH BAR (desktop visible, mobile hidden via icon) */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            padding: 140px 0 100px;
+            margin-top: 0;
+        }
+        .hero-bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(45,212,191,0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* ========== SEARCH BAR CONTAINER - DESKTOP STYLES (slightly smaller width) ========== */
+        .search-container {
+            max-width: 650px;    /* slightly smaller than original 750px */
+            margin: 0 auto 2rem auto;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        .search-glass {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 80px;
+            padding: 6px 6px 6px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+        }
+        .search-glass:focus-within {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 25px var(--border-glow);
+            transform: scale(1.01);
+        }
+        .search-glass i { color: var(--accent-primary); font-size: 1.2rem; }
+        .search-glass input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 14px 0;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            min-width: 160px;
+        }
+        .search-glass input::placeholder { color: var(--text-secondary); }
+        .search-btn {
+            background: var(--gradient-hero);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 28px;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .search-btn:hover { transform: translateX(4px); filter: brightness(1.05); }
+        
+        /* Mobile search overlay (when search icon is tapped) */
+        .mobile-search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(var(--bg-primary-rgb), 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 1070;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 80px 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.25s ease, opacity 0.25s ease;
+        }
+        .mobile-search-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .mobile-search-card {
+            background: var(--bg-card);
+            border-radius: 48px;
+            border: 1px solid var(--border-glow);
+            width: 100%;
+            max-width: 500px;
+            padding: 8px;
+            box-shadow: var(--shadow-glow);
+        }
+        .mobile-search-card .search-glass {
+            background: transparent;
+            box-shadow: none;
+            padding: 4px 4px 4px 20px;
+        }
+        .close-search-overlay {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 60px;
+            width: 48px;
+            height: 48px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: 0.2s;
+        }
+        .close-search-overlay:hover {
+            transform: rotate(90deg);
+            border-color: var(--accent-primary);
+        }
 
-window.location.href="https://www.instagram.com/accounts/emailsignup/";
-
-}
-
-window.onload=function(){
-
-// auto open instagram when webapp loads
-setTimeout(openInstagram,1000)
-
-}
-
-</script>
-
+        /* Other existing styles */
+        .btn-primary-glow {
+            background: var(--gradient-hero);
+            border: none;
+            padding: 14px 32px;
+            font-weight: 700;
+            border-radius: 50px;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(45,212,191,0.3);
+        }
+        .section-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .service-card, .project-card, .testimonial-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 2rem;
+            transition: all 0.4s;
+            border: 1px solid var(--border-glow);
+            height: 100%;
+        }
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .filter-chip {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .filter-chip.active, .filter-chip:hover {
+            background: var(--accent-primary);
+            color: #0a0c10;
+        }
+        .project-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 1rem; }
+        .video-wrapper iframe { width: 100%; aspect-ratio: 16/9; border-radius: 20px; }
+        
+        /* ========== RESPONSIVE BREAKPOINTS ========== */
+        @media (max-width: 992px) {
+            .desktop-nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-search-icon { display: block; }   /* show search icon on mobile */
+            
+            /* Hide the regular search container on mobile */
+            .search-container.desktop-search {
+                display: none;
+            }
+            .hero-title { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+        }
+        
+        @media (min-width: 993px) {
+            .mobile-menu-btn { display: none; }
+            .mobile-search-icon { display: none; }
+            .side-menu-overlay, .side-menu { display: none; }
+            /* desktop search container visible, slightly smaller width already set to 650px */
+            .search-container.desktop-search {
+                display: block;
+            }
+        }
+        
+        .no-results {
+            background: var(--bg-elevated);
+            border-radius: 60px;
+            padding: 40px;
+            text-align: center;
+        }
+        .contact-card { background: var(--bg-card); border-radius: 32px; padding: 2rem; border: 1px solid var(--border-glow); }
+        .form-modern {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 14px 18px;
+            width: 100%;
+            color: var(--text-primary);
+        }
+        footer { text-align: center; padding: 2rem; }
+    </style>
 </head>
+<body data-theme="dark">
 
-<body>
+<!-- FIXED NAVBAR -->
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand-wrapper d-flex align-items-center gap-2 text-decoration-none" href="#home">
+            <div class="logo-icon">N</div>
+            <span class="brand-text">NovaTech Et.</span>
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="desktop-nav-links">
+            <a class="nav-link-desktop" href="#home">Home</a>
+            <div class="dropdown">
+                <a class="nav-link-desktop dropdown-toggle" href="#" id="desktopJobsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Online Jobs</a>
+                <ul class="dropdown-menu dropdown-menu-custom">
+                    <li><a class="dropdown-item" href="#earning">Earning Website</a></li>
+                    <li><a class="dropdown-item" href="#earning">Earning Apps</a></li>
+                    <li><a class="dropdown-item" href="#earning">Telegram Bot</a></li>
+                    <li><a class="dropdown-item" href="#earning">More Online Jobs</a></li>
+                </ul>
+            </div>
+            <a class="nav-link-desktop" href="#news">News</a>
+            <a class="nav-link-desktop" href="#projects">Online Work</a>
+            <a class="nav-link-desktop" href="#earning">Earning Website</a>
+            <a class="nav-link-desktop" href="#services">Services</a>
+            <a class="nav-link-desktop" href="#contact">Contact</a>
+            <button id="themeToggleDesktop" class="theme-toggle-desktop"><i class="fas fa-moon me-2"></i>Dark</button>
+        </div>
+        
+        <!-- Mobile Controls: Hamburger + Search Icon -->
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="mobile-search-icon" id="mobileSearchIcon" aria-label="Search"><i class="fas fa-search"></i></button>
+            <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+        </div>
+    </div>
+</nav>
 
-<div class="card shadow p-4">
-
-<h4 class="mb-3">Instagram Account Creator</h4>
-
-<p class="text-muted">
-Opening Instagram signup page...
-</p>
-
-<button onclick="openInstagram()" class="btn btn-primary w-100">
-Open Instagram
-</button>
-
+<!-- SIDE MENU (same as before) -->
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header"><span class="side-menu-logo">NovaTech Et.</span><button class="close-menu-btn" id="closeSideMenuBtn">&times;</button></div>
+    <ul class="side-nav-list">
+        <li><a class="side-nav-link" href="#home"><i class="fas fa-home"></i> Home</a></li>
+        <li><button class="side-dropdown-toggle" id="sideDropdownToggle"><span><i class="fas fa-briefcase me-2"></i> Online Jobs</span><i class="fas fa-chevron-down" id="dropdownIcon"></i></button>
+            <ul class="side-submenu" id="sideSubmenu">
+                <li><a class="side-nav-link" href="#earning"><i class="fas fa-globe"></i> Earning Website</a></li>
+                <li><a class="side-nav-link" href="#earning"><i class="fas fa-mobile-alt"></i> Earning Apps</a></li>
+                <li><a class="side-nav-link" href="#earning"><i class="fab fa-telegram"></i> Telegram Bot</a></li>
+                <li><a class="side-nav-link" href="#earning"><i class="fas fa-chart-line"></i> More Online Jobs</a></li>
+            </ul>
+        </li>
+        <li><a class="side-nav-link" href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+        <li><a class="side-nav-link" href="#projects"><i class="fas fa-laptop-code"></i> Online Work</a></li>
+        <li><a class="side-nav-link" href="#earning"><i class="fas fa-dollar-sign"></i> Earning Website</a></li>
+        <li><a class="side-nav-link" href="#services"><i class="fas fa-cogs"></i> Services</a></li>
+        <li><a class="side-nav-link" href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><div class="theme-toggle-mobile" id="themeToggleMobile"><i class="fas fa-moon me-2"></i> Dark Mode</div></li>
+    </ul>
 </div>
 
+<!-- MOBILE SEARCH OVERLAY (tapped icon reveals search bar) -->
+<div class="mobile-search-overlay" id="mobileSearchOverlay">
+    <button class="close-search-overlay" id="closeSearchOverlayBtn">&times;</button>
+    <div class="mobile-search-card">
+        <div class="search-glass">
+            <i class="fas fa-search"></i>
+            <input type="text" id="mobileSearchInput" placeholder="Search projects by name, technology... (e.g., Telegram, E-commerce)">
+            <button class="search-btn" id="mobileSearchBtn"><i class="fas fa-arrow-right me-2"></i>Filter</button>
+        </div>
+        <div class="mt-2 text-center"><small class="text-secondary"><i class="fas fa-magic me-1"></i> Real-time filtering</small></div>
+    </div>
+</div>
+
+<!-- Hero Section with DESKTOP SEARCH (visible on desktop, hidden on mobile) -->
+<section id="home" class="hero-section">
+    <div class="hero-bg-glow"></div>
+    <div class="container text-center" style="position: relative; z-index: 2;">
+        <!-- Desktop search container: slightly smaller width (650px) -->
+        <div class="search-container desktop-search" data-aos="fade-up">
+            <div class="search-glass">
+                <i class="fas fa-search"></i>
+                <input type="text" id="desktopSearchInput" placeholder="Search projects by name, technology... (e.g., Telegram, E-commerce)">
+                <button class="search-btn" id="desktopSearchBtn"><i class="fas fa-arrow-right me-2"></i>Filter Work</button>
+            </div>
+            <div class="mt-2"><small class="text-secondary"><i class="fas fa-magic me-1"></i> Real-time filtering + category filters below</small></div>
+        </div>
+
+        <h1 class="hero-title mb-4" data-aos="fade-up">Innovative Digital Solutions <br><span style="color: var(--accent-primary);">in Ethiopia</span></h1>
+        <p class="lead mb-4 text-secondary">AI-powered bots, scalable web platforms, and data-driven growth strategies.</p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
+            <a href="#projects" class="btn btn-primary-glow"><i class="fas fa-layer-group me-2"></i>Explore Portfolio</a>
+            <a href="#contact" class="btn btn-outline-premium"><i class="fas fa-comment-dots me-2"></i>Start a Project</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services & Projects sections (abbreviated for clarity but fully functional) -->
+<section id="services" class="py-5"><div class="container"><div class="text-center"><span class="section-badge">Core Expertise</span><h2 class="section-title">What We Deliver</h2></div><div class="row g-4 mt-2"><div class="col-md-4"><div class="service-card text-center"><div class="service-icon"><i class="fab fa-telegram"></i></div><h4>Telegram Premium & Stars</h4><p class="text-secondary">Monetization bots, Stars API automation.</p></div></div><div class="col-md-4"><div class="service-card text-center"><div class="service-icon"><i class="fas fa-chart-line"></i></div><h4>Digital Promotion</h4><p class="text-secondary">Data-driven SEO & viral campaigns.</p></div></div><div class="col-md-4"><div class="service-card text-center"><div class="service-icon"><i class="fas fa-code"></i></div><h4>Software Dev</h4><p class="text-secondary">Full-stack apps & enterprise architecture.</p></div></div></div></div></section>
+
+<!-- Projects with filtering -->
+<section id="projects" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="text-center"><span class="section-badge">Our Work</span><h2 class="section-title">Latest Innovations</h2></div><div class="filter-group"><div class="filter-chip active" data-filter="all">All Projects</div><div class="filter-chip" data-filter="websites">Websites</div><div class="filter-chip" data-filter="telegram">Telegram Bots</div><div class="filter-chip" data-filter="mobile">Mobile Apps</div></div><div class="row g-4" id="projectsContainer"><div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="Addis Market Hub" data-desc="E-commerce platform"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=E-Commerce+Hub"><h5>Addis Market Hub</h5><p class="text-secondary">Scalable e-commerce with AI recs.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="PremiumStar Bot" data-desc="Telegram Stars monetization"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Telegram+Stars+Bot"><h5>PremiumStar Bot</h5><p class="text-secondary">Telegram Stars + subscription manager.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="Shebelle Finance" data-desc="Digital wallet app"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Mobile+Banking"><h5>Shebelle Finance App</h5><p class="text-secondary">Flutter microfinance wallet.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="MediTrack Ethiopia" data-desc="Telemedicine portal"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Health+Portal"><h5>MediTrack Ethiopia</h5><p class="text-secondary">Appointment system & telemedicine.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="EthioNews AI" data-desc="AI news aggregator bot"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=News+Bot+AI"><h5>EthioNews AI Bot</h5><p class="text-secondary">Real-time news summarization.</p></div></div><div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="TransLogix" data-desc="Logistics fleet tracker"><div class="project-card"><img src="https://placehold.co/600x400/1a2634/2dd4bf?text=Logistics+App"><h5>TransLogix</h5><p class="text-secondary">Fleet management & cargo tracking.</p></div></div></div><div id="noResultsMsg" style="display:none;" class="mt-5"><div class="no-results"><i class="fas fa-search fa-2x mb-3"></i><h4>No matching projects</h4></div></div></div></section>
+
+<!-- Footer contact etc -->
+<section id="contact" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="row align-items-center"><div class="col-lg-6"><span class="section-badge">Get In Touch</span><h2 class="section-title">Let's Build Something</h2><p class="text-secondary">hello@novatechet.com<br>+251 911 234 567</p></div><div class="col-lg-6"><div class="contact-card"><form id="contactForm"><input type="text" class="form-modern mb-3" placeholder="Full Name" required><input type="email" class="form-modern mb-3" placeholder="Email" required><textarea class="form-modern mb-3" rows="3" placeholder="Message"></textarea><button type="submit" class="btn btn-primary-glow w-100">Send</button><div id="formStatus" class="mt-2 text-success small"></div></form></div></div></div></div></section>
+<footer class="py-4 text-center"><div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Digital Innovation</p></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+    
+    // Theme handling
+    const setTheme = (theme) => {
+        document.body.setAttribute('data-theme', theme);
+        localStorage.setItem('novatech_theme', theme);
+        const icon = theme === 'dark' ? '<i class="fas fa-moon me-2"></i>Dark' : '<i class="fas fa-sun me-2"></i>Light';
+        document.querySelectorAll('#themeToggleDesktop, #themeToggleMobile').forEach(btn => { if(btn) btn.innerHTML = icon; });
+    };
+    let current = localStorage.getItem('novatech_theme') || 'dark';
+    setTheme(current);
+    document.getElementById('themeToggleDesktop')?.addEventListener('click', () => setTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    document.getElementById('themeToggleMobile')?.addEventListener('click', () => setTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    
+    // Mobile side menu logic
+    const menuOverlay = document.getElementById('sideMenuOverlay');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const closeBtn = document.getElementById('closeSideMenuBtn');
+    function openMenu() { sideMenu.classList.add('open'); menuOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { sideMenu.classList.remove('open'); menuOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    menuToggle?.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    menuOverlay?.addEventListener('click', closeMenu);
+    document.querySelectorAll('.side-nav-link').forEach(link => { link.addEventListener('click', (e) => { closeMenu(); const href = link.getAttribute('href'); if(href && href !== '#' && href.startsWith('#')) { e.preventDefault(); document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }); } }); });
+    const sideDropdownToggle = document.getElementById('sideDropdownToggle');
+    const sideSubmenu = document.getElementById('sideSubmenu');
+    const dropdownIcon = document.getElementById('dropdownIcon');
+    if(sideDropdownToggle) sideDropdownToggle.addEventListener('click', () => { sideSubmenu.classList.toggle('open'); dropdownIcon.style.transform = sideSubmenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)'; });
+    
+    // ========== UNIFIED SEARCH & FILTER (shared between desktop + mobile overlays) ==========
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const projectItems = document.querySelectorAll('.project-item');
+    const noResultsDiv = document.getElementById('noResultsMsg');
+    let activeCategory = 'all';
+    let globalSearchTerm = '';
+    
+    function filterProjects() {
+        let anyVisible = false;
+        projectItems.forEach(item => {
+            const catMatch = activeCategory === 'all' || item.getAttribute('data-category') === activeCategory;
+            const title = (item.getAttribute('data-title') || '').toLowerCase();
+            const desc = (item.getAttribute('data-desc') || '').toLowerCase();
+            const inner = (item.querySelector('h5')?.innerText + ' ' + item.querySelector('p')?.innerText).toLowerCase();
+            const searchMatch = globalSearchTerm === '' || title.includes(globalSearchTerm.toLowerCase()) || desc.includes(globalSearchTerm.toLowerCase()) || inner.includes(globalSearchTerm.toLowerCase());
+            if(catMatch && searchMatch) { item.style.display = 'block'; anyVisible = true; }
+            else { item.style.display = 'none'; }
+        });
+        noResultsDiv.style.display = anyVisible ? 'none' : 'block';
+    }
+    
+    // Desktop search elements
+    const desktopInput = document.getElementById('desktopSearchInput');
+    const desktopBtn = document.getElementById('desktopSearchBtn');
+    // Mobile overlay elements
+    const mobileOverlay = document.getElementById('mobileSearchOverlay');
+    const mobileIcon = document.getElementById('mobileSearchIcon');
+    const mobileInput = document.getElementById('mobileSearchInput');
+    const mobileBtn = document.getElementById('mobileSearchBtn');
+    const closeSearchOverlay = document.getElementById('closeSearchOverlayBtn');
+    
+    function updateSearchFromValue(value) {
+        globalSearchTerm = value;
+        filterProjects();
+        if (desktopInput) desktopInput.value = value;
+        if (mobileInput) mobileInput.value = value;
+    }
+    
+    desktopInput?.addEventListener('input', (e) => updateSearchFromValue(e.target.value));
+    desktopBtn?.addEventListener('click', () => updateSearchFromValue(desktopInput.value));
+    mobileInput?.addEventListener('input', (e) => updateSearchFromValue(e.target.value));
+    mobileBtn?.addEventListener('click', () => { updateSearchFromValue(mobileInput.value); mobileOverlay.classList.remove('active'); });
+    
+    // Open mobile search overlay
+    mobileIcon?.addEventListener('click', () => { mobileOverlay.classList.add('active'); if(mobileInput) mobileInput.focus(); });
+    closeSearchOverlay?.addEventListener('click', () => mobileOverlay.classList.remove('active'));
+    mobileOverlay?.addEventListener('click', (e) => { if(e.target === mobileOverlay) mobileOverlay.classList.remove('active'); });
+    
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            filterChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            activeCategory = chip.getAttribute('data-filter');
+            filterProjects();
+        });
+    });
+    filterProjects();
+    
+    // Smooth scroll & contact form
+    document.querySelectorAll('.nav-link-desktop, .dropdown-item, .side-nav-link').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href && href !== '#' && href.startsWith('#')) {
+                e.preventDefault();
+                document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+                closeMenu();
+            }
+        });
+    });
+    document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); document.getElementById('formStatus').innerText = '✓ Message sent!'; setTimeout(() => document.getElementById('formStatus').innerText = '', 3000); e.target.reset(); });
+</script>
 </body>
 </html>
