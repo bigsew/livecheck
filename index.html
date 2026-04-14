@@ -30,51 +30,55 @@
         .btn-primary-glow { background: var(--gradient-hero); border: none; padding: 14px 32px; font-weight: 700; border-radius: 50px; color: white; transition: 0.3s; box-shadow: 0 4px 15px rgba(45,212,191,0.3); }
         .filter-chip { background: var(--bg-elevated); border: 1px solid var(--border-glow); padding: 8px 24px; border-radius: 50px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: 0.2s; }
         .filter-chip.active, .filter-chip:hover { background: var(--accent-primary); color: #0a0c10; border-color: transparent; }
+        .search-glass { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 80px; padding: 6px 6px 6px 24px; display: flex; align-items: center; gap: 12px; backdrop-filter: blur(8px); transition: all 0.3s; width: 100%; max-width: 650px; margin: 0 auto 2rem auto; }
+        .search-glass input { flex: 1; background: transparent; border: none; padding: 14px 0; color: var(--text-primary); font-size: 1rem; outline: none; }
+        .search-btn { background: var(--gradient-hero); border: none; border-radius: 50px; padding: 10px 28px; color: white; font-weight: 600; transition: 0.3s; white-space: nowrap; cursor: pointer; }
 
-        /* ----- CAROUSEL STYLES (arrows on edges) ----- */
-        .projects-carousel-container { position: relative; margin-top: 2rem; }
-        .carousel-track-wrapper { overflow: hidden; border-radius: 28px; }
-        .carousel-track { display: flex; flex-direction: column; gap: 1.8rem; transition: transform 0.45s cubic-bezier(0.25, 0.95, 0.4, 1.05); will-change: transform; }
-        .carousel-row { display: flex; gap: 1.8rem; width: 100%; }
-        .project-card-slide {
+        /* Dual Carousel Styles */
+        .projects-dual-container { position: relative; margin-top: 2rem; }
+        .carousel-row-container { margin-bottom: 2rem; position: relative; }
+        .carousel-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; flex-wrap: wrap; }
+        .carousel-title { font-weight: 700; font-size: 1.2rem; color: var(--accent-primary); letter-spacing: -0.3px; }
+        .carousel-track-wrapper { overflow: hidden; border-radius: 24px; }
+        .carousel-track { display: flex; gap: 1.8rem; transition: transform 0.45s cubic-bezier(0.25, 0.92, 0.4, 1.05); will-change: transform; }
+        .project-card {
             flex: 0 0 calc((100% / 3) - (1.8rem * 2 / 3));
             background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-glow);
             overflow: hidden; transition: all 0.3s; backdrop-filter: blur(4px);
         }
-        .project-card-slide:hover { transform: translateY(-6px); border-color: var(--accent-primary); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.3); }
+        .project-card:hover { transform: translateY(-6px); border-color: var(--accent-primary); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.3); }
         .project-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
         .project-info { padding: 1.2rem; }
         .project-info h5 { font-weight: 700; margin-bottom: 0.5rem; }
         .project-info p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; }
         .card-buttons { display: flex; gap: 12px; }
-        .btn-join, .btn-details { flex: 1; text-align: center; padding: 8px 0; border-radius: 40px; font-weight: 600; font-size: 0.85rem; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.2s; }
-        .btn-join { background: var(--gradient-hero); color: #0a0c10; border: none; }
+        .btn-start, .btn-details { flex: 1; text-align: center; padding: 8px 0; border-radius: 40px; font-weight: 600; font-size: 0.85rem; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.2s; }
+        .btn-start { background: var(--gradient-hero); color: #0a0c10; border: none; }
         .btn-details { background: transparent; border: 1px solid var(--accent-primary); color: var(--accent-primary); }
-        .btn-join:hover, .btn-details:hover { transform: translateY(-2px); filter: brightness(1.05); }
+        .btn-start:hover, .btn-details:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
-        /* Arrows positioned on far edges */
-        .carousel-arrow {
+        /* Arrows positioned on far edges of each row container */
+        .row-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            width: 52px; height: 52px; background: var(--bg-elevated); border: 1px solid var(--border-glow);
+            width: 44px; height: 44px; background: var(--bg-elevated); border: 1px solid var(--border-glow);
             border-radius: 60px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 10; transition: 0.2s; color: var(--accent-primary); font-size: 1.8rem;
+            cursor: pointer; z-index: 10; transition: 0.2s; color: var(--accent-primary); font-size: 1.4rem;
             backdrop-filter: blur(8px); box-shadow: var(--shadow-sm);
         }
-        .carousel-arrow-left { left: -26px; }
-        .carousel-arrow-right { right: -26px; }
-        .carousel-arrow.disabled { opacity: 0.35; pointer-events: none; }
-        .carousel-arrow:hover:not(.disabled) { background: var(--accent-primary); color: #0a0c10; transform: translateY(-50%) scale(1.05); }
+        .row-arrow-left { left: -22px; }
+        .row-arrow-right { right: -22px; }
+        .row-arrow.disabled { opacity: 0.35; pointer-events: none; }
+        .row-arrow:hover:not(.disabled) { background: var(--accent-primary); color: #0a0c10; transform: translateY(-50%) scale(1.05); }
 
         /* Simple grid view (when filtered or searched) */
-        .simple-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; margin-top: 2rem; }
-        .simple-grid .project-card-slide { flex: auto; width: 100%; }
+        .simple-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
+        .simple-grid .project-card { flex: auto; width: 100%; }
 
-        /* Responsive: adjust visible cards per row */
-        @media (max-width: 992px) { .project-card-slide { flex: 0 0 calc((100% / 2) - (1.8rem / 2)); } .carousel-arrow-left { left: -12px; } .carousel-arrow-right { right: -12px; } .section-title { font-size: 2rem; } }
-        @media (max-width: 768px) { .carousel-arrow { width: 42px; height: 42px; font-size: 1.3rem; } .carousel-arrow-left { left: -8px; } .carousel-arrow-right { right: -8px; } }
-        @media (max-width: 576px) { .project-card-slide { flex: 0 0 100%; } .carousel-arrow { width: 38px; height: 38px; top: 35%; } }
+        @media (max-width: 992px) { .project-card { flex: 0 0 calc((100% / 2) - (1.8rem / 2)); } .row-arrow-left { left: -12px; } .row-arrow-right { right: -12px; } .section-title { font-size: 2rem; } }
+        @media (max-width: 768px) { .row-arrow { width: 38px; height: 38px; font-size: 1.2rem; } .row-arrow-left { left: -8px; } .row-arrow-right { right: -8px; } }
+        @media (max-width: 576px) { .project-card { flex: 0 0 100%; } .row-arrow { top: 35%; } }
 
-        /* preserve other styles (navbar, side menu, hero etc) */
+        /* preserve navbar, side menu, hero, etc */
         .navbar { position: fixed; top: 0; left: 0; right: 0; background: var(--navbar-bg); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border-glow); padding: 12px 0; z-index: 1050; }
         .navbar .container { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 16px; }
         .navbar-brand-wrapper { text-decoration: none; display: flex; align-items: center; gap: 12px; }
@@ -103,19 +107,30 @@
     </style>
 </head>
 <body data-theme="dark">
-<!-- NAVBAR (simplified but functional) -->
 <nav class="navbar"><div class="container"><a class="navbar-brand-wrapper" href="#home"><div class="logo-icon">N</div><span class="brand-text">NovaTech Et.</span></a><div class="desktop-nav-links"><a class="nav-link-desktop" href="#home">Home</a><a class="nav-link-desktop" href="#projects">Online Work</a><a class="nav-link-desktop" href="#services">Services</a><a class="nav-link-desktop" href="#contact">Contact</a><button id="themeToggleDesktop" class="theme-toggle-desktop" style="background:var(--bg-elevated); border-radius:50px; padding:8px 20px;"><i class="fas fa-moon me-2"></i>Dark</button></div><div class="mobile-controls"><button class="mobile-search-icon" id="mobileSearchIcon"><i class="fas fa-search"></i></button><button class="mobile-menu-btn" id="mobileMenuToggle"><i class="fas fa-bars"></i></button></div></div></nav>
 <div class="side-menu-overlay" id="sideMenuOverlay"></div>
 <div class="side-menu" id="sideMenu"><div class="side-menu-header"><span class="side-menu-logo">NovaTech</span><button class="close-menu-btn" id="closeSideMenuBtn">&times;</button></div><ul class="side-nav-list"><li><a class="side-nav-link" href="#home">Home</a></li><li><a class="side-nav-link" href="#projects">Online Work</a></li><li><a class="side-nav-link" href="#services">Services</a></li><li><a class="side-nav-link" href="#contact">Contact</a></li><li><div class="theme-toggle-mobile" id="themeToggleMobile" style="margin-top:1rem;"><i class="fas fa-moon me-2"></i> Dark Mode</div></li></ul></div>
-<div class="mobile-search-overlay" id="mobileSearchOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(var(--bg-primary-rgb),0.96); backdrop-filter:blur(12px); z-index:1070; display:flex; align-items:flex-start; justify-content:center; padding:80px 20px; visibility:hidden; opacity:0;"><div class="mobile-search-card" style="background:var(--bg-card); border-radius:48px; width:100%; max-width:500px;"><div class="search-glass" style="display:flex; align-items:center; gap:12px; padding:6px 6px 6px 24px;"><i class="fas fa-search"></i><input type="text" id="mobileSearchInput" placeholder="Search projects..." style="flex:1; background:transparent; border:none; outline:none; color:var(--text-primary);"><button class="search-btn" id="mobileSearchBtn" style="background:var(--gradient-hero); border-radius:50px; padding:10px 28px;">Filter</button></div></div><button id="closeSearchOverlayBtn" style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:none; font-size:2rem;">&times;</button></div>
+<div class="mobile-search-overlay" id="mobileSearchOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(var(--bg-primary-rgb),0.96); backdrop-filter:blur(12px); z-index:1070; display:flex; align-items:flex-start; justify-content:center; padding:80px 20px; visibility:hidden; opacity:0;"><div class="mobile-search-card" style="background:var(--bg-card); border-radius:48px; width:100%; max-width:500px;"><div class="search-glass" style="display:flex; align-items:center; gap:12px; padding:6px 6px 6px 24px; margin:0;"><i class="fas fa-search"></i><input type="text" id="mobileSearchInput" placeholder="Search projects..." style="flex:1; background:transparent; border:none; outline:none; color:var(--text-primary);"><button class="search-btn" id="mobileSearchBtn">Filter</button></div></div><button id="closeSearchOverlayBtn" style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:none; font-size:2rem;">&times;</button></div>
 
 <section id="home" class="hero-section"><div class="container text-center"><h1 class="hero-title mb-4">Make Money online <br><span style="color: var(--accent-primary);">in Ethiopia</span></h1><div class="d-flex gap-3 justify-content-center"><a href="#projects" class="btn btn-primary-glow">Explore All Works</a><a href="#contact" class="btn btn-outline-light border-2 rounded-pill px-4 py-2">Start a Project</a></div></div></section>
 
 <section id="services" class="py-5"><div class="container"><div class="text-center"><span class="section-badge">Core Expertise</span><h2 class="section-title">Our Services</h2></div><div class="row g-4 mt-2"><div class="col-md-4"><div class="service-card text-center"><i class="fab fa-telegram fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>Telegram Premium & Stars</h4><p class="text-secondary">Monetization bots, Stars API.</p><div class="mt-3"><button class="service-action-btn" id="buyPremiumBtn">Buy Premium</button></div></div></div><div class="col-md-4"><div class="service-card text-center"><i class="fas fa-star fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>Telegram Star</h4><p class="text-secondary">Stars integration & monetization.</p><div class="mt-3"><button class="service-action-btn" id="buyStarsBtn">Buy Stars</button></div></div></div><div class="col-md-4"><div class="service-card text-center"><i class="fas fa-coins fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>USDT Buy & Sell</h4><p class="text-secondary">Secure crypto exchange.</p><div><button class="service-action-btn" id="usdtBuyBtn">Buy</button><button class="service-action-btn" id="usdtSellBtn">Sell</button></div></div></div></div></div></section>
 
-<!-- LATEST ONLINE WORK SECTION with edge arrows and swipe -->
-<section id="projects" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="text-center"><span class="section-badge">Our Portfolio</span><h2 class="section-title">Latest Online Work</h2></div><div class="filter-group d-flex flex-wrap justify-content-center gap-2 mb-4" id="filterGroup"><div class="filter-chip active" data-filter="all">All Works</div><div class="filter-chip" data-filter="website">Website</div><div class="filter-chip" data-filter="telegram">Telegram Bots</div><div class="filter-chip" data-filter="mobile">Mobile App</div></div>
-<div id="projectsContainer" class="projects-carousel-container"></div>
+<!-- LATEST ONLINE WORK SECTION with dual row arrows + swipe -->
+<section id="projects" class="py-5" style="background: var(--bg-secondary);"><div class="container"><div class="text-center"><span class="section-badge">Our Portfolio</span><h2 class="section-title">Latest Online Work</h2></div>
+<!-- SEARCH BAR (desktop & mobile unified) -->
+<div class="search-glass desktop-search" style="max-width:650px; margin:0 auto 2rem auto;">
+    <i class="fas fa-search"></i>
+    <input type="text" id="globalSearchInput" placeholder="Search projects by name or technology...">
+    <button class="search-btn" id="globalSearchBtn"><i class="fas fa-arrow-right me-2"></i>Filter</button>
+</div>
+<div class="filter-group d-flex flex-wrap justify-content-center gap-2 mb-4" id="filterGroup">
+    <div class="filter-chip active" data-filter="all">All Works</div>
+    <div class="filter-chip" data-filter="website">Website</div>
+    <div class="filter-chip" data-filter="telegram">Telegram Bots</div>
+    <div class="filter-chip" data-filter="mobile">Mobile App</div>
+</div>
+<div id="projectsContainer" class="projects-dual-container"></div>
 <div id="noResultsMsg" style="display:none;" class="mt-5 text-center p-5 bg-elevated rounded-4"><i class="fas fa-search fa-2x mb-3"></i><h4>No matching projects found</h4></div></div></section>
 
 <!-- Tutorials, Testimonials, Contact (preserved) -->
@@ -131,7 +146,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true });
-    // Theme
+    // Theme toggle
     const setTheme = (theme) => { document.body.setAttribute('data-theme', theme); localStorage.setItem('novatech_theme', theme); const isDark = theme === 'dark'; const iconHtml = isDark ? '<i class="fas fa-moon me-2"></i>Dark' : '<i class="fas fa-sun me-2"></i>Light'; document.querySelectorAll('#themeToggleDesktop, #themeToggleMobile').forEach(btn => { if(btn) btn.innerHTML = iconHtml; }); };
     let currentTheme = localStorage.getItem('novatech_theme') || 'dark'; setTheme(currentTheme);
     document.getElementById('themeToggleDesktop')?.addEventListener('click', () => setTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
@@ -144,12 +159,12 @@
     document.getElementById('closeSideMenuBtn')?.addEventListener('click', closeMenu);
     menuOverlay?.addEventListener('click', closeMenu);
     document.querySelectorAll('.side-nav-link').forEach(link => link.addEventListener('click', (e) => { const href = link.getAttribute('href'); if(href && href !== '#' && href.startsWith('#')) { e.preventDefault(); document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }); } closeMenu(); }));
-    // mobile search
+    // Mobile search overlay
     const mobileOverlay = document.getElementById('mobileSearchOverlay'), mobileIcon = document.getElementById('mobileSearchIcon'), closeSearch = document.getElementById('closeSearchOverlayBtn');
     mobileIcon?.addEventListener('click', () => mobileOverlay.classList.add('active'));
     closeSearch?.addEventListener('click', () => mobileOverlay.classList.remove('active'));
 
-    // ----- PROJECT DATA (10 items) -----
+    // ---------- PROJECT DATA (10 items) ----------
     const projectsData = [
         { id:1, title:"Addis Market Hub", desc:"AI e‑commerce platform", category:"website", thumb:"https://picsum.photos/id/20/400/250", joinLink:"#", detailsLink:"details.html?p=1" },
         { id:2, title:"PremiumStar Bot", desc:"Telegram Stars monetization", category:"telegram", thumb:"https://picsum.photos/id/1/400/250", joinLink:"#", detailsLink:"details.html?p=2" },
@@ -165,73 +180,61 @@
 
     let activeFilter = "all";
     let currentSearchTerm = "";
-    let carouselInstance = null; // store functions
+    let rowCarousels = { top: null, bottom: null };
 
     // Helper: get visible cards per row based on screen width
     function getVisibleCardsPerRow() { if (window.innerWidth >= 992) return 3; if (window.innerWidth >= 576) return 2; return 1; }
-    const TOTAL_CARDS_PER_ROW = 5;
+    const TOTAL_CARDS = 5; // per row
 
-    // Carousel controller
-    class ProjectsCarousel {
-        constructor(container, projects) {
-            this.container = container;
-            this.projects = projects;
+    class RowCarousel {
+        constructor(containerElement, items, rowName) {
+            this.container = containerElement;
+            this.items = items;
+            this.rowName = rowName;
             this.currentIndex = 0;
-            this.maxIndex = TOTAL_CARDS_PER_ROW - getVisibleCardsPerRow();
+            this.maxIndex = TOTAL_CARDS - getVisibleCardsPerRow();
             this.track = null;
-            this.rowRef = null;
             this.leftArrow = null;
             this.rightArrow = null;
-            this.touchStartX = 0;
-            this.isSwiping = false;
             this.init();
         }
         init() {
-            if (!this.projects || this.projects.length !== 10) return;
-            const topRow = this.projects.slice(0,5);
-            const bottomRow = this.projects.slice(5,10);
             const html = `
                 <div class="carousel-track-wrapper">
-                    <div class="carousel-track" id="carouselTrack">
-                        <div class="carousel-row" id="carouselRowTop">${this.renderRowItems(topRow)}</div>
-                        <div class="carousel-row" id="carouselRowBottom">${this.renderRowItems(bottomRow)}</div>
+                    <div class="carousel-track" id="track-${this.rowName}">
+                        ${this.items.map(proj => `
+                            <div class="project-card">
+                                <img class="project-thumb" src="${proj.thumb}" alt="${proj.title}">
+                                <div class="project-info">
+                                    <h5>${proj.title}</h5>
+                                    <p>${proj.desc}</p>
+                                    <div class="card-buttons">
+                                        <a href="${proj.joinLink}" class="btn-start" onclick="alert('✨ Start now: ${proj.title} (demo)'); return false;">Start</a>
+                                        <a href="${proj.detailsLink}" class="btn-details" target="_blank">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
-                <div class="carousel-arrow carousel-arrow-left" id="carouselPrev"><i class="fas fa-chevron-left"></i></div>
-                <div class="carousel-arrow carousel-arrow-right" id="carouselNext"><i class="fas fa-chevron-right"></i></div>
+                <div class="row-arrow row-arrow-left" id="left-${this.rowName}"><i class="fas fa-chevron-left"></i></div>
+                <div class="row-arrow row-arrow-right" id="right-${this.rowName}"><i class="fas fa-chevron-right"></i></div>
             `;
             this.container.innerHTML = html;
-            this.track = document.getElementById('carouselTrack');
-            this.leftArrow = document.getElementById('carouselPrev');
-            this.rightArrow = document.getElementById('carouselNext');
+            this.track = document.getElementById(`track-${this.rowName}`);
+            this.leftArrow = document.getElementById(`left-${this.rowName}`);
+            this.rightArrow = document.getElementById(`right-${this.rowName}`);
             this.updateArrows();
             this.attachEvents();
             this.updateTransform();
         }
-        renderRowItems(items) {
-            return items.map(proj => `
-                <div class="project-card-slide">
-                    <img class="project-thumb" src="${proj.thumb}" alt="${proj.title}">
-                    <div class="project-info">
-                        <h5>${proj.title}</h5>
-                        <p>${proj.desc}</p>
-                        <div class="card-buttons">
-                            <a href="${proj.joinLink}" class="btn-join" onclick="alert('✨ Join now: ${proj.title} (demo)'); return false;">Join</a>
-                            <a href="${proj.detailsLink}" class="btn-details" target="_blank">Details</a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
         updateTransform() {
             if (!this.track) return;
             const visible = getVisibleCardsPerRow();
-            const cardElements = this.container.querySelectorAll('.project-card-slide');
-            if (cardElements.length === 0) return;
-            const firstCard = cardElements[0];
-            const cardWidth = firstCard.offsetWidth;
-            const row = this.container.querySelector('.carousel-row');
-            const gap = parseFloat(getComputedStyle(row).gap) || 24;
+            const cards = this.track.querySelectorAll('.project-card');
+            if (cards.length === 0) return;
+            const cardWidth = cards[0].offsetWidth;
+            const gap = parseFloat(getComputedStyle(this.track).gap) || 24;
             const slideDistance = (cardWidth + gap) * this.currentIndex;
             this.track.style.transform = `translateX(-${slideDistance}px)`;
         }
@@ -253,25 +256,23 @@
         attachEvents() {
             this.leftArrow?.addEventListener('click', () => this.prev());
             this.rightArrow?.addEventListener('click', () => this.next());
-            // touch swipe for mobile
+            // touch swipe
             const wrapper = this.container.querySelector('.carousel-track-wrapper');
             if (wrapper) {
-                wrapper.addEventListener('touchstart', (e) => { this.touchStartX = e.touches[0].clientX; this.isSwiping = true; }, { passive: true });
-                wrapper.addEventListener('touchmove', (e) => { if (!this.isSwiping) return; }, { passive: false });
+                let touchStartX = 0;
+                wrapper.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
                 wrapper.addEventListener('touchend', (e) => {
-                    if (!this.isSwiping) return;
                     const endX = e.changedTouches[0].clientX;
-                    const diff = endX - this.touchStartX;
+                    const diff = endX - touchStartX;
                     if (Math.abs(diff) > 50) {
                         if (diff > 0) this.prev();
                         else this.next();
                     }
-                    this.isSwiping = false;
                 });
             }
         }
         refresh() {
-            this.maxIndex = TOTAL_CARDS_PER_ROW - getVisibleCardsPerRow();
+            this.maxIndex = TOTAL_CARDS - getVisibleCardsPerRow();
             this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
             this.updateTransform();
             this.updateArrows();
@@ -279,25 +280,35 @@
         destroy() { this.container.innerHTML = ''; }
     }
 
+    function renderDualCarousel(projects) {
+        if (projects.length !== 10) { renderGridView(projects); return; }
+        document.getElementById('noResultsMsg').style.display = 'none';
+        const container = document.getElementById('projectsContainer');
+        container.innerHTML = `
+            <div class="carousel-row-container" id="topRowContainer"><div class="carousel-header"><span class="carousel-title">🔥 Featured Projects</span></div></div>
+            <div class="carousel-row-container" id="bottomRowContainer"><div class="carousel-header"><span class="carousel-title">⚡ More Innovations</span></div></div>
+        `;
+        const topItems = projects.slice(0,5);
+        const bottomItems = projects.slice(5,10);
+        rowCarousels.top = new RowCarousel(document.getElementById('topRowContainer'), topItems, 'top');
+        rowCarousels.bottom = new RowCarousel(document.getElementById('bottomRowContainer'), bottomItems, 'bottom');
+        // handle resize
+        const resizeHandler = () => { if (rowCarousels.top) rowCarousels.top.refresh(); if (rowCarousels.bottom) rowCarousels.bottom.refresh(); };
+        window.removeEventListener('resize', resizeHandler);
+        window.addEventListener('resize', resizeHandler);
+    }
+
     function renderGridView(projects) {
         if (!projects.length) { document.getElementById('noResultsMsg').style.display = 'block'; document.getElementById('projectsContainer').innerHTML = ''; return; }
         document.getElementById('noResultsMsg').style.display = 'none';
         let gridHtml = `<div class="simple-grid">`;
         projects.forEach(proj => {
-            gridHtml += `<div class="project-card-slide"><img class="project-thumb" src="${proj.thumb}" alt="${proj.title}"><div class="project-info"><h5>${proj.title}</h5><p>${proj.desc}</p><div class="card-buttons"><a href="${proj.joinLink}" class="btn-join" onclick="alert('✨ Join now: ${proj.title} (demo)'); return false;">Join</a><a href="${proj.detailsLink}" class="btn-details" target="_blank">Details</a></div></div></div>`;
+            gridHtml += `<div class="project-card"><img class="project-thumb" src="${proj.thumb}" alt="${proj.title}"><div class="project-info"><h5>${proj.title}</h5><p>${proj.desc}</p><div class="card-buttons"><a href="${proj.joinLink}" class="btn-start" onclick="alert('✨ Start now: ${proj.title} (demo)'); return false;">Start</a><a href="${proj.detailsLink}" class="btn-details" target="_blank">Details</a></div></div></div>`;
         });
         gridHtml += `</div>`;
         document.getElementById('projectsContainer').innerHTML = gridHtml;
-        if (carouselInstance) carouselInstance = null;
-    }
-
-    function renderCarousel(projects) {
-        if (projects.length !== 10) { renderGridView(projects); return; }
-        document.getElementById('noResultsMsg').style.display = 'none';
-        if (carouselInstance) carouselInstance.destroy();
-        const containerEl = document.getElementById('projectsContainer');
-        carouselInstance = new ProjectsCarousel(containerEl, projects);
-        window.addEventListener('resize', () => { if (carouselInstance) carouselInstance.refresh(); });
+        if (rowCarousels.top) { rowCarousels.top.destroy(); rowCarousels.top = null; }
+        if (rowCarousels.bottom) { rowCarousels.bottom.destroy(); rowCarousels.bottom = null; }
     }
 
     function filterAndRender() {
@@ -309,7 +320,7 @@
             filtered = filtered.filter(p => p.category === activeFilter);
         }
         const shouldUseCarousel = (activeFilter === 'all' && currentSearchTerm === '' && filtered.length === 10);
-        if (shouldUseCarousel) renderCarousel(filtered);
+        if (shouldUseCarousel) renderDualCarousel(filtered);
         else renderGridView(filtered);
     }
 
@@ -323,22 +334,26 @@
         });
     });
 
-    // Search logic
-    const desktopSearchInput = document.getElementById('desktopSearchInput');
+    // Search logic (unified)
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    const globalSearchBtn = document.getElementById('globalSearchBtn');
     const mobileSearchInput = document.getElementById('mobileSearchInput');
-    function updateSearch() {
-        currentSearchTerm = (desktopSearchInput?.value || mobileSearchInput?.value || "").toLowerCase().trim();
+    const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+    function updateSearchFromInput(value) {
+        currentSearchTerm = value.toLowerCase().trim();
         filterAndRender();
+        if (globalSearchInput) globalSearchInput.value = value;
+        if (mobileSearchInput) mobileSearchInput.value = value;
     }
-    desktopSearchInput?.addEventListener('input', updateSearch);
-    mobileSearchInput?.addEventListener('input', updateSearch);
-    document.getElementById('desktopSearchBtn')?.addEventListener('click', updateSearch);
-    document.getElementById('mobileSearchBtn')?.addEventListener('click', () => { updateSearch(); mobileOverlay?.classList.remove('active'); });
-
+    globalSearchInput?.addEventListener('input', (e) => updateSearchFromInput(e.target.value));
+    globalSearchBtn?.addEventListener('click', () => updateSearchFromInput(globalSearchInput.value));
+    mobileSearchInput?.addEventListener('input', (e) => updateSearchFromInput(e.target.value));
+    mobileSearchBtn?.addEventListener('click', () => { updateSearchFromInput(mobileSearchInput.value); mobileOverlay?.classList.remove('active'); });
+    
     // Initial render
     filterAndRender();
 
-    // USDT & Modal logic
+    // USDT & Modal logic (unchanged)
     document.getElementById('usdtBuyBtn')?.addEventListener('click', () => alert('Service Not Available'));
     document.getElementById('usdtSellBtn')?.addEventListener('click', () => alert('Service Not Available'));
     const modalOverlay = document.getElementById('popupModalOverlay'), modalContent = document.getElementById('popupModalContent');
