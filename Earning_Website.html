@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Earning Website | NovaTech Et.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0c10;
+            color: #eef2ff;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #11161f;
+            --bg-card: #151e2a;
+            --accent-primary: #2dd4bf;
+            --accent-secondary: #0a66c2;
+            --border-glow: rgba(45, 212, 191, 0.2);
+            --gradient-hero: linear-gradient(135deg, #2dd4bf, #0a66c2);
+            --gradient-text: linear-gradient(135deg, #ffffff, #2dd4bf);
+        }
+        [data-theme="light"] {
+            --bg-primary: #f0f4f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #5b6e8c;
+            --accent-primary: #0a66c2;
+            --border-glow: rgba(10, 102, 194, 0.15);
+        }
+        body { background-color: var(--bg-primary); color: var(--text-primary, #eef2ff); }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 12, 16, 0.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-glow);
+            z-index: 1050;
+            padding: 12px 0;
+        }
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-hero);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0a0c10;
+        }
+        .brand-text {
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .page-header {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .earning-card {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: 2rem;
+            border: 1px solid var(--border-glow);
+            transition: all 0.4s;
+            height: 100%;
+        }
+        .earning-card:hover { transform: translateY(-8px); border-color: var(--accent-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .btn-primary-glow {
+            background: var(--gradient-hero);
+            border: none;
+            padding: 12px 28px;
+            font-weight: 700;
+            border-radius: 50px;
+            color: white;
+            transition: all 0.3s;
+        }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-glow); margin-top: 3rem; }
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; }
+            .page-header { padding-top: 100px; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand-wrapper d-flex align-items-center gap-2 text-decoration-none" href="index.html">
+            <div class="logo-icon">N</div>
+            <span class="brand-text">NovaTech Et.</span>
+        </a>
+        <a href="index.html" class="btn btn-outline-light btn-sm"><i class="fas fa-home me-2"></i>Back to Home</a>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <span class="badge bg-primary bg-opacity-10 text-info px-3 py-2 rounded-pill mb-3">💸 Top Recommendations</span>
+        <h1 class="section-title">Best Earning Websites</h1>
+        <p class="lead text-secondary mt-3">Legit platforms to earn online — tested & verified by NovaTech team</p>
+    </div>
+</section>
+
+<section class="py-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="earning-card">
+                    <i class="fas fa-globe fa-3x mb-3" style="color: #2dd4bf;"></i>
+                    <h3>Upwork</h3>
+                    <p class="text-secondary">Freelancing giant for developers, designers & writers. Start earning $10-$100/hr.</p>
+                    <a href="#" class="btn btn-primary-glow mt-3 btn-sm">Visit Website →</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="earning-card">
+                    <i class="fas fa-chart-line fa-3x mb-3" style="color: #2dd4bf;"></i>
+                    <h3>Fiverr</h3>
+                    <p class="text-secondary">Sell your digital services starting from $5. Perfect for Ethiopian freelancers.</p>
+                    <a href="#" class="btn btn-primary-glow mt-3 btn-sm">Explore →</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="earning-card">
+                    <i class="fas fa-tasks fa-3x mb-3" style="color: #2dd4bf;"></i>
+                    <h3>Appen</h3>
+                    <p class="text-secondary">Microtasks, AI training data, and remote projects. Weekly payments via PayPal.</p>
+                    <a href="#" class="btn btn-primary-glow mt-3 btn-sm">Join Now →</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="earning-card">
+                    <i class="fas fa-pen-fancy fa-3x mb-3" style="color: #2dd4bf;"></i>
+                    <h3>Medium Partner Program</h3>
+                    <p class="text-secondary">Earn from your articles based on member reading time.</p>
+                    <a href="#" class="btn btn-primary-glow mt-3 btn-sm">Start Writing →</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="earning-card">
+                    <i class="fas fa-code fa-3x mb-3" style="color: #2dd4bf;"></i>
+                    <h3>Toptal</h3>
+                    <p class="text-secondary">Exclusive network for top 3% developers. High-paying contracts.</p>
+                    <a href="#" class="btn btn-primary-glow mt-3 btn-sm">Apply →</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="earning-card">
+                    <i class="fas fa-youtube fa-3x mb-3" style="color: #2dd4bf;"></i>
+                    <h3>YouTube Partner</h3>
+                    <p class="text-secondary">Monetize your content with ads, memberships & super chats.</p>
+                    <a href="#" class="btn btn-primary-glow mt-3 btn-sm">Learn More →</a>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-info mt-5 text-center" style="background: var(--bg-card); border-color: var(--accent-primary);">
+            <i class="fas fa-shield-alt me-2"></i> All platforms verified. Avoid scams — always check official sites.
+        </div>
+    </div>
+</section>
+<footer><div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Empowering Digital Earners</p></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({duration:800});</script>
+</body>
+</html>
