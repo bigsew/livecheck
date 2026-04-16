@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>NovaTech Et. | Futuristic Digital Innovation</title>
+    <link rel="shortcut icon" href="Img/logo2.png" type="image/x-icon">
+    <title>NovaTech Et. | Make $ online in Ethiopia</title>
     <!-- Preconnect & DNS hints for faster external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -114,9 +115,9 @@
             color: var(--accent-primary) !important;
             background: rgba(45,212,191,0.08);
         }
-.nova {
-  color: var(--text-primary);
-}
+        .nova {
+        color: var(--text-primary);
+          }
 
         .dropdown-menu-custom {
             background: var(--bg-card);
@@ -501,19 +502,113 @@
             overflow: hidden;
         }
         .form-modern {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            padding: 14px 18px;
-            width: 100%;
-            color: var(--text-primary);
-        }
-        .contact-card {
-            background: var(--bg-card);
-            border-radius: 32px;
-            padding: 2rem;
-            border: 1px solid var(--border-glow);
-        }
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glow);
+      border-radius: 20px;
+      padding: 14px 18px;
+      width: 100%;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-modern:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2);
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border-radius: 32px;
+      padding: 2rem;
+      border: 1px solid var(--border-glow);
+      backdrop-filter: blur(2px);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+
+    .contact-card:hover {
+      box-shadow: var(--glow-shadow);
+    }
+
+      /* ----- SOCIAL ICONS STYLES (modern glass/glow) ----- */
+    .social-links-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 3px solid var(--accent-primary);
+      padding-left: 12px;
+    }
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .social-icon-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glow);
+      color: var(--text-primary);
+      font-size: 1.6rem;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .social-icon-link:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      box-shadow: 0 8px 20px rgba(0, 255, 255, 0.25);
+      background: rgba(17, 21, 28, 0.9);
+    }
+
+    /* brand-specific hover glow (extra flair) */
+    .social-icon-link:hover .fa-youtube { color: #ff0033; text-shadow: 0 0 6px #ff0033; }
+    .social-icon-link:hover .fa-telegram { color: #26A5E4; text-shadow: 0 0 5px #26A5E4; }
+    .social-icon-link:hover .fa-tiktok { color: #ffffff; text-shadow: 0 0 8px #ff0050; }
+    .social-icon-link:hover .fa-instagram { color: #d62976; text-shadow: 0 0 5px #d62976; }
+    .social-icon-link:hover .fa-x-twitter { color: #ffffff; text-shadow: 0 0 8px #1DA1F2; }
+    .social-icon-link:hover .fa-github { color: #f0f6fc; text-shadow: 0 0 6px #6e6e6e; }
+
+    /* contact info styling (phone/email) */
+    .contact-info-line {
+      background: rgba(0, 255, 255, 0.05);
+      border-radius: 50px;
+      padding: 10px 18px;
+      display: inline-flex;
+      align-items: center;
+      transition: 0.2s;
+    }
+    .contact-info-line i {
+      font-size: 1.2rem;
+    }
+
+    /* divider line (soft) */
+    .social-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+      margin: 1.2rem 0 1rem 0;
+      opacity: 0.6;
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 768px) {
+      .section-title { font-size: 1.9rem; }
+      .social-icon-link { width: 46px; height: 46px; font-size: 1.4rem; }
+      .contact-card { padding: 1.5rem; }
+    }
         footer {
             text-align: center;
             padding: 2rem;
@@ -635,8 +730,8 @@
                     <li><a class="dropdown-item" href="Online_Jobs.html">More Online Jobs</a></li>
                 </ul>
             </div>
-            <a class="nav-link-desktop" href="#news">Tech Info.</a>
-            <a class="nav-link-desktop" href="#projects">All Online Work</a>
+            <a class="nav-link-desktop" href="software_files.html">File Download</a>
+            <a class="nav-link-desktop" href="#projects">New Online Work</a>
             <a class="nav-link-desktop" href="#services">Services</a>
             <a class="nav-link-desktop" href="#contact">Contact</a>
             <button id="themeToggleDesktop" class="theme-toggle-desktop" aria-label="Toggle theme"><i class="fas fa-moon me-2"></i>Dark</button>
@@ -661,7 +756,7 @@
                 <li><a class="side-nav-link" href="Online_Jobs.html"><i class="fas fa-chart-line"></i> More Online Jobs</a></li>
             </ul>
         </li>
-        <li><a class="side-nav-link" href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+        <li><a class="side-nav-link" href="software_files.html"><i class="fas fa-download"></i> File Download</a></li>
         <li><a class="side-nav-link" href="#projects"><i class="fas fa-laptop-code"></i> Online Work</a></li>
         <li><a class="side-nav-link" href="#services"><i class="fas fa-cogs"></i> Services</a></li>
         <li><a class="side-nav-link" href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
@@ -683,10 +778,10 @@
                 <input type="text" id="desktopSearchInput" placeholder="Search Jobs by name, type..."><button class="search-btn" id="desktopSearchBtn"><i class="fas fa-arrow-right me-2"></i>Filter Work</button></div>
         </div>
         <h1 class="hero-title mb-4" data-aos="fade-up">Make Money online <br><span style="color: var(--accent-primary);">in Ethiopia</span></h1>
-        <p class="lead mb-4 text-secondary">AI-powered bots, scalable web platforms, and data-driven growth strategies.</p>
+        <p class="lead mb-4 text-secondary"><span class="text-primary"> "እንኳን ወደ ታላቁ Nova Tech ET በደህና መጡ!</span> "እንኳን ወደ ታላቁ Nova Tech ET በደህና መጡ! እዚህ የተለያዩ ውጤታማ የኦንላይን ገቢ ማግኛ መንገዶችን ይገኛሉ፤ ለስራዎ የሚያስፈልጉ ጠቃሚ የሶፍትዌር ፋይሎችን ያገኛሉ፤ እንዲሁም አዳዲስ የቴክኖሎጂ Tip ያገኛሉ። ከእኛ ጋር ይጀምሩ አብረው ይደጉ!"</p>
         <div class="d-flex flex-wrap gap-3 justify-content-center">
-            <a href="#projects" class="btn-primary-glow"><i class="fas fa-layer-group me-2"></i>Explore All Works</a>
-            <a href="#contact" class="btn btn-outline-light border-2 rounded-pill px-4 py-2" style="border-color: var(--accent-primary); color: var(--text-primary);"><i class="fas fa-comment-dots me-2"></i>Start a Project</a>
+            <a href="all_onlin_jobs.html" class="btn-primary-glow"><i class="fas fa-layer-group me-2"></i>Explore All Works</a>
+            <a href="software_files.html" class="btn btn-outline-primary border-2 rounded-pill px-4 py-2" style="border-color: var(--accent-primary); color: var(--text-primary);"><i class="fas fa-download me-2"></i></i>File Downloads</a>
         </div>
     </div>
 </section>
@@ -708,14 +803,21 @@
                     <img src="Img/webt-1.png" alt="Job image" loading="lazy">
                     <h5>Time Bucks</h5><p class="text-secondary">✨ ይህን ስራ ሁላችሁም  እንድትሰሩበት እፈልጋለሁ ጀምራቹ ያቆማቹ ጭምር 💯withdraw የሚሆን Without investing 💵𝟭𝟲💵 withdraw አድርጌያለዉ.</p>
                     <div class="card-actions">
-                    <a href="javascript:void(0)" class="action-link link-start" target="_blank"><i class="fas fa-play  me-1"></i>Start</a><a href="javascript:void(0)" class="action-link link-details" target="_blank"><i class="fas fa-info-circle me-1"></i>Details</a></div>
+                    <a href="Earning_Website.html#earningWebsiteSection" class="action-link link-start" target="_blank"><i class="fas fa-play  me-1"></i>Start</a>
+                    <a href="Earning_Website.html" class="action-link link-details" target="_blank"><i class="fas fa-info-circle me-1"></i>Details</a>
+                </div>
                 </div>
             </div>
  <!--Telegram- Job 2  -->
             <div class="col-lg-4 col-md-6 project-item" data-category="telegram" data-title="PremiumStar Bot" data-desc="Telegram Stars monetization">
                 <div class="project-card">
                   <img src="Img/Telet-1.png" alt="Job Image" loading="lazy">           
-                <h5>Gmail Farm</h5><p class="text-secondary">👨‍💻ስራውም 📧GMAIL ACCOUNT መክፈት ነው በጣም ቀላል ነው የሰራቹትንም ብር በቀላሉ መቀበል ትችላላቹ 😎✌️.</p><div class="card-actions"><a href="javascript:void(0)" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a><a href="javascript:void(0)" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a></div></div>
+                <h5>Gmail Farm</h5><p class="text-secondary">👨‍💻ስራውም 📧GMAIL ACCOUNT መክፈት ነው በጣም ቀላል ነው የሰራቹትንም ብር በቀላሉ መቀበል ትችላላቹ 😎✌️.</p>
+                <div class="card-actions">
+                    <a href="Telegram_Bot.html" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a>
+                    <a href="Telegram_Bot.html" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a>
+                </div>
+                </div>
             </div>
  <!--App- Job 1  -->
 
@@ -723,7 +825,12 @@
                 <div class="project-card">
                     <img src="Img/Tapp-1.png" alt="Job Image" loading="lazy">  
                     <h5>Gemgala Per Invite 1$</h5>
-                    <p class="text-secondary">Flutter microfinance wallet with secure USDT & local currency support.</p><div class="card-actions"><a href="javascript:void(0)" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a><a href="javascript:void(0)" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a></div></div>
+                    <p class="text-secondary">Flutter microfinance wallet with secure USDT & local currency support.</p>
+                    <div class="card-actions">
+                        <a href="Earning_Apps.html" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a>
+                        <a href="Earning_Apps.html" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a>
+                    </div>
+                </div>
             </div>
 <!-- web-Job-2 -->
             <div class="col-lg-4 col-md-6 project-item" data-category="websites" data-title="MediTrack Ethiopia" data-desc="Telemedicine portal">
@@ -732,8 +839,8 @@
                     <h5>Coinpayu</h5>
                     <p class="text-secondary">💸 Guys ማንም ያልጀመረው  አዲስ ስራ አግኝቻለውሁ (ያለ Refferal ሁላችሁም በርሳችሁ መስራት የምትችሉት) 👨‍💻</p>
                     <div class="card-actions">
-                        <a href="javascript:void(0)" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a>
-                        <a href="javascript:void(0)" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a>
+                        <a href="Earning_Website.html" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a>
+                        <a href="Earning_Website.html" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a>
                     </div>
                 </div>
             </div>
@@ -743,18 +850,25 @@
                     <img src="Img/telet-2.png" alt="Instagram Farm image" loading="lazy">  
                     <h5>Instagram Farm</h5>
                     <p class="text-secondary">💰 በቀላሉ በቀን በ ትንሹ  1$ ወይም 185 እንደ ፍላጎታችሁ ከዛም በላይ ብር መስራት ትችላላሁ 🔥.</p>
-                    <div class="card-actions"><a href="javascript:void(0)" class="action-link link-start">
-                        <i class="fas fa-play me-1"></i>Start</a><a href="javascript:void(0)" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a></div></div>
+                    <div class="card-actions">
+                        <a href="Telegram_Bot.html" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a>
+                        <a href="Telegram_Bot.html" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4 col-md-6 project-item" data-category="mobile" data-title="TransLogix" data-desc="Logistics fleet tracker">
                 <div class="project-card">
                     <img src="Img/Tapp-2.jpg" alt="Addis Market Hub preview" loading="lazy">  
-                    <h5>HiFami min Withdraw 0.1$</h5><p class="text-secondary">Fleet management & cargo tracking with live GPS & analytics.</p><div class="card-actions"><a href="javascript:void(0)" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a><a href="javascript:void(0)" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a></div></div>
+                    <h5>HiFami min Withdraw 0.1$</h5>
+                    <p class="text-secondary">Fleet management & cargo tracking with live GPS & analytics.</p>
+                    <div class="card-actions">
+                        <a href="Earning_Apps.html" class="action-link link-start"><i class="fas fa-play me-1"></i>Start</a>
+                        <a href="Earning_Apps.html" class="action-link link-details"><i class="fas fa-info-circle me-1"></i>Details</a></div></div>
             </div>
         </div>
         <div id="noResultsMsg" style="display:none;" class="mt-5 text-center"><i class="fas fa-search fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>No matching projects found</h4><p class="text-secondary">Try adjusting your search or filter criteria.</p></div>
     <div class="mt-3" style="display: flex; justify-content: center;">
-    <a href="javascript:void(0)" class="action-link link-start">
+    <a href="all_onlin_jobs.html" class="action-link link-start">
        <i class="fas fa-briefcase me-1"></i>Explore All online works
 </a>
 
@@ -763,22 +877,65 @@
 <!-- Services -->
 <section id="services" class="py-5">
     <div class="container">
-        <div class="text-center"><span class="section-badge">Core Expertise</span><h2 class="section-title">Our Services</h2></div>
+        <div class="text-center"><span class="section-badge"><i class="fas fa-tools me-2"></i>Our Service</span><h2 class="section-title">Our Services</h2></div>
         <div class="row g-4 mt-2">
-            <div class="col-md-4"> <div class="service-card text-center"><i class="fab fa-telegram fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>Telegram Premium & Stars</h4><p class="text-secondary">Monetization bots, Stars API automation & premium channel growth.</p><div class="mt-3"><button class="service-action-btn" id="buyPremiumBtn"><i class="fas fa-gem me-1"></i> Buy Premium</button></div></div></div>
-            <div class="col-md-4"><div class="service-card text-center"><i class="fas fa-star fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>Telegram Star</h4><p class="text-secondary">Telegram Stars integration, in-app purchases and advanced star monetization.</p><div class="mt-3"><button class="service-action-btn" id="buyStarsBtn"><i class="fas fa-star me-1"></i> Buy Stars</button></div></div></div>
-            <div class="col-md-4"><div class="service-card text-center"><i class="fas fa-coins fa-3x mb-3" style="color:var(--accent-primary);"></i><h4>USDT Buy & Sell</h4><p class="text-secondary">Fast, secure USDT exchange with real-time rates and crypto wallet support.</p><div class="d-flex gap-2 justify-content-center"><button class="service-action-btn" id="usdtBuyBtn">Buy</button><button class="service-action-btn" id="usdtSellBtn">Sell</button></div></div></div>
+            <div class="col-md-4">
+                 <div class="service-card text-center">
+                    <i class="fab fa-telegram fa-3x mb-3" style="color:var(--accent-primary);"></i>
+                   <h4>Telegram Premium <span class="fa-stack" style="vertical-align: middle; font-size: 0.5em;">
+                   <i class="fas fa-certificate fa-stack-2x" style="color: #0088cc;"></i>
+                   <i class="fas fa-check fa-stack-1x fa-inverse" style="font-size: 0.8em;"></i></span>
+                   </h4>
+                    <p class="text-secondary">⚡️Telegram Premium መግዛት የምትፈልጉ በታላቅ ቅናሽ ይዤላችሁ መጥቻለው።☑️</p>
+                    <div class="mt-3">
+                        <button class="service-action-btn" id="buyPremiumBtn"><i class="fas fa-gem me-1"></i> Buy Premium</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card text-center">
+                    <i class="fas fa-star fa-3x mb-3" style="color:var(--accent-primary);"></i>
+                   <h4>Telegram Star <i class="fas fa-star ms-2" style="color: #ffa800;"></i></h4>
+                    <p class="text-secondary">ለፕሮጀክቶችዎ፣ ለAds ወይም ለተለያዩ ክፍያዎች የሚሆኑ Telegram Stars በታላቅ ቅናሽ ይዘንላችሁ መጥተናል።</p>
+                    <div class="mt-3">
+                        <button class="service-action-btn" id="buyStarsBtn"><i class="fas fa-star me-1"></i> Buy Stars</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card text-center">
+                    <i class="fas fa-coins fa-3x mb-3" style="color:var(--accent-primary);"></i>
+                    <h4>USDT Buy & Sell <span class="fa-stack" style="vertical-align: middle; font-size: 0.5em;">
+                       <i class="fas fa-circle fa-stack-2x" style="color: #26a17b;"></i>
+                       <i class="fas fa-dollar-sign fa-stack-1x fa-inverse"></i></span>
+                    </h4>
+                    <p class="text-secondary">Fast, secure USDT exchange with real-time rates and crypto wallet support.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button class="service-action-btn text-white bg-success" id="usdtBuyBtn">Buy</button>
+                        <button class="service-action-btn text-white bg-danger" id="usdtSellBtn">Sell</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+</section>                         
 <!-- YouTube Tutorials -->
 <section id="news" class="py-5">
     <div class="container">
         <div class="text-center" data-aos="fade-up"><span class="section-badge"><i class="fab fa-youtube me-2"></i>Learning Hub</span><h2 class="section-title">Top Tutorials & Videos</h2><p class="mb-5">Master modern development with our expert insights</p></div>
         <div class="row g-4">
-            <div class="col-md-4" data-aos="flip-left"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/5RI6e9Q4Dis" title="Telegram Bot Tutorial" loading="lazy" allowfullscreen></iframe></div><p class="mt-3 fw-bold">⚡ Build Telegram Bots with Python</p></div>
-            <div class="col-md-4" data-aos="flip-left" data-aos-delay="100"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/4sosXZsdy-s" title="Bootstrap 5" loading="lazy" allowfullscreen></iframe></div><p class="mt-3 fw-bold">🎨 Advanced UI/UX with Bootstrap 5</p></div>
-            <div class="col-md-4" data-aos="flip-left" data-aos-delay="200"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/8mAITcNt710" title="Flutter" loading="lazy" allowfullscreen></iframe></div><p class="mt-3 fw-bold">📱 Flutter Crash Course 2025</p></div>
+            <div class="col-md-4" data-aos="flip-left">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/5RI6e9Q4Dis" title="Telegram Bot Tutorial" loading="lazy" allowfullscreen></iframe>
+                </div><p class="mt-3 fw-bold">💵TimeBucks አሰራር | በቀን ከ500 ብር በላይ መስራት ይቻላል?</p></div>
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="100">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/nQcpFX60puc" title="Bootstrap 5" loading="lazy" allowfullscreen></iframe>
+                </div><p class="mt-3 fw-bold">💸Gemgala የእውነት ይከፍላል😱? 🔟$ እንደት እንደምታገኙ ከነ Withdraw አደራረግ (Withdraw Proof!)</p></div>
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="200">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/mGFt8JPfwFo" title="Flutter" loading="lazy" allowfullscreen></iframe>
+                </div><p class="mt-3 fw-bold">Instagram Farm 💰 በቀላሉ በቀን በ ትንሹ 1$ እንደ ምትሰሩት ፍጥነት እንደ ፍላጎታችሁ ከዛም በላይ ብር መስራት ትችላላሁ </p></div>
         </div>
     </div>
 </section>
@@ -798,15 +955,144 @@
     <div class="container">
         <div class="text-center"><span class="section-badge">Knowledge Base</span><h2 class="section-title">Frequently Asked Questions</h2></div>
         <div class="row justify-content-center mt-4"><div class="col-lg-8"><div class="accordion accordion-custom" id="faqAccordion">
-            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What digital solutions do you specialize in?</button></h2><div id="faq1" class="accordion-collapse collapse show"><div class="accordion-body text-secondary">Telegram bots (Stars monetization), full-stack web apps, mobile apps, and AI-driven marketing.</div></div></div>
-            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How does Telegram Stars integration work?</button></h2><div id="faq2" class="accordion-collapse collapse"><div class="accordion-body text-secondary">We implement official Telegram Stars API for secure in-app purchases and premium content.</div></div></div>
-            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Do you offer long-term support?</button></h2><div id="faq3" class="accordion-collapse collapse"><div class="accordion-body">Absolutely. Maintenance, updates, and 24/7 technical support for all our solutions.</div></div></div>
-        </div></div></div>
+            <!-- 1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">ኢትዮጵያ ውስጥ ሆኜ ኦንላይን ስራ መስራት እችላለሁ?</button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show">
+                    <div class="accordion-body text-secondary">አዎ፣ ይቻላል! ኢንተርኔት እና ላፕቶፕ (ወይም ስልክ) ካሎት መስራት ይችላሉ። </div>
+                </div>
+            </div>
+            <!-- 2 -->
+            <div class="accordion-item"
+            ><h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">Telegram Premium ለምን ይጠቅማል For Business and Personal Different?</button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse">
+                <div class="accordion-body text-secondary">
+                     <p>የቴሌግራም ፕሪሚየም (Telegram Premium) ጥቅሞች እንደ አጠቃቀምህ ሁኔታ ይለያያሉ። ለግል (Personal) እና ለንግድ (Business) ስራ እንዴት እንደሚጠቅሙህ በዝርዝር እንይ፦</p>
+                 
+                     <h6 class="text-dark"><strong>1. ለንግድ ስራ (For Business)</strong></h6>
+                     <p>አሁን ላይ የቴሌግራም ፕሪሚየም ተጠቃሚዎች የ <strong>Telegram Business</strong> ባህሪዎችን በነጻ ማግኘት ይችላሉ። ይህ ለንግድ ስራህ የሚሰጣቸው ጥቅሞች፦</p>
+                     <ul>
+                         <li><strong>Business Profile:</strong> የድርጅትህን ስራ ሰዓት፣ አድራሻ (Location) እና የድረ-ገጽ ሊንክ ፕሮፋይልህ ላይ ማሳየት ትችላለህ።</li>
+                         <li><strong>Quick Replies:</strong> ለደንበኞችህ ደጋግመህ የምትልካቸውን መልዕክቶች አሳጥሮ በመያዝ በፍጥነት ለመላክ።</li>
+                         <li><strong>Automated Messages:</strong> ደንበኞች መልዕክት ሲልኩልህ "እንኳን ደህና መጡ" ወይም "አሁን ስራ ላይ አይደለንም" የሚሉ መልዕክቶችን በራሱ እንዲልክ ማድረግ።</li>
+                         <li><strong>Chat Tags:</strong> ቻቶችን በከለር በመለየት (ለምሳሌ፡ ክፍያ የፈጸሙ፣ አዲስ ደንበኞች...) ስራህን በስርዓት ለመምራት።</li>
+                         <li><strong>Chatbots:</strong> ለንግድ ስራህ የሚረዱ ቦቶችን ከፕሮፋይልህ ጋር በማገናኘት ደንበኞችን እንዲያስተናግዱ ማድረግ።</li>
+                     </ul>
+                 
+                     <h6 class="text-dark"><strong>2. ለግል አገልግሎት (For Personal Use)</strong></h6>
+                     <p>ለግል ስትጠቀም ደግሞ አጠቃቀምህን ፈጣን እና ሳቢ ያደርገዋል።</p>
+                     <ul>
+                         <li><strong>High Speed:</strong> ማንኛውንም ፋይል በከፍተኛ ፍጥነት ማውረድ (Download) ያስችላል።</li>
+                         <li><strong>4GB Upload:</strong> እስከ 4GB የሚመዝኑ ትላልቅ ቪዲዮዎችን እና ፋይሎችን መላክ።</li>
+                         <li><strong>Voice-to-Text:</strong> የድምጽ መልዕክቶችን ወደ ጽሑፍ ቀይሮ ለማንበብ።</li>
+                         <li><strong>No Ads:</strong> በቻናሎች ስር የሚመጡ ማስታወቂያዎችን ያስቀራል።</li>
+                         <li><strong>Exclusive Features:</strong> ልዩ የሚንቀሳቀሱ ኢሞጂዎች እና የፕሪሚየም ምልክት (Badge)።</li>
+                     </ul>
+                 </div>
+            </div>
+        </div>
+
+        <!-- 3 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Do you offer long-term support?</button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse">
+                    <div class="accordion-body">Absolutely. Maintenance, updates, and 24/7 technical support for all our solutions.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     </div>
 </section>
 <!-- Contact -->
-<section id="contact" class="py-5" style="background:var(--bg-secondary);"><div class="container"><div class="row g-5 align-items-center"><div class="col-lg-6" data-aos="fade-right"><span class="section-badge"><i class="fas fa-paper-plane me-2"></i>Get In Touch</span><h2 class="section-title">Let's Build Something Extraordinary</h2><p class="text-secondary">Ready to scale your business with next-gen technology? Reach out to our team.</p><div class="mt-4"><i class="fas fa-envelope me-3" style="color:var(--accent-primary);"></i> hello@novatechet.com<br><i class="fas fa-phone-alt me-3 mt-2"></i> +251 911 234 567</div></div><div class="col-lg-6" data-aos="fade-left"><div class="contact-card"><form id="contactForm"><input type="text" class="form-modern mb-3" placeholder="Full Name" required><input type="email" class="form-modern mb-3" placeholder="Email Address" required><textarea class="form-modern mb-3" rows="4" placeholder="Tell us about your vision..."></textarea><button type="submit" class="btn-primary-glow w-100"><i class="fas fa-send me-2"></i>Send Message</button><div id="formStatus" class="mt-3 text-success text-center small"></div></form></div></div></div></div></section>
-<footer><div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Digital Innovation & Future Tech</p></div></footer>
+<!-- ========== CONTACT SECTION with SOCIAL MEDIA ICONS ========== -->
+  <section id="contact" class="py-5" style="background:var(--bg-secondary);">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        
+        <!-- LEFT COLUMN: contact info + NEW social media icons -->
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-badge">
+            <i class="fas fa-paper-plane me-2"></i>Get In Touch
+          </span>
+          <h2 class="section-title">Let's Build Something Extraordinary</h2>
+          <p class="text-secondary mb-3">Ready to scale your business with next-gen technology? Reach out to our team.</p>
+          
+          <!-- Email & Phone (modern badge style) -->
+          <div class="mt-3 d-flex flex-column gap-2">
+            <div class="contact-info-line">
+              <i class="fas fa-envelope me-3" style="color:var(--accent-primary);"></i> 
+              <span style="color:var(--text-primary);">novaetsupport@gmail.com</span>
+            </div>
+            <div class="contact-info-line">
+              <i class="fas fa-phone-alt me-3" style="color:var(--accent-primary);"></i> 
+              <span style="color:var(--text-primary);">+251 991 800 404</span>
+            </div>
+          </div>
+          
+          <!-- ✨ SOCIAL MEDIA LINKS (YouTube, Telegram, TikTok, Instagram, X, GitHub) ✨ -->
+          <div class="mt-5">
+            <div class="social-links-title">
+              <i class="fas fa-share-nodes"></i> Connect & follow
+            </div>
+            <div class="social-icons">
+              <!-- YouTube -->
+              <a href="https://youtube.com/@novatechet" class="social-icon-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <!-- Telegram -->
+              <a href="https://t.me/novatechet" class="social-icon-link" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <i class="fab fa-telegram"></i>
+              </a>
+              <!-- TikTok -->
+              <a href="https://tiktok.com/@nova.techet" class="social-icon-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <i class="fab fa-tiktok"></i>
+              </a>
+              <!-- Instagram -->
+              <a href="https://instagram.com/nova.techet" class="social-icon-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <!-- X (Twitter) - using fa-x-twitter (FontAwesome 6) -->
+              <a href="https://x.com/novatechet" class="social-icon-link" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <!-- GitHub -->
+              <a href="https://github.com/novatechet" class="social-icon-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+            <p class="text-secondary small mt-3" style="opacity:0.7;">
+              <i class="fas fa-hashtag"></i> Join our tech community — innovation starts here
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: contact form (fully preserved) -->
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="contact-card">
+            <form id="contactForm">
+              <input type="text" class="form-modern mb-3" placeholder="Full Name" required>
+              <input type="email" class="form-modern mb-3" placeholder="Email Address" required>
+              <textarea class="form-modern mb-3" rows="4" placeholder="Tell us about your vision..."></textarea>
+              <button type="submit" class="btn-primary-glow w-100">
+                <i class="fas fa-send me-2"></i>Send Message
+              </button>
+              <div id="formStatus" class="mt-3 text-success text-center small"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer>
+    <div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Digital Innovation & Future Tech</p></div>
+</footer>
 <!-- Modal container -->
 <div class="modal-blur-overlay" id="popupModalOverlay"><div class="popup-modal-card" id="popupModalContent"></div></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
@@ -895,25 +1181,97 @@
                 }
             });
         });
-        // USDT alerts
-        document.getElementById('usdtBuyBtn')?.addEventListener('click', () => alert('Service Not Available'));
-        document.getElementById('usdtSellBtn')?.addEventListener('click', () => alert('Service Not Available'));
+        function showModal() {
+  const modal = document.createElement('div');
+  modal.innerHTML = `
+    <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:9999;">
+      <div style="background:blue; padding:20px; border-radius:8px; max-width:300px; text-align:center; position:relative;">
+        <span style="position:absolute; top:5px; right:10px; cursor:pointer; font-size:24px;" onclick="this.closest('div').parentElement.remove()">&times;</span>
+        <h3 style=" color:red; margin:0 0 10px;">Service Temporarily Unavailable</h3>
+        <p>አገልግሎቱ ገና አልተጀመረም! እባክዎትን ትንሽ ይጠብቁ። ሲጀመር ወዲያውኑ እናሳውቅዎታለን!</p>
+        <a href="https://t.me/YourTelegramLink" target="_blank" style="display:inline-block; background:#0088cc; color:white; padding:8px 16px; text-decoration:none; border-radius:4px;">Notify Me</a>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+document.getElementById('usdtBuyBtn')?.addEventListener('click', showModal);
+document.getElementById('usdtSellBtn')?.addEventListener('click', showModal);
         // Contact form
         document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); const statusDiv = document.getElementById('formStatus'); if(statusDiv) { statusDiv.innerText = '✓ Message sent successfully!'; setTimeout(() => statusDiv.innerText = '', 3000); } e.target.reset(); });
-        // Modal logic (unified)
-        const modalOverlay = document.getElementById('popupModalOverlay'), modalContent = document.getElementById('popupModalContent');
-        const closeModal = () => { modalOverlay.classList.remove('active'); document.body.classList.remove('modal-open'); modalContent.innerHTML = ''; };
-        const openModal = (html) => {
-            modalContent.innerHTML = html;
-            modalOverlay.classList.add('active');
-            document.body.classList.add('modal-open');
-            modalContent.querySelector('.popup-close')?.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', function handler(e) { if(e.target === modalOverlay) closeModal(); modalOverlay.removeEventListener('click', handler); });
-            modalContent.querySelectorAll('.option-btn').forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); const plan = btn.getAttribute('data-plan') || btn.getAttribute('data-stars'); alert(`✅ ${plan} selected. (Demo purchase)`); closeModal(); }));
-        };
-        document.getElementById('buyPremiumBtn')?.addEventListener('click', () => openModal(`<div class="popup-header"><h4>✨ Telegram Premium</h4><button class="popup-close" aria-label="Close">&times;</button></div><div class="popup-image text-center"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 24 24' fill='none' stroke='%232dd4bf' stroke-width='2'%3E%3Cpath d='M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2z'/%3E%3C/svg%3E" alt="Premium Icon"></div><div class="popup-desc">Boost channel with Stars, ad revenue & premium features.</div><div class="options-grid"><div class="option-btn" data-plan="1 Month">1 Month - $4.99 <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-plan="3 Months">3 Months - $14.99 <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-plan="6 Months">6 Months - $24.99 <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-plan="12 Months">12 Months - $49.99 <span class="buy-now-badge">Buy Now</span></div></div>`));
-        document.getElementById('buyStarsBtn')?.addEventListener('click', () => openModal(`<div class="popup-header"><h4>⭐ Telegram Stars Pack</h4><button class="popup-close" aria-label="Close">&times;</button></div><div class="popup-image text-center"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 24 24' fill='gold' stroke='none'%3E%3Cpolygon points='12,2 15,9 22,9 16.5,14 18.5,21 12,16.5 5.5,21 7.5,14 2,9 9,9'/%3E%3C/svg%3E" alt="Stars Icon"></div><div class="popup-desc">Stars power in-app purchases & creator monetization.</div><div class="options-grid"><div class="option-btn" data-stars="25 Stars">⭐ 25 Stars <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-stars="50 Stars">⭐ 50 Stars <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-stars="75 Stars">⭐ 75 Stars <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-stars="100 Stars">⭐ 100 Stars <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-stars="125 Stars">⭐ 125 Stars <span class="buy-now-badge">Buy Now</span></div><div class="option-btn" data-stars="150 Stars">⭐ 150 Stars <span class="buy-now-badge">Buy Now</span></div></div>`));
-    })();
+       // Modal logic (unified)
+         const modalOverlay = document.getElementById('popupModalOverlay'), modalContent = document.getElementById('popupModalContent');
+         const closeModal = () => { modalOverlay.classList.remove('active'); document.body.classList.remove('modal-open'); modalContent.innerHTML = ''; };
+         const openModal = (html, telegramUrl) => {
+         modalContent.innerHTML = html;
+         modalOverlay.classList.add('active');
+         document.body.classList.add('modal-open');
+         modalContent.querySelector('.popup-close')?.addEventListener('click', closeModal);
+         modalOverlay.addEventListener('click', function handler(e) { if(e.target === modalOverlay) closeModal(); modalOverlay.removeEventListener('click', handler); });
+         modalContent.querySelectorAll('.option-btn').forEach(btn => btn.addEventListener('click', (e) => {
+             e.stopPropagation();
+             window.open(telegramUrl, '_blank');
+             closeModal();
+         }));
+         };
+
+
+    /**
+     * Premium modal with its own link
+     */
+    document.getElementById('buyPremiumBtn')?.addEventListener('click', () => {
+        const premiumContent = `
+            <div class="popup-header">
+                <h4>Telegram Premium<span class="fa-stack" style="vertical-align: middle; font-size: 0.5em;">
+                   <i class="fas fa-certificate fa-stack-2x" style="color: #0088cc;"></i>
+                   <i class="fas fa-check fa-stack-1x fa-inverse" style="font-size: 0.8em;"></i></span>
+                   </h4>
+                <button class="popup-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="popup-image text-center">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 24 24' fill='none' stroke='%232dd4bf' stroke-width='2'%3E%3Cpath d='M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2z'/%3E%3C/svg%3E" alt="Premium Icon">
+            </div>
+            <div class="popup-desc">
+                ከ3 እስከ 5 ደቂቃ ውስጥ Premium✅ ይሆንልዎታል።
+            </div>
+            <div class="options-grid">
+                <div class="option-btn" data-plan="1 Month">1 Month - $4.99 <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-plan="3 Months">3 Months - $14.99 <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-plan="6 Months">6 Months - $24.99 <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-plan="12 Months">12 Months - $49.99 <span class="buy-now-badge">Buy Now</span></div>
+            </div>`;
+
+        openModal(premiumContent, 'https://t.me/m/5O-MxDdSZjhk');
+    });
+
+    /**
+     * Stars modal with its own link
+     */
+    document.getElementById('buyStarsBtn')?.addEventListener('click', () => {
+        const starsContent = `
+            <div class="popup-header">
+                <h4>⭐ Telegram Stars Pack</h4>
+                <button class="popup-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="popup-image text-center">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 24 24' fill='gold' stroke='none'%3E%3Cpolygon points='12,2 15,9 22,9 16.5,14 18.5,21 12,16.5 5.5,21 7.5,14 2,9 9,9'/%3E%3C/svg%3E" alt="Stars Icon">
+            </div>
+            <div class="popup-desc">
+                Stars power in-app purchases & creator monetization.
+            </div>
+            <div class="options-grid">
+                <div class="option-btn" data-stars="25 Stars">⭐ 25 Stars <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-stars="50 Stars">⭐ 50 Stars <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-stars="75 Stars">⭐ 75 Stars <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-stars="100 Stars">⭐ 100 Stars <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-stars="125 Stars">⭐ 125 Stars <span class="buy-now-badge">Buy Now</span></div>
+                <div class="option-btn" data-stars="150 Stars">⭐ 150 Stars <span class="buy-now-badge">Buy Now</span></div>
+            </div>`;
+
+        openModal(starsContent, 'https://t.me/m/0h3JKsucNTE0');
+    });
+})();
 </script>
 </body>
 </html>
