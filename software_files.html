@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>NovaTech Et. | Software Files Hub</title>
+    <link rel="shortcut icon" href="Img/logo2.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.2s ease;
+            scroll-behavior: smooth;
+        }
+        /* CSS Variables - Theming */
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #11161f;
+            --bg-card: #151e2a;
+            --text-primary: #eef2ff;
+            --text-secondary: #9aa9bb;
+            --accent-primary: #2dd4bf;
+            --accent-secondary: #0a66c2;
+            --border-glow: rgba(45, 212, 191, 0.2);
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.3);
+            --shadow-glow: 0 0 30px rgba(45,212,191,0.1);
+            --gradient-hero: linear-gradient(135deg, #2dd4bf, #0a66c2);
+            --gradient-text: linear-gradient(135deg, #ffffff, #2dd4bf);
+            --navbar-bg: rgba(10, 12, 16, 0.92);
+            --bg-primary-rgb: 10, 12, 16;
+        }
+        [data-theme="light"] {
+            --bg-primary: #f0f4f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #4b5a75;
+            --accent-primary: #0a66c2;
+            --accent-secondary: #2dd4bf;
+            --border-glow: rgba(10, 102, 194, 0.15);
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.08);
+            --shadow-glow: 0 0 20px rgba(10,102,194,0.1);
+            --gradient-hero: linear-gradient(135deg, #0a66c2, #2dd4bf);
+            --gradient-text: linear-gradient(135deg, #0a66c2, #2dd4bf);
+            --navbar-bg: rgba(240, 244, 249, 0.92);
+            --bg-primary-rgb: 240, 244, 249;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        /* Navbar (unchanged structure) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--navbar-bg);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 12px 0;
+            transition: all 0.3s ease;
+            z-index: 1050;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding-left: 16px;
+            padding-right: 16px;
+            margin: 0 auto;
+        }
+        .navbar-brand img {
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+        }
+        .desktop-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .nav-link-desktop {
+            font-weight: 600;
+            color: var(--text-secondary) !important;
+            transition: 0.25s;
+            padding: 8px 14px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-radius: 40px;
+        }
+        .nav-link-desktop:hover {
+            color: var(--accent-primary) !important;
+            background: rgba(45,212,191,0.08);
+        }
+        .nova {
+            color: var(--text-primary);
+        }
+        .dropdown-menu-custom {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            padding: 0.6rem 0;
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .dropdown-menu-custom .dropdown-item {
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 10px 22px;
+            transition: 0.2s;
+            border-radius: 12px;
+            margin: 0 6px;
+        }
+        .dropdown-menu-custom .dropdown-item:hover {
+            background: var(--bg-secondary);
+            color: var(--accent-primary);
+            transform: translateX(5px);
+        }
+        .theme-toggle-desktop, .theme-toggle-mobile {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 50px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+        .theme-toggle-desktop:hover, .theme-toggle-mobile:hover {
+            border-color: var(--accent-primary);
+            transform: scale(0.98);
+        }
+        .mobile-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mobile-menu-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 8px 14px;
+            cursor: pointer;
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+        }
+        @media (max-width: 992px) {
+            .desktop-nav-links { display: none !important; }
+            .mobile-menu-btn { display: flex; }
+        }
+        @media (min-width: 993px) {
+            .mobile-menu-btn { display: none !important; }
+        }
+        /* Side Menu */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1060;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.25s, opacity 0.25s;
+        }
+        .side-menu-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -340px;
+            width: min(85%, 320px);
+            height: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            border-left: 1px solid var(--border-glow);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+            z-index: 1061;
+            transition: right 0.35s cubic-bezier(0.2,0.9,0.4,1.1);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1.2rem;
+            overflow-y: auto;
+        }
+        .side-menu.open { right: 0; }
+        .side-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 1.5rem;
+        }
+        .side-menu-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .close-menu-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s, transform 0.1s;
+            line-height: 1;
+        }
+        .close-menu-btn:hover {
+            color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+        .side-nav-list { list-style: none; padding: 0; margin: 0; flex:1; }
+        .side-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            margin-bottom: 4px;
+        }
+        .side-nav-link:hover { background: var(--bg-secondary); color: var(--accent-primary); transform: translateX(6px); }
+        .side-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .side-dropdown-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--accent-primary);
+        }
+        .side-submenu {
+            list-style: none;
+            padding-left: 1.8rem;
+            margin-top: 0.3rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .side-submenu.open { max-height: 380px; }
+        .section-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Software Cards */
+        .software-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 28px;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            height: 100%;
+            backdrop-filter: blur(2px);
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .software-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--accent-primary);
+        }
+        .card-icon {
+            font-size: 2.6rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .card-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            flex-shrink: 0;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .title-logo-icon {
+            font-size: 1.1rem;
+            color: var(--accent-primary);
+            background: rgba(45,212,191,0.15);
+            border-radius: 12px;
+            padding: 4px;
+            width: 28px;
+            text-align: center;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+        .badge-custom {
+            background: var(--bg-secondary);
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            width: fit-content;
+            color: var(--accent-primary);
+            border: 1px solid var(--border-glow);
+        }
+        .filter-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: 0.2s;
+            margin: 0 4px 8px 0;
+        }
+        .filter-btn.active, .secondary-filter-btn.active {
+            background: var(--accent-primary);
+            color: #0a0c10;
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 12px rgba(45,212,191,0.3);
+        }
+        .filter-btn:hover, .secondary-filter-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-primary);
+        }
+        .secondary-filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0 10px 0;
+            padding: 8px 0;
+        }
+        .secondary-filter-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: 0.2s;
+        }
+        .search-input-group {
+            background: var(--bg-secondary);
+            border-radius: 60px;
+            border: 1px solid var(--border-glow);
+            transition: all 0.2s;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        .search-input-group input {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: none;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-clear-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0 16px;
+            cursor: pointer;
+        }
+        .first-content-section {
+            margin-top: 6rem;
+        }
+        @media (max-width: 768px) {
+            .section-title { font-size: 1.9rem; }
+            .first-content-section { margin-top: 5rem; }
+        }
+        .accordion-custom .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            margin-bottom: 16px;
+            border-radius: 20px !important;
+            overflow: hidden;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-glow);
+            margin-top: 2rem;
+        }
+        .contact-sidebar-card, .modern-form-card {
+            background: var(--bg-card);
+            border-radius: 32px;
+            border: 1px solid var(--border-glow);
+            padding: 1.5rem;
+        }
+        .compact-social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.9rem;
+        }
+        .social-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 0.7rem;
+            text-align: center;
+            transition: 0.25s;
+            text-decoration: none;
+        }
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+        /* Version links styling */
+        .previous-versions {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-glow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .version-link {
+            background: var(--bg-secondary);
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid var(--border-glow);
+        }
+        .version-link:hover {
+            background: var(--accent-primary);
+            color: #0a0c10;
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+        .version-link i {
+            font-size: 0.7rem;
+        }
+        .btn-outline-accent {
+            border: 1px solid var(--accent-primary);
+            background: transparent;
+            color: var(--accent-primary);
+            border-radius: 40px;
+            padding: 6px 14px;
+            transition: 0.2s;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-outline-accent:hover {
+            background: var(--accent-primary);
+            color: #0a0c10;
+        }
+       /* ========== REIMAGINED CONTACT SECTION STYLES ========== */
+
+/* የጎን ካርድ (Sidebar Card) */
+.contact-sidebar-card {
+    background: var(--bg-card);
+    border-radius: 32px;
+    border: 1px solid var(--border-glow);
+    padding: 1.5rem;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+/* የሶሻል ሚዲያ ግሪድ (Social Media Grid) */
+.compact-social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* የግል ሶሻል ሚዲያ ካርድ (Individual Social Card) */
+.social-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-glow);
+    border-radius: 24px;
+    padding: 0.7rem 0.25rem;
+    text-align: center;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+.social-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+/* የሶሻል ሚዲያ አይኮኖች አኒሜሽን */
+.social-card i {
+    font-size: 1.8rem;
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.2s;
+    display: inline-block;
+}
+
+.social-card:hover i {
+    transform: scale(1.15) rotate(3deg);
+}
+
+/* የተከታዮች መቁጠሪያ (Counter Styles) */
+.social-platform-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 0.35rem 0 0.2rem;
+    letter-spacing: -0.2px;
+    color: var(--text-primary);
+}
+
+.counter-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-primary), #fff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.count-num {
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.count-label {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+}
+
+/* የኮንታክት መረጃ (Email, Phone) */
+.contact-info-compact {
+    margin-top: 1.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border-glow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.contact-info-compact a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: 0.2s;
+    font-size: 0.9rem;
+}
+
+.contact-info-compact a:hover {
+    color: var(--accent-primary);
+    transform: translateX(5px);
+}
+
+.contact-info-compact i {
+    width: 28px;
+    color: var(--accent-primary);
+}
+
+/* የፎርም ካርድ (Modern Form Card) */
+.modern-form-card {
+    background: var(--bg-card);
+    border-radius: 32px;
+    border: 1px solid var(--border-glow);
+    padding: 2rem 1.8rem;
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+}
+
+/* ኢንፑት ግሩፕ (Input Group) */
+.input-group-modern {
+    position: relative;
+    margin-bottom: 1.8rem;
+}
+
+.input-group-modern input, 
+.input-group-modern textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-glow);
+    border-radius: 28px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    outline: none;
+    resize: vertical;
+}
+
+.input-group-modern input:focus, 
+.input-group-modern textarea:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 4px rgba(45,212,191,0.15);
+}
+
+/* ተንሳፋፊ ሌብሎች (Floating Labels) */
+.input-group-modern label {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    padding: 0 6px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    pointer-events: none;
+    transition: 0.2s ease;
+}
+
+.input-group-modern textarea ~ label {
+    top: 20px;
+    transform: translateY(0);
+}
+
+/* ሌብሉ ወደ ላይ ሲወጣ የሚኖረው ስታይል */
+.input-group-modern.filled label,
+.input-group-modern input:focus ~ label,
+.input-group-modern textarea:focus ~ label,
+.input-group-modern input:not(:placeholder-shown) ~ label,
+.input-group-modern textarea:not(:placeholder-shown) ~ label {
+    top: -8px;
+    left: 16px;
+    font-size: 0.7rem;
+    background: var(--bg-card);
+    padding: 0 8px;
+    color: var(--accent-primary);
+    border-radius: 20px;
+}
+
+/* የመላኪያ በተን (Submit Button) */
+.btn-primary-glow {
+    background: var(--gradient-hero);
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 700;
+    color: white;
+    transition: 0.25s;
+    width: 100%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.btn-primary-glow:hover {
+    opacity: 0.92;
+    transform: scale(0.98);
+    box-shadow: 0 8px 20px rgba(45,212,191,0.3);
+}
+
+/* የፎርም መልዕክት ሁኔታ (Form Status) */
+#formStatus {
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 60px;
+    padding: 8px;
+}
+
+/* Social Brand Colors */
+.social-card .fa-youtube { color: #FF0000; }
+.social-card .fa-telegram { color: #26A5E4; }
+.social-card .fa-instagram { color: #E4405F; }
+.social-card .fa-twitter { color: #1DA1F2; }
+.social-card .fa-github { color: var(--text-primary); }
+
+/* TikTok ልዩ ቀለም */
+[data-theme="dark"] .social-card .fa-tiktok { color: #ffffff; text-shadow: 0 0 2px #ee1d52; }
+[data-theme="light"] .social-card .fa-tiktok { color: #010101; }
+    </style>
+</head>
+<body data-theme="dark">
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html" style="letter-spacing:1px;">
+            <img src="Img/logo2.png" alt="Nova Tech Logo" width="40" height="40" class="rounded-circle border border-2 border-primary shadow-sm me-2" loading="lazy">
+            <span class="nova">Nova</span><span class="text-primary ms-1">Tech</span>
+        </a>
+        <div class="desktop-nav-links">
+            <a class="nav-link-desktop" href="online_works.html" id="homeNavLink">Home</a>
+            <div class="dropdown">
+                <a class="nav-link-desktop dropdown-toggle" href="javascript:void(0)" id="desktopJobsDropdown" role="button" data-bs-toggle="dropdown">Online Jobs</a>
+                <ul class="dropdown-menu dropdown-menu-custom">
+                    <li><a class="dropdown-item" href="Earning_Website.html">Earning Website</a></li>
+                    <li><a class="dropdown-item" href="Earning_Apps.html">Earning Apps</a></li>
+                    <li><a class="dropdown-item" href="Telegram_Bot.html">Telegram Bot</a></li>
+                    <li><a class="dropdown-item" href="all_online_jobs.html">More Online Jobs</a></li>
+                </ul>
+            </div>
+            <a class="nav-link-desktop" href="software_files.html">File Download</a>
+            <a class="nav-link-desktop" href="index.html#projects">New Online Work</a>
+            <a class="nav-link-desktop" href="index.html#services">Services</a>
+            <a class="nav-link-desktop" href="#contact">Contact</a>
+            <button id="themeToggleDesktop" class="theme-toggle-desktop" aria-label="Toggle theme"><i class="fas fa-moon me-2"></i>Dark</button>
+        </div>
+        <div class="mobile-controls">
+            <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+        </div>
+    </div>
+</nav>
+
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header"><span class="side-menu-logo">NovaTech</span><button class="close-menu-btn" id="closeSideMenuBtn">&times;</button></div>
+    <ul class="side-nav-list">
+        <li><a class="side-nav-link" href="#"><i class="fas fa-home"></i> Home</a></li>
+        <li><button class="side-dropdown-toggle" id="sideDropdownToggle"><span><i class="fas fa-briefcase me-2"></i> Online Jobs</span><i class="fas fa-chevron-down"></i></button>
+            <ul class="side-submenu" id="sideSubmenu">
+               <li><a class="side-nav-link" href="Earning_Website.html"><i class="fas fa-globe"></i> Earning Website</a></li>
+                <li><a class="side-nav-link" href="Earning_Apps.html"><i class="fas fa-mobile-alt"></i> Earning Apps</a></li>
+                <li><a class="side-nav-link" href="Telegram_Bot.html"><i class="fab fa-telegram"></i> Telegram Bot</a></li>
+                <li><a class="side-nav-link" href="Online_Jobs.html"><i class="fas fa-chart-line"></i> More Online Jobs</a></li>
+            </ul>
+        </li>
+        <li><a class="side-nav-link" href="#softwareFilesSection"><i class="fas fa-download"></i> File Download</a></li>
+        <li><a class="side-nav-link" href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><div class="theme-toggle-mobile" id="themeToggleMobile" role="button"><i class="fas fa-moon me-2"></i> Dark Mode</div></li>
+    </ul>
+</div>
+
+<!-- SOFTWARE FILES SECTION (UPDATED WITH VERSION LINKS & SMALL ICONS) -->
+<section class="py-5 mt-5" id="softwareFilesSection">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <span class="section-badge"><i class="fas fa-database me-1"></i> 100% Verified Resources</span>
+            <h2 class="section-title">Software & Assets Library</h2>
+            <p class="text-secondary mb-4">Premium software, mobile tools, and creative assets — filtered just for you</p>
+        </div>
+
+        <!-- Primary Filter Buttons -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-3" id="primaryFilterContainer">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="software">Software Files</button>
+            <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+            <button class="filter-btn" data-filter="video-editing">Video Editing</button>
+        </div>
+
+        <!-- Secondary Filter Menu (Video Editing only) -->
+        <div id="secondaryFilterWrapper" style="display: none;" class="text-center">
+            <div class="secondary-filter-group justify-content-center">
+                <button class="secondary-filter-btn active" data-subfilter="all">✨ All</button>
+                <button class="secondary-filter-btn" data-subfilter="image">🖼️ Image</button>
+                <button class="secondary-filter-btn" data-subfilter="video">🎬 Video</button>
+                <button class="secondary-filter-btn" data-subfilter="audio">🎧 Audio</button>
+                <button class="secondary-filter-btn" data-subfilter="fonts">✍️ Fonts</button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar-wrapper mb-5" data-aos="fade-up">
+            <div class="search-input-group shadow-sm">
+                <span class="input-group-text bg-transparent border-0"><i class="fas fa-search"></i></span>
+                <input type="text" id="softwareSearchInput" placeholder="Search software, apps, assets... (e.g., Premiere, LUTs, CapCut)" aria-label="Filter resources">
+                <button class="search-clear-btn" id="searchClearSoftwareBtn" aria-label="Clear"><i class="fas fa-times-circle"></i></button>
+            </div>
+        </div>
+
+        <!-- Dynamic Cards Grid -->
+        <div class="row g-4" id="softwareFilesGrid"></div>
+        <div class="text-center mt-4" id="noSoftwareResults" style="display: none;">
+            <p class="text-secondary"><i class="fas fa-filter"></i> No matching resources found. Try different keywords.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ SECTION (unchanged) -->
+<section class="py-5 first-content-section" id="faq-section">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up"><span class="section-badge">Knowledge Base</span><h2 class="section-title">Frequently Asked Questions</h2></div>
+        <div class="row justify-content-center mt-4"><div class="col-lg-8"><div class="accordion accordion-custom" id="faqAccordion">
+            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What digital solutions do you specialize in?</button></h2><div id="faq1" class="accordion-collapse collapse show"><div class="accordion-body text-secondary">Telegram bots, full-stack web apps, mobile apps, AI-driven marketing.</div></div></div>
+            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How does Telegram Stars integration work?</button></h2><div id="faq2" class="accordion-collapse collapse"><div class="accordion-body text-secondary">We implement official Telegram Stars API for secure in-app purchases.</div></div></div>
+            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Do you offer long-term support?</button></h2><div id="faq3" class="accordion-collapse collapse"><div class="accordion-body text-secondary">Absolutely. Maintenance, updates, and 24/7 technical support.</div></div></div>
+        </div></div></div>
+    </div>
+</section>
+
+<!-- REIMAGINED CONTACT SECTION -->
+<section id="contact" class="py-5" style="background:var(--bg-secondary);">
+    <div class="container">
+        <div class="row mb-4" data-aos="fade-up"><div class="col-12 text-center text-lg-start"><span class="section-badge"><i class="fas fa-paper-plane me-2"></i>Get In Touch</span><h2 class="section-title">Let's Build Something Extraordinary</h2><p class="text-secondary">Ready to scale your business with next-gen technology? Reach out to our team.</p></div></div>
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="contact-sidebar-card">
+                    <h4 class="fw-semibold mb-3" style="font-size:1.3rem;"><i class="fas fa-share-alt me-2" style="color: var(--accent-primary);"></i>Join our community</h4>
+                    <div class="compact-social-grid" id="compactSocialGrid">
+                        <a href="https://youtube.com/@novatechet" target="_blank" rel="noopener noreferrer" class="social-card" data-platform="youtube" data-target="1250" data-label="Subscribers"><i class="fab fa-youtube"></i><h3 class="social-platform-name">YouTube</h3><div class="counter-container"><span class="count-num">0</span> <span class="count-label">Subscribers</span></div></a>
+                        <a href="https://t.me/novatechet" target="_blank" rel="noopener noreferrer" class="social-card" data-platform="telegram" data-target="1850" data-label="Subscribers"><i class="fab fa-telegram"></i><h3 class="social-platform-name">Telegram</h3><div class="counter-container"><span class="count-num">0</span> <span class="count-label">Subscribers</span></div></a>
+                        <a href="https://instagram.com/nova.techet" target="_blank" rel="noopener noreferrer" class="social-card" data-platform="instagram" data-target="3200" data-label="Followers"><i class="fab fa-instagram"></i><h3 class="social-platform-name">Instagram</h3><div class="counter-container"><span class="count-num">0</span> <span class="count-label">Followers</span></div></a>
+                        <a href="https://tiktok.com/@nova.techet" target="_blank" rel="noopener noreferrer" class="social-card" data-platform="tiktok" data-target="2750" data-label="Followers"><i class="fab fa-tiktok"></i><h3 class="social-platform-name">TikTok</h3><div class="counter-container"><span class="count-num">0</span> <span class="count-label">Followers</span></div></a>
+                        <a href="https://twitter.com/novatechet" target="_blank" rel="noopener noreferrer" class="social-card" data-platform="twitter" data-target="2100" data-label="Followers"><i class="fab fa-twitter"></i><h3 class="social-platform-name">Twitter</h3><div class="counter-container"><span class="count-num">0</span> <span class="count-label">Followers</span></div></a>
+                        <a href="https://github.com/novatechet" target="_blank" rel="noopener noreferrer" class="social-card" data-platform="github" data-target="850" data-label="Stars"><i class="fab fa-github"></i><h3 class="social-platform-name">GitHub</h3><div class="counter-container"><span class="count-num">0</span> <span class="count-label">Stars</span></div></a>
+                    </div>
+                    <div class="contact-info-compact">
+                        <a href="mailto:hello@novatechet.com"><i class="fas fa-envelope"></i> hello@novatechet.com</a>
+                        <a href="tel:+251911234567"><i class="fas fa-phone-alt"></i> +251 911 234 567</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="modern-form-card">
+                    <form id="contactForm">
+                        <div class="input-group-modern"><input type="text" id="fullName" placeholder=" " required><label for="fullName">Full name *</label></div>
+                        <div class="input-group-modern"><input type="email" id="emailAddr" placeholder=" " required><label for="emailAddr">Email address *</label></div>
+                        <div class="input-group-modern"><textarea id="messageTxt" rows="4" placeholder=" " required></textarea><label for="messageTxt">Tell us about your vision...</label></div>
+                        <button type="submit" class="btn-primary-glow"><i class="fas fa-send me-2"></i>Send Message</button>
+                        <div id="formStatus" class="text-center small"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer><div class="container"><p class="text-secondary">© 2025 NovaTech Et. — Digital Innovation & Future Tech</p></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    (function(){
+        AOS.init({ duration: 800, once: true });
+
+        // ---------- THEME MANAGER ----------
+        const setTheme = (theme) => {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('novatech_theme', theme);
+            const isDark = theme === 'dark';
+            const iconHtml = isDark ? '<i class="fas fa-moon me-2"></i>Dark' : '<i class="fas fa-sun me-2"></i>Light';
+            const desktopToggle = document.getElementById('themeToggleDesktop');
+            const mobileToggle = document.getElementById('themeToggleMobile');
+            if(desktopToggle) desktopToggle.innerHTML = iconHtml;
+            if(mobileToggle) mobileToggle.innerHTML = iconHtml;
+        };
+        const savedTheme = localStorage.getItem('novatech_theme') || 'dark';
+        setTheme(savedTheme);
+        document.getElementById('themeToggleDesktop')?.addEventListener('click', () => { const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(newTheme); });
+        document.getElementById('themeToggleMobile')?.addEventListener('click', () => { const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(newTheme); });
+
+        // SIDE MENU
+        const menuOverlay = document.getElementById('sideMenuOverlay'), sideMenu = document.getElementById('sideMenu');
+        const openMenu = () => { sideMenu?.classList.add('open'); if(menuOverlay) menuOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; };
+        const closeMenu = () => { sideMenu?.classList.remove('open'); if(menuOverlay) menuOverlay.classList.remove('active'); document.body.style.overflow = ''; };
+        document.getElementById('mobileMenuToggle')?.addEventListener('click', openMenu);
+        document.getElementById('closeSideMenuBtn')?.addEventListener('click', closeMenu);
+        menuOverlay?.addEventListener('click', closeMenu);
+        const sideDropdown = document.getElementById('sideDropdownToggle'), sideSub = document.getElementById('sideSubmenu');
+        if(sideDropdown && sideSub) sideDropdown.addEventListener('click', () => { sideSub.classList.toggle('open'); });
+
+        // ---------- SOFTWARE DATA WITH VERSIONS (Telegram post links) ----------
+        const softwareItems = [
+            { id: 1, name: "Adobe Premiere Pro 2025", desc: "Professional video editing software with AI tools", category: "software", subcategory: null, icon: "fab fa-adobe", image: "Img/soft/1.pre.png", versions: [{ ver: "v25.2.3", postId: "30" }, { ver: "v25.2.2", postId: "31" }, { ver: "v29.5.1", postId: "32" }] },
+            { id: 2, name: "Adobe Illustrator 2025", desc: "Create logos, illustrations, and designs with this powerful editor. ", category: "software", subcategory: null, icon: "fas fa-video", image: "Img/soft/2.illus.png", versions: [{ ver: "v18.6", postId: "104" }, { ver: "v18.5", postId: "105" }, { ver: "v17.4", postId: "106" }] },
+            { id: 3, name: "CapCut PC Suite", desc: "Free all-in-one video editor for windows", category: "software", subcategory: null, icon: "fas fa-cut", image: "Img/soft/3.cap.png", versions: [{ ver: "v3.5", postId: "107" }, { ver: "v3.0", postId: "108" }, { ver: "v2.9", postId: "109" }] },
+            { id: 4, name: "Alight Motion Pro", desc: "Motion design & animation for creators", category: "mobile", subcategory: null, icon: "fas fa-mobile-alt", image: "Img/soft/4.alight.png", versions: [{ ver: "v5.0.4", postId: "110" }, { ver: "v4.1.2", postId: "111" }, { ver: "v3.9", postId: "112" }] },
+            { id: 5, name: "KineMaster Master", desc: "Multi-layer video editor for mobile", category: "mobile", subcategory: null, icon: "fas fa-film", image: "Img/soft/5.kin.png", versions: [{ ver: "v7.5", postId: "113" }, { ver: "v6.3", postId: "114" }, { ver: "v5.2", postId: "115" }] },
+            { id: 6, name: "PicsArt Gold", desc: "Photo editor & design studio", category: "mobile", subcategory: null, icon: "fas fa-palette", image: "Img/soft/6.pic.png", versions: [{ ver: "v24.8", postId: "116" }, { ver: "v23.9", postId: "117" }, { ver: "v22.7", postId: "118" }] },
+            // Video editing assets (no version links)
+            { id: 7, name: "Cinematic LUTs Pack", desc: "Hollywood style color grading presets", category: "video-editing", subcategory: "image", icon: "fas fa-adjust", image: "Img/logo2.png", versions: [] },
+            { id: 8, name: "4K Stock Footage Bundle", desc: "Cinematic drone and nature clips", category: "video-editing", subcategory: "video", icon: "fas fa-cloud-upload-alt", image: "Img/logo2.png", versions: [] },
+            { id: 9, name: "Epic SFX Library", desc: "Royalty-free sound effects & transitions", category: "video-editing", subcategory: "audio", icon: "fas fa-headphones", image: "Img/logo2.png", versions: [] },
+            { id: 10, name: "Motion Graphic Titles", desc: "Modern kinetic typography templates", category: "video-editing", subcategory: "video", icon: "fas fa-text-height", image: "Img/logo2.png", versions: [] },
+            { id: 11, name: "Neon Genesis Font Pack", desc: "Unique display fonts for thumbnails", category: "video-editing", subcategory: "fonts", icon: "fas fa-font", image: "Img/logo2.png", versions: [] },
+            { id: 12, name: "VHS Overlay Kit", desc: "Retro glitch & film grain textures", category: "video-editing", subcategory: "image", icon: "fas fa-images", image: "Img/logo2.png", versions: [] },
+            { id: 13, name: "After Effects Scripts", desc: "Automation tools for motion designers", category: "software", subcategory: null, icon: "fas fa-code", image: "Img/soft/13.after.png", versions: [{ ver: "v2.1", postId: "119" }, { ver: "v1.9", postId: "120" }] },
+            { id: 14, name: "InShot Pro Editor", desc: "Trendy video editing for social media", category: "mobile", subcategory: null, icon: "fas fa-smile", image: "Img/soft/14.inshot.png", versions: [{ ver: "v2.1", postId: "121" }, { ver: "v1.9", postId: "122" }] }
+        ];
+
+        let currentPrimary = "all";
+        let currentSecondary = "all";
+        let searchTerm = "";
+
+        const gridContainer = document.getElementById("softwareFilesGrid");
+        const noResultsDiv = document.getElementById("noSoftwareResults");
+        const secondaryWrapper = document.getElementById("secondaryFilterWrapper");
+        const searchInput = document.getElementById("softwareSearchInput");
+        const clearBtn = document.getElementById("searchClearSoftwareBtn");
+
+        function renderCards() {
+            let filtered = softwareItems.filter(item => {
+                if (currentPrimary !== "all" && item.category !== currentPrimary) return false;
+                if (currentPrimary === "video-editing" && currentSecondary !== "all") {
+                    if (item.subcategory !== currentSecondary) return false;
+                }
+                if (searchTerm.trim() !== "") {
+                    const term = searchTerm.trim().toLowerCase();
+                    return item.name.toLowerCase().includes(term) || item.desc.toLowerCase().includes(term);
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                gridContainer.innerHTML = "";
+                noResultsDiv.style.display = "block";
+                return;
+            }
+            noResultsDiv.style.display = "none";
+            gridContainer.innerHTML = filtered.map(item => {
+                // Generate version links HTML only if item has versions and category is software or mobile (not video-editing)
+                let versionsHtml = "";
+                if ((item.category === "software" || item.category === "mobile") && item.versions && item.versions.length > 0) {
+                    const versionLinks = item.versions.map(v => `<a href="https://t.me/novatech_Files/${v.postId}" target="_blank" class="version-link"><i class="fab fa-telegram-plane"></i> ${v.ver}</a>`).join('');
+                    versionsHtml = `<div class="previous-versions"><span class="small text-secondary me-1"><i class="fas fa-history"></i> previous:</span> ${versionLinks}</div>`;
+                }
+                // Small responsive icon added to every visual item: a logo-like icon before title
+                return `
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
+                        <div class="software-card">
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-start;">
+                                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" class="card-image">
+                                <div style="flex: 1;">
+                                    <h5 class="card-title" style="margin-top: 0;">${escapeHtml(item.name)}</h5>
+                                </div>
+                            </div>
+                            <p class="card-desc">${escapeHtml(item.desc)}</p>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <span class="badge-custom"><i class="fas fa-tag me-1"></i>${item.category === 'software' ? 'Software' : (item.category === 'mobile' ? 'Mobile App' : 'Video Asset')}</span>
+                                <a href="#" class="btn-outline-accent" style="font-size:0.75rem; padding:4px 12px;"><i class="fas fa-download"></i> Access</a>
+                            </div>
+                            ${versionsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join("");
+            if (typeof AOS !== 'undefined') AOS.refresh();
+        }
+
+        function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+        function updateSecondaryVisibility() {
+            if (currentPrimary === "video-editing") {
+                secondaryWrapper.style.display = "block";
+            } else {
+                secondaryWrapper.style.display = "none";
+                currentSecondary = "all";
+                const secBtns = document.querySelectorAll(".secondary-filter-btn");
+                secBtns.forEach(btn => { if(btn.dataset.subfilter === "all") btn.classList.add("active"); else btn.classList.remove("active"); });
+            }
+            renderCards();
+        }
+
+        // Primary filter click
+        const primaryBtns = document.querySelectorAll("#primaryFilterContainer .filter-btn");
+        primaryBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                primaryBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentPrimary = btn.dataset.filter;
+                if (currentPrimary !== "video-editing") currentSecondary = "all";
+                updateSecondaryVisibility();
+            });
+        });
+
+        // Secondary filter events
+        function attachSecondaryEvents() {
+            const secBtns = document.querySelectorAll(".secondary-filter-btn");
+            secBtns.forEach(btn => {
+                btn.removeEventListener("click", secondaryHandler);
+                btn.addEventListener("click", secondaryHandler);
+            });
+        }
+        function secondaryHandler(e) {
+            const btn = e.currentTarget;
+            if (currentPrimary !== "video-editing") return;
+            const subVal = btn.dataset.subfilter;
+            document.querySelectorAll(".secondary-filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentSecondary = subVal;
+            renderCards();
+        }
+
+        function handleSearch() { searchTerm = searchInput.value; renderCards(); }
+        searchInput.addEventListener("input", handleSearch);
+        clearBtn.addEventListener("click", () => { searchInput.value = ""; searchTerm = ""; renderCards(); searchInput.focus(); });
+
+        const observer = new MutationObserver(() => { attachSecondaryEvents(); });
+        observer.observe(secondaryWrapper, { childList: true, subtree: true });
+        attachSecondaryEvents();
+        
+        renderCards();
+        updateSecondaryVisibility();
+
+        const formatNumber = (num, targetNum) => { 
+    if (targetNum >= 1000) { 
+        let val = num / 1000; 
+        return val.toFixed(1).replace(/\.0$/, '') + 'K'; 
+    } 
+    return num.toString(); 
+};
+
+const animateCounter = (card, target, label) => {
+    let start = 0, duration = 1600, stepTime = 16, steps = duration / stepTime, increment = target / steps, current = 0;
+    const countSpan = card.querySelector('.count-num'), labelSpan = card.querySelector('.count-label');
+    
+    if(labelSpan) labelSpan.innerText = label;
+
+    const interval = setInterval(() => { 
+        current += increment; 
+        if(current >= target) { 
+            current = target; 
+            clearInterval(interval); 
+        } 
+        
+        const display = formatNumber(Math.floor(current), target); 
+        if(countSpan) countSpan.innerText = display; 
+        
+        if(current >= target) {
+            countSpan.innerText = target >= 1000 ? (target/1000).toFixed(1).replace(/\.0$/, '') + 'K' : target;
+        }
+    }, stepTime);
+};
+
+        // Contact form handler
+        const contactForm = document.getElementById('contactForm'), statusDiv = document.getElementById('formStatus');
+        if(contactForm) contactForm.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('fullName')?.value.trim(); const email = document.getElementById('emailAddr')?.value.trim(); const msg = document.getElementById('messageTxt')?.value.trim(); if(!name || !email || !msg) { statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill all fields.'; setTimeout(() => statusDiv.innerHTML = '', 2500); return; } statusDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...'; setTimeout(() => { statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Message sent! We’ll reply soon.'; contactForm.reset(); setTimeout(() => statusDiv.innerHTML = '', 3000); }, 1000); });
+
+        // Input floating labels
+        document.querySelectorAll('.input-group-modern input, .input-group-modern textarea').forEach(inp => { inp.addEventListener('input', function() { if(this.value.trim() !== '') this.parentElement.classList.add('filled'); else this.parentElement.classList.remove('filled'); }); if(inp.value.trim() !== '') inp.parentElement.classList.add('filled'); });
+    })();
+</script>
+</body>
+</html>
